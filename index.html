@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JIN — Builder of AI-assisted web craft</title>
-  <meta name="description" content="JIN builds websites and AI skills with discipline: product intent first, then design, implementation, QA and deployment.">
-  <meta property="og:title" content="JIN — Builder of AI-assisted web craft">
-  <meta property="og:description" content="Get to know JIN in 2–3 minutes: who he is, the AI credentials he earned, and the skill he built with GPT.">
+  <title>JIN — AI Visual Designer · Creative Technologist</title>
+  <meta name="description" content="JIN (Lee Woei Quan) works across visual design, AI video, characters and AI tools. This site is a 60-second introduction.">
+  <meta property="og:title" content="JIN — AI Visual Designer · Creative Technologist">
+  <meta property="og:description" content="Who JIN is, what he's creating now, and where to find him.">
   <meta property="og:type" content="profile">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23FAF7F2'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='42' font-weight='700' text-anchor='middle' fill='%23B4441C'%3EJ%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,129 +16,153 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+  <div class="wipe" aria-hidden="true"></div>
 
   <header class="site-header">
     <nav class="nav" aria-label="Main">
-      <a class="nav-brand" href="#top">JIN<span class="nav-dot">.</span></a>
-      <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#credentials">Credentials</a>
-        <a href="#craft">Craft</a>
+      <a class="nav-brand" href="#top" data-nav>JIN<span class="nav-dot">.</span></a>
+      <div class="nav-links mono">
+        <a href="#about" data-nav><span>01</span> about</a>
+        <a href="#work" data-nav><span>02</span> work</a>
+        <a href="#now" data-nav><span>03</span> now</a>
+        <a href="#contact" data-nav><span>04</span> contact</a>
       </div>
-      <a class="btn btn-primary nav-cta" href="mailto:PLACEHOLDER_EMAIL@example.com">Get in touch</a>
+      <a class="btn btn-primary nav-cta" href="mailto:jinmyaigc@gmail.com">Get in touch</a>
     </nav>
   </header>
 
   <main id="main">
-    <!-- 1 · Hero -->
+    <!-- 01 · HERO -->
     <section class="hero" id="top" aria-labelledby="hero-title">
       <canvas class="hero-canvas" id="hero-canvas" aria-hidden="true"></canvas>
       <div class="hero-inner">
-        <p class="eyebrow mono">Personal site · v0.1</p>
         <h1 class="hero-title" id="hero-title">JIN</h1>
-        <p class="hero-tagline">[PLACEHOLDER: 一句话自我介绍 — who JIN is and what he's building, in one line]</p>
-        <p class="hero-sub">AI credentials · skill crafting · disciplined web work</p>
-        <a class="btn btn-primary btn-lg" href="mailto:PLACEHOLDER_EMAIL@example.com">Get in touch</a>
+        <p class="hero-roles mono">
+          <span>AI VISUAL DESIGNER</span>
+          <span class="role-sep" aria-hidden="true">/</span>
+          <span>CREATIVE TECHNOLOGIST</span>
+        </p>
+        <div class="terminal" aria-label="Introduction in terminal style">
+          <pre class="terminal-screen" id="terminal"><code></code><span class="cursor" aria-hidden="true"></span></pre>
+          <noscript><pre class="terminal-screen"><code>&gt; whoami
+jin — lee woei quan
+&gt; role
+ai visual designer · creative technologist
+&gt; status
+creating...</code></pre></noscript>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary btn-lg" href="mailto:jinmyaigc@gmail.com">Get in touch</a>
+          <a class="btn btn-secondary" href="#work" data-nav>See the work</a>
+        </div>
       </div>
       <p class="hero-hint mono" aria-hidden="true">scroll ↓</p>
     </section>
 
-    <!-- 2 · About -->
+    <!-- 02 · ABOUT / WHAT I DO -->
     <section class="section" id="about" aria-labelledby="about-title">
       <div class="container">
-        <p class="eyebrow mono">01 — About</p>
-        <h2 class="section-title" id="about-title">Quick intro</h2>
+        <p class="eyebrow mono">01 — about</p>
+        <h2 class="section-title" id="about-title">I started with visual design.<br>Then AI changed how I create.</h2>
         <div class="about-grid">
           <p class="lede reveal">
-            [PLACEHOLDER: 自我介绍第一段 — background, what you do now, what drives you. 2–3 sentences.]
+            I'm JIN — Lee Woei Quan. I design visuals by hand and build the tools that make
+            them move: AI video, characters, and small web experiences with a point of view.
           </p>
           <p class="reveal">
-            [PLACEHOLDER: 自我介绍第二段 — what you're currently learning or building. 2–3 sentences.]
+            I don't work like a studio. I work like one curious person with good taste and a
+            terminal open — designing the visual language first, then teaching AI to keep up
+            with it. The skill that directed this very site is one I authored with GPT.
           </p>
         </div>
-      </div>
-    </section>
-
-    <!-- 3 · Credentials -->
-    <section class="section section-alt" id="credentials" aria-labelledby="credentials-title">
-      <div class="container">
-        <p class="eyebrow mono">02 — Credentials</p>
-        <h2 class="section-title" id="credentials-title">AI credentials</h2>
-        <p class="section-sub reveal">Three diplomas in AI. Scans and details to be added.</p>
-        <div class="card-grid">
-          <article class="card reveal">
-            <div class="card-media" aria-hidden="true"><span class="mono">Diploma scan</span></div>
-            <h3>[PLACEHOLDER: 文凭 1 名称]</h3>
-            <p class="muted">[PLACEHOLDER: 颁发机构 · 年份]</p>
-            <span class="ph-badge mono" title="This is an explicit placeholder">placeholder</span>
-          </article>
-          <article class="card reveal">
-            <div class="card-media" aria-hidden="true"><span class="mono">Diploma scan</span></div>
-            <h3>[PLACEHOLDER: 文凭 2 名称]</h3>
-            <p class="muted">[PLACEHOLDER: 颁发机构 · 年份]</p>
-            <span class="ph-badge mono" title="This is an explicit placeholder">placeholder</span>
-          </article>
-          <article class="card reveal">
-            <div class="card-media" aria-hidden="true"><span class="mono">Diploma scan</span></div>
-            <h3>[PLACEHOLDER: 文凭 3 名称]</h3>
-            <p class="muted">[PLACEHOLDER: 颁发机构 · 年份]</p>
-            <span class="ph-badge mono" title="This is an explicit placeholder">placeholder</span>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4 · AI Skill Craft -->
-    <section class="section" id="craft" aria-labelledby="craft-title">
-      <div class="container craft-grid">
-        <div>
-          <p class="eyebrow mono">03 — Craft</p>
-          <h2 class="section-title" id="craft-title">I build skills, not just pages</h2>
-          <p class="lede reveal">
-            This very site was directed by <strong>jin-web-director</strong> — an open-source skill I
-            authored and refined with GPT through real projects.
-          </p>
-          <p class="reveal">
-            [PLACEHOLDER: 使用经验 — how you use GPT to craft and iterate skills, what you learned
-            running them on real work. 3–5 sentences.]
-          </p>
-          <a class="link-arrow reveal" href="https://github.com/weoiquan-art/jin-web-director" target="_blank" rel="noopener">
-            View the repository on GitHub ↗
-          </a>
-        </div>
-        <div class="craft-facts reveal" aria-label="Facts about jin-web-director">
-          <h3 class="mono">jin-web-director · facts</h3>
-          <ul>
-            <li><span>Process</span>8-phase Director loop: product intent → IA → visual → interaction → responsive → build → QA → deploy</li>
-            <li><span>Discipline</span>Honesty rules: no invented claims, explicit placeholders, real-URL verification</li>
-            <li><span>Toolkit</span>Design-system tokens, responsive decision matrix, component patterns, performance checklist</li>
-            <li><span>Source</span>Open source on GitHub, maintained in the open</li>
+        <div class="certs reveal" aria-label="AI credentials">
+          <h3 class="mono certs-title">receipts ↓</h3>
+          <ul class="certs-list mono">
+            <li><a href="assets/certificates/google-ai-professional-certificate.pdf" target="_blank" rel="noopener">Google AI Professional Certificate <span class="muted">— 7 courses, Coursera · 2026 ↗</span></a></li>
+            <li><a href="assets/certificates/nvidia-ai-for-all.pdf" target="_blank" rel="noopener">NVIDIA — AI for All: From Basics to GenAI Practice <span class="muted">· 2026 ↗</span></a></li>
+            <li><a href="assets/certificates/ai-untuk-rakyat.pdf" target="_blank" rel="noopener">AI Untuk Rakyat <span class="muted">— AI literacy programme · 2026 ↗</span></a></li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- 5 · What I can do -->
+    <!-- 03 · SELECTED WORK -->
     <section class="section section-alt" id="work" aria-labelledby="work-title">
       <div class="container">
-        <p class="eyebrow mono">04 — Work with me</p>
-        <h2 class="section-title" id="work-title">What I can do</h2>
-        <p class="lede reveal">
-          [PLACEHOLDER: 业务轻量描述 — 1–2 sentences on the kind of collaboration or service you offer. Keep it light for now.]
-        </p>
-        <a class="btn btn-secondary reveal" href="mailto:PLACEHOLDER_EMAIL@example.com">Discuss a project</a>
+        <p class="eyebrow mono">02 — selected work</p>
+        <h2 class="section-title" id="work-title">A few things worth your curiosity</h2>
+        <ul class="work-list">
+          <li class="work-row reveal">
+            <span class="work-index mono">01</span>
+            <div class="work-main">
+              <h3>Phoebe</h3>
+              <p class="work-cat mono">AI character</p>
+              <p class="work-desc">[PLACEHOLDER: one line — who Phoebe is and what she does]</p>
+            </div>
+            <span class="work-arrow" aria-hidden="true">→</span>
+          </li>
+          <li class="work-row reveal">
+            <span class="work-index mono">02</span>
+            <div class="work-main">
+              <h3>Rin</h3>
+              <p class="work-cat mono">AI character</p>
+              <p class="work-desc">[PLACEHOLDER: one line — who Rin is and what she does]</p>
+            </div>
+            <span class="work-arrow" aria-hidden="true">→</span>
+          </li>
+          <li class="work-row reveal">
+            <span class="work-index mono">03</span>
+            <div class="work-main">
+              <h3>Sera</h3>
+              <p class="work-cat mono">AI character</p>
+              <p class="work-desc">[PLACEHOLDER: one line — who Sera is and what she does]</p>
+            </div>
+            <span class="work-arrow" aria-hidden="true">→</span>
+          </li>
+          <li class="work-row reveal">
+            <span class="work-index mono">04</span>
+            <div class="work-main">
+              <h3>AI Video</h3>
+              <p class="work-cat mono">moving image</p>
+              <p class="work-desc">[PLACEHOLDER: one line — what the AI video work explores]</p>
+            </div>
+            <span class="work-arrow" aria-hidden="true">→</span>
+          </li>
+          <li class="work-row reveal">
+            <span class="work-index mono">05</span>
+            <div class="work-main">
+              <h3>Web / AI experiments</h3>
+              <p class="work-cat mono">creative technology</p>
+              <p class="work-desc">Small tools and sites where design leads and AI follows — like this one, directed by my own skill, <a href="https://github.com/weoiquan-art/jin-web-director" target="_blank" rel="noopener">jin-web-director</a>.</p>
+            </div>
+            <span class="work-arrow" aria-hidden="true">→</span>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <!-- 6 · Contact -->
+    <!-- 04 · CURRENTLY -->
+    <section class="section" id="now" aria-labelledby="now-title">
+      <div class="container">
+        <p class="eyebrow mono">03 — currently</p>
+        <h2 class="section-title" id="now-title">What's on the bench</h2>
+        <ul class="now-list reveal">
+          <li><span class="now-dot" aria-hidden="true"></span><span>Building AI tools — iterating <a href="https://github.com/weoiquan-art/jin-web-director" target="_blank" rel="noopener">jin-web-director</a>, the skill that built this site</span></li>
+          <li><span class="now-dot" aria-hidden="true"></span>Creating visual stories with my AI characters</li>
+          <li><span class="now-dot" aria-hidden="true"></span>Experimenting with local AI workflows</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 05 · CONTACT -->
     <section class="section contact" id="contact" aria-labelledby="contact-title">
       <div class="container">
-        <p class="eyebrow mono">05 — Contact</p>
+        <p class="eyebrow mono">04 — contact</p>
         <h2 class="section-title" id="contact-title">Say hello</h2>
         <ul class="contact-list">
-          <li><a class="contact-link" href="mailto:PLACEHOLDER_EMAIL@example.com">Email · <span class="muted">[PLACEHOLDER: email]</span></a></li>
-          <li><span class="contact-link">WeChat · <span class="muted">[PLACEHOLDER: 微信号]</span></span></li>
-          <li><a class="contact-link" href="https://github.com/weoiquan-art" target="_blank" rel="noopener">GitHub · @weoiquan-art</a></li>
+          <li><a class="contact-link" href="mailto:jinmyaigc@gmail.com">Email <span class="muted">jinmyaigc@gmail.com ↗</span></a></li>
+          <li><a class="contact-link" href="https://www.instagram.com/desjin0827" target="_blank" rel="noopener">Instagram <span class="muted">@desjin0827 ↗</span></a></li>
+          <li><a class="contact-link" href="https://github.com/weoiquan-art" target="_blank" rel="noopener">GitHub <span class="muted">@weoiquan-art ↗</span></a></li>
         </ul>
       </div>
     </section>
@@ -146,11 +170,12 @@
 
   <footer class="site-footer">
     <div class="container footer-row">
-      <p>© <span id="year">2026</span> JIN. Built by its own discipline.</p>
-      <p class="mono">Source of method: <a href="https://github.com/weoiquan-art/jin-web-director">jin-web-director</a></p>
+      <p>© <span id="year">2026</span> JIN — designed by a person, directed by his own skill.</p>
+      <p class="mono"><a href="https://github.com/weoiquan-art/jin-web-director">jin-web-director ↗</a></p>
     </div>
   </footer>
 
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js" defer></script>
   <script src="main.js" defer></script>
 </body>
 </html>

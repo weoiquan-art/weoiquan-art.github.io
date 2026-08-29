@@ -27,7 +27,7 @@
 | 内容 | 状态 |
 |---|---|
 | 3 个 AI 文凭/证书 | `[PLACEHOLDER: 文凭名称、颁发机构、图片或 PDF]` |
-| jin-web-director skill | ✅ 可提炼事实：GitHub 开源仓库 `weoiquan-art/jin-web-director`，面向 Agent 的网站搭建方法论（产品意图 → 设计 → 实现 → QA → 部署），含 6 个 toolkit 文档 |
+| jin-web-director skill | ✅ 事实：GitHub 开源仓库，面向 Agent 的建站方法论，含 6 个 toolkit 文档 |
 | GPT 制作 skill 的使用经验 | `[PLACEHOLDER: 使用经验文字]` |
 | 个人介绍 / 经历 | `[PLACEHOLDER: 自我介绍、背景、正在做的事]` |
 | 业务（轻量区块） | `[PLACEHOLDER: 能提供什么服务/合作方向]` |
