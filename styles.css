@@ -207,34 +207,6 @@ ul { padding: 0; margin: 0; list-style: none; }
 .certs-list a:hover { color: var(--color-accent); }
 .certs-list .muted { font-size: 0.8125rem; }
 
-/* ---------- Selected work ---------- */
-.work-list { margin-top: var(--sp-xl); border-top: 1px solid var(--color-line); }
-.work-row {
-  display: grid;
-  grid-template-columns: 3rem 1fr 2rem;
-  gap: var(--sp-lg); align-items: baseline;
-  padding-block: var(--sp-xl);
-  border-bottom: 1px solid var(--color-line);
-  transition: padding-left var(--t-std) ease-out, background var(--t-std);
-}
-.work-row:hover { padding-left: var(--sp-md); background: color-mix(in srgb, var(--color-card) 60%, transparent); }
-.work-index { color: var(--color-muted); font-size: 0.8125rem; }
-.work-row:hover .work-index { color: var(--color-accent); }
-.work-main h3 { font-size: clamp(1.75rem, 4vw, 2.6rem); margin-bottom: var(--sp-xs); }
-.work-cat {
-  font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--color-accent); margin-bottom: var(--sp-sm);
-}
-.work-desc { max-width: 40rem; color: var(--color-muted); font-size: 0.9375rem; margin: 0; }
-.work-desc a { color: var(--color-muted); text-decoration: underline; }
-.work-desc a:hover { color: var(--color-accent); }
-.work-arrow { color: var(--color-muted); transition: transform var(--t-std), color var(--t-std); align-self: center; }
-.work-row:hover .work-arrow { transform: translateX(6px); color: var(--color-accent); }
-
-@media (min-width: 768px) {
-  .work-row { grid-template-columns: 4rem 1fr 2rem; }
-}
-
 /* ---------- Currently ---------- */
 .now-list { max-width: 44rem; margin-top: var(--sp-lg); }
 .now-list li {
@@ -293,7 +265,7 @@ a.contact-link:hover { color: var(--color-accent); padding-left: var(--sp-sm); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
-  .btn, .work-row, .work-arrow, .contact-link, .now-dot { transition: none; animation: none; }
+  .btn, .contact-link, .now-dot { transition: none; animation: none; }
   .cursor { animation: none; }
   .hero-canvas { display: none; }
   .wipe { display: none; }

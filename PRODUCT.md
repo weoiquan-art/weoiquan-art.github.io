@@ -55,15 +55,13 @@
 
 | # | 区块 | 目的 | 对主 CTA 的支撑 |
 |---|------|------|----------------|
-| 1 | Hero | 3 秒知道 JIN 是谁 + 交互记忆点 | Get in touch 按钮直达 |
-| 2 | About | 快速了解背景与正在做的事 | 建立信任 |
-| 3 | Credentials | 3 个 AI 文凭卡片（占位槽位） | 能力背书 |
-| 4 | AI Skill Craft | jin-web-director 介绍（仓库提炼事实）+ 使用经验（占位） | 方法论证据 |
-| 5 | What I can do | 业务轻量区块（占位） | 给联系一个理由 |
-| 6 | Contact | 联系方式占位（email/微信/GitHub） | CTA 落点 |
-| — | Footer | 版权与仓库链接 | 次要 |
+| 1 | Hero | 3 秒知道 JIN 是谁 + 终端打字记忆点 | Get in touch 按钮直达 |
+| 2 | About | 快速了解背景 + 3 张真实文凭（receipts） | 建立信任与能力背书 |
+| 3 | Currently | 正在做的事（活着的感觉） | 保持新鲜感 |
+| 4 | Contact | email / Instagram / GitHub | CTA 落点 |
+| — | Footer | 版权与 jin-web-director 链接 | 次要 |
 
-删除项：博客、测试imonials、价格表——不支撑本次目标。
+删除项：博客、测试imonials、价格表——不支撑本次目标。Selected Work 于 v0.2.1 应作者要求删除（项目描述未定，宁缺毋滥）。
 
 ## 未知项 (Unknowns — 占位待补，不得编造)
 
