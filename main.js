@@ -1,7 +1,7 @@
-/* JIN Personal Site v3 — main.js
+/* JIN Personal Site v4 — main.js
    Progressive enhancement: the page is fully readable without JS.
-   1. A full-screen vector crow wave crosses once, then stops
-   2. JIN identity and terminal boot sequence appear after the flock clears
+   1. A midnight raven curtain crosses once, then stops
+   2. JIN identity and a quiet terminal trace appear after the curtain clears
    3. Lenis smooth scroll (CDN, guarded — falls back to native)
    4. Nav click → short wipe transition → instant jump → control returned
    All respect prefers-reduced-motion. */
@@ -85,9 +85,9 @@
     document.documentElement.classList.add('interface-visible');
     setTimeout(function () { hero.classList.add('is-meta-visible'); }, 60);
     setTimeout(function () { hero.classList.add('is-title-visible'); }, 180);
-    setTimeout(function () { hero.classList.add('is-details-visible'); }, 560);
-    setTimeout(startTerminalTyping, 640);
-    setTimeout(function () { hero.classList.add('is-stable'); }, 2350);
+    setTimeout(function () { hero.classList.add('is-details-visible'); }, 600);
+    setTimeout(startTerminalTyping, 690);
+    setTimeout(function () { hero.classList.add('is-stable'); }, 2250);
   }
 
   if (hero) {
@@ -171,7 +171,7 @@
     });
   });
 
-  /* ---------- One-shot vector crow flock ---------- */
+  /* ---------- One-shot midnight raven curtain ---------- */
   var canvas = document.getElementById('crow-canvas');
   if (canvas && hero && !reducedMotion) {
     var ctx = canvas.getContext('2d');
@@ -215,49 +215,57 @@
 
     function drawCrow(bird, x, y, angle, elapsed) {
       var flap = Math.sin(elapsed * bird.flap + bird.phase);
-      var spread = 0.52 + (flap + 1) * 0.19;
-      var bend = 0.16 + (1 - flap) * 0.08;
+      var spread = 0.5 + (flap + 1) * 0.25;
+      var bend = 0.13 + (1 - flap) * 0.12;
 
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate(angle);
       ctx.scale(bird.size, bird.size);
       ctx.globalAlpha = bird.opacity;
-      ctx.fillStyle = '#16130E';
+      ctx.fillStyle = bird.tint;
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.48)';
+      ctx.shadowBlur = bird.shadow;
 
-      /* Body, head, beak, and tail keep the mark recognisably crow-like. */
+      /* A hand-drawn vector silhouette: body, hooked beak, split tail, and feathered wings. */
       ctx.beginPath();
-      ctx.ellipse(0, 0, 0.5, 0.14, 0, 0, Math.PI * 2);
+      ctx.ellipse(0, 0, 0.52, 0.15, 0, 0, Math.PI * 2);
       ctx.fill();
       ctx.beginPath();
-      ctx.arc(0.39, -0.025, 0.135, 0, Math.PI * 2);
+      ctx.arc(0.42, -0.04, 0.14, 0, Math.PI * 2);
       ctx.fill();
       ctx.beginPath();
-      ctx.moveTo(0.49, -0.07);
-      ctx.lineTo(0.72, -0.01);
-      ctx.lineTo(0.48, 0.035);
+      ctx.moveTo(0.52, -0.09);
+      ctx.lineTo(0.82, -0.015);
+      ctx.lineTo(0.5, 0.055);
       ctx.closePath();
       ctx.fill();
       ctx.beginPath();
-      ctx.moveTo(-0.4, -0.08);
-      ctx.lineTo(-0.78, -0.24);
-      ctx.lineTo(-0.62, 0);
-      ctx.lineTo(-0.8, 0.2);
-      ctx.lineTo(-0.38, 0.08);
+      ctx.moveTo(-0.38, -0.09);
+      ctx.lineTo(-0.84, -0.3);
+      ctx.lineTo(-0.66, -0.02);
+      ctx.lineTo(-0.92, 0.25);
+      ctx.lineTo(-0.36, 0.1);
       ctx.closePath();
       ctx.fill();
 
-      /* Each wing changes shape independently through phase, not sprite frames. */
+      /* Wing tips stay irregular, so the flock reads as bodies in space rather than copied icons. */
       ctx.beginPath();
-      ctx.moveTo(0.1, -0.04);
-      ctx.bezierCurveTo(-0.06, -0.2, -0.28, -spread, -0.75, -spread - bend);
-      ctx.bezierCurveTo(-0.56, -0.3, -0.3, -0.09, -0.05, 0.015);
+      ctx.moveTo(0.12, -0.04);
+      ctx.bezierCurveTo(-0.08, -0.23, -0.27, -spread, -0.82, -spread - bend);
+      ctx.lineTo(-0.98, -spread * 0.76);
+      ctx.lineTo(-0.83, -spread * 0.34);
+      ctx.lineTo(-1.07, -spread * 0.13);
+      ctx.bezierCurveTo(-0.62, -0.25, -0.31, -0.08, -0.05, 0.015);
       ctx.closePath();
       ctx.fill();
       ctx.beginPath();
-      ctx.moveTo(0.08, 0.04);
-      ctx.bezierCurveTo(-0.08, 0.2, -0.3, spread, -0.74, spread + bend * 0.8);
-      ctx.bezierCurveTo(-0.54, 0.29, -0.28, 0.08, -0.04, -0.015);
+      ctx.moveTo(0.1, 0.04);
+      ctx.bezierCurveTo(-0.1, 0.23, -0.3, spread, -0.83, spread + bend);
+      ctx.lineTo(-1.04, spread * 0.72);
+      ctx.lineTo(-0.82, spread * 0.31);
+      ctx.lineTo(-1.02, spread * 0.08);
+      ctx.bezierCurveTo(-0.6, 0.26, -0.28, 0.08, -0.04, -0.015);
       ctx.closePath();
       ctx.fill();
       ctx.restore();
@@ -272,33 +280,35 @@
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       var random = seededRandom(width < 600 ? 2601 : width < 1000 ? 2602 : 2603);
-      var count = width < 600 ? 82 : width < 1000 ? 112 : 156;
+      var count = width < 600 ? 116 : width < 1000 ? 148 : 188;
       birds = [];
       flockEnd = 0;
 
       for (var i = 0; i < count; i++) {
-        var group = i % 8;
-        var depth = 0.18 + random() * 0.82;
-        var delay = group * 42 + random() * 520;
-        var duration = 1180 + (1 - depth) * 220 + random() * 250;
-        var foreground = i % 17 === 0 ? 1.38 : 1;
+        var group = i % 9;
+        var depth = 0.12 + random() * 0.88;
+        var delay = group * 28 + random() * 340;
+        var duration = 970 + (1 - depth) * 180 + random() * 160;
+        var foreground = i % 19 === 0 ? 1.72 : (i % 7 === 0 ? 1.24 : 1);
         var bird = {
-          sx: width * (1.02 + random() * 0.36) + group * 8,
-          sy: height * (0.52 + random() * 0.76),
-          c1x: width * (0.68 + random() * 0.28),
-          c1y: height * (0.42 + random() * 0.74),
-          c2x: width * (0.08 + random() * 0.5),
-          c2y: height * (-0.18 + random() * 0.72),
-          ex: -width * (0.08 + random() * 0.35),
-          ey: -height * (0.08 + random() * 0.35),
+          sx: width * (1.02 + random() * 0.32) + group * 10,
+          sy: height * (0.28 + random() * 1.08),
+          c1x: width * (0.66 + random() * 0.3),
+          c1y: height * (0.23 + random() * 0.98),
+          c2x: width * (0.04 + random() * 0.56),
+          c2y: height * (-0.25 + random() * 0.86),
+          ex: -width * (0.07 + random() * 0.38),
+          ey: -height * (0.08 + random() * 0.42),
           delay: delay,
           duration: duration,
           depth: depth,
-          size: (width < 600 ? 7 + depth * 27 : 9 + depth * 36) * foreground,
-          opacity: Math.min(0.94, (0.18 + depth * 0.72) * (foreground > 1 ? 1.08 : 1)),
-          flap: 0.018 + random() * 0.014,
+          size: (width < 600 ? 9 + depth * 38 : 12 + depth * 50) * foreground,
+          opacity: Math.min(0.96, (0.2 + depth * 0.71) * (foreground > 1 ? 1.08 : 1)),
+          tint: depth > 0.68 ? '#05030A' : depth > 0.4 ? '#140C20' : '#38264D',
+          shadow: foreground > 1 ? 8 : 2 + depth * 3,
+          flap: 0.019 + random() * 0.015,
           phase: random() * Math.PI * 2,
-          drift: 4 + random() * 13
+          drift: 5 + random() * 15
         };
         birds.push(bird);
         flockEnd = Math.max(flockEnd, delay + duration);
