@@ -1,7 +1,7 @@
 /* JIN Personal Site v3 — main.js
    Progressive enhancement: the page is fully readable without JS.
-   1. Vector crow flock crosses the Hero once, then stops
-   2. JIN identity and terminal boot sequence settle within three seconds
+   1. A full-screen vector crow wave crosses once, then stops
+   2. JIN identity and terminal boot sequence appear after the flock clears
    3. Lenis smooth scroll (CDN, guarded — falls back to native)
    4. Nav click → short wipe transition → instant jump → control returned
    All respect prefers-reduced-motion. */
@@ -19,6 +19,7 @@
 
   /* ---------- Hero reveal + terminal typing ---------- */
   var term = document.getElementById('terminal');
+  var startTerminalTyping = function () {};
   if (term) {
     var code = term.querySelector('code');
     var LINES = [
@@ -48,7 +49,7 @@
       LINES.forEach(function (line) { lineEl(line).text.textContent = line.full; });
       term.parentElement.classList.add('typing-complete');
     } else {
-      var li = 0, rendered = [];
+      var li = 0, rendered = [], typingStarted = false;
       function renderAll() { rendered = LINES.map(lineEl); }
       function typeLine() {
         if (li >= LINES.length) {
@@ -69,19 +70,31 @@
         })();
       }
       renderAll();
-      setTimeout(typeLine, 1150);
+      startTerminalTyping = function () {
+        if (typingStarted) return;
+        typingStarted = true;
+        typeLine();
+      };
     }
+  }
+
+  var interfaceRevealed = false;
+  function revealHeroInterface() {
+    if (!hero || interfaceRevealed) return;
+    interfaceRevealed = true;
+    document.documentElement.classList.add('interface-visible');
+    setTimeout(function () { hero.classList.add('is-meta-visible'); }, 60);
+    setTimeout(function () { hero.classList.add('is-title-visible'); }, 180);
+    setTimeout(function () { hero.classList.add('is-details-visible'); }, 560);
+    setTimeout(startTerminalTyping, 640);
+    setTimeout(function () { hero.classList.add('is-stable'); }, 2350);
   }
 
   if (hero) {
     if (reducedMotion) {
+      document.documentElement.classList.add('interface-visible');
       hero.classList.add('is-meta-visible', 'is-title-visible', 'is-details-visible', 'is-stable', 'flock-finished');
     } else {
-      setTimeout(function () { hero.classList.add('is-meta-visible'); }, 120);
-      setTimeout(function () { hero.classList.add('is-title-visible'); }, 500);
-      setTimeout(function () { hero.classList.add('is-details-visible'); }, 1050);
-      setTimeout(function () { hero.classList.add('is-stable'); }, 2850);
-
       var pointerRaf = 0;
       hero.addEventListener('pointermove', function (event) {
         if (!hero.classList.contains('is-stable')) return;
@@ -164,6 +177,7 @@
     var ctx = canvas.getContext('2d');
     if (!ctx) {
       hero.classList.add('flock-finished');
+      revealHeroInterface();
       return;
     }
 
@@ -257,33 +271,34 @@
       canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      var random = seededRandom(width < 600 ? 2601 : 2602);
-      var count = width < 600 ? 24 : 36;
+      var random = seededRandom(width < 600 ? 2601 : width < 1000 ? 2602 : 2603);
+      var count = width < 600 ? 82 : width < 1000 ? 112 : 156;
       birds = [];
       flockEnd = 0;
 
       for (var i = 0; i < count; i++) {
-        var group = i % 4;
-        var depth = 0.28 + random() * 0.82;
-        var delay = group * 75 + random() * 620;
-        var duration = 1320 + (1 - depth) * 360 + random() * 430;
+        var group = i % 8;
+        var depth = 0.18 + random() * 0.82;
+        var delay = group * 42 + random() * 520;
+        var duration = 1180 + (1 - depth) * 220 + random() * 250;
+        var foreground = i % 17 === 0 ? 1.38 : 1;
         var bird = {
-          sx: width * (1.04 + random() * 0.2) + group * 12,
-          sy: height * (0.7 + random() * 0.36),
-          c1x: width * (0.76 + random() * 0.12),
-          c1y: height * (0.66 + (random() - 0.5) * 0.2),
-          c2x: width * (0.22 + random() * 0.22),
-          c2y: height * (0.18 + (random() - 0.5) * 0.2),
-          ex: -width * (0.08 + random() * 0.2),
-          ey: -height * (0.02 + random() * 0.18),
+          sx: width * (1.02 + random() * 0.36) + group * 8,
+          sy: height * (0.52 + random() * 0.76),
+          c1x: width * (0.68 + random() * 0.28),
+          c1y: height * (0.42 + random() * 0.74),
+          c2x: width * (0.08 + random() * 0.5),
+          c2y: height * (-0.18 + random() * 0.72),
+          ex: -width * (0.08 + random() * 0.35),
+          ey: -height * (0.08 + random() * 0.35),
           delay: delay,
           duration: duration,
           depth: depth,
-          size: 7 + depth * 19,
-          opacity: 0.24 + depth * 0.58,
-          flap: 0.017 + random() * 0.011,
+          size: (width < 600 ? 7 + depth * 27 : 9 + depth * 36) * foreground,
+          opacity: Math.min(0.94, (0.18 + depth * 0.72) * (foreground > 1 ? 1.08 : 1)),
+          flap: 0.018 + random() * 0.014,
           phase: random() * Math.PI * 2,
-          drift: 3 + random() * 9
+          drift: 4 + random() * 13
         };
         birds.push(bird);
         flockEnd = Math.max(flockEnd, delay + duration);
@@ -316,6 +331,7 @@
         flockFinished = true;
         ctx.clearRect(0, 0, width, height);
         hero.classList.add('flock-finished');
+        setTimeout(revealHeroInterface, 140);
       }
     }
 
@@ -334,5 +350,7 @@
         flockRaf = requestAnimationFrame(drawFlock);
       }, 150);
     });
+  } else if (hero && !reducedMotion) {
+    revealHeroInterface();
   }
 })();

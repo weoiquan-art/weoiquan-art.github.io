@@ -149,7 +149,7 @@ ul { padding: 0; margin: 0; list-style: none; }
 .crow-canvas {
   position: absolute; inset: 0; z-index: 4;
   width: 100%; height: 100%; pointer-events: none;
-  transition: opacity 420ms ease-out;
+  transition: opacity 260ms ease-out;
 }
 .hero.flock-finished .crow-canvas { opacity: 0; }
 .hero-rule {
@@ -274,6 +274,28 @@ ul { padding: 0; margin: 0; list-style: none; }
 .hero-hint span { color: var(--color-accent); }
 
 /* JS intro state. If main.js fails, intro-ready is never added and the static Hero remains visible. */
+.js.intro-ready:not(.interface-visible) .hero { z-index: 101; }
+.js.intro-ready:not(.interface-visible) .crow-canvas {
+  position: fixed;
+  width: 100vw;
+  height: 100svh;
+}
+.js.intro-ready .site-header {
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+.js.intro-ready.interface-visible .site-header {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  transition: opacity 480ms ease-out, transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.js.intro-ready .hero-rule { opacity: 0; }
+.js.intro-ready.interface-visible .hero-rule {
+  opacity: 0.7;
+  transition: opacity 700ms ease-out;
+}
 .js.intro-ready .hero-meta,
 .js.intro-ready .hero-lower,
 .js.intro-ready .hero-hint,
@@ -381,6 +403,10 @@ a.contact-link:hover { color: var(--color-accent); padding-left: var(--sp-sm); }
   .cursor { animation: none; }
   .crow-canvas { display: none; }
   .wipe { display: none; }
+  .js.intro-ready .site-header,
+  .js.intro-ready .hero-rule {
+    opacity: 1; transform: none; pointer-events: auto; transition: none;
+  }
   .js.intro-ready .hero-meta,
   .js.intro-ready .hero-lower,
   .js.intro-ready .hero-hint,
