@@ -1,7 +1,7 @@
-/* JIN Personal Site v2 — main.js
+/* JIN Personal Site v3 — main.js
    Progressive enhancement: the page is fully readable without JS.
-   1. Terminal typing (hero identity block)
-   2. Hero canvas: glyph particles assemble "JIN" (stops after settling)
+   1. Vector crow flock crosses the Hero once, then stops
+   2. JIN identity and terminal boot sequence settle within three seconds
    3. Lenis smooth scroll (CDN, guarded — falls back to native)
    4. Nav click → short wipe transition → instant jump → control returned
    All respect prefers-reduced-motion. */
@@ -11,27 +11,31 @@
   document.documentElement.classList.add('js');
 
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hero = document.querySelector('.hero');
+  if (hero && !reducedMotion) document.documentElement.classList.add('intro-ready');
 
   var yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
-  /* ---------- Terminal typing ---------- */
+  /* ---------- Hero reveal + terminal typing ---------- */
   var term = document.getElementById('terminal');
   if (term) {
     var code = term.querySelector('code');
     var LINES = [
       { p: true,  t: 'whoami' },
-      { p: false, t: 'jin — lee woei quan', dim: true },
+      { p: false, t: 'jin', dim: true },
       { p: true,  t: 'role' },
-      { p: false, t: 'ai visual designer · creative technologist' },
+      { p: false, t: 'AI VISUAL DESIGNER' },
+      { p: false, t: 'CREATIVE TECHNOLOGIST' },
       { p: true,  t: 'status' },
       { p: false, t: 'creating...' }
     ];
+    code.textContent = '';
     function lineEl(line) {
       var span = document.createElement('span');
       var prompt = document.createElement('span');
       prompt.className = 't-prompt';
-      prompt.textContent = line.p ? '> ' : '  ';
+      prompt.textContent = line.p ? '> ' : '';
       span.appendChild(prompt);
       var text = document.createElement('span');
       if (line.dim) text.className = 't-dim';
@@ -42,27 +46,58 @@
     }
     if (reducedMotion) {
       LINES.forEach(function (line) { lineEl(line).text.textContent = line.full; });
+      term.parentElement.classList.add('typing-complete');
     } else {
       var li = 0, rendered = [];
       function renderAll() { rendered = LINES.map(lineEl); }
       function typeLine() {
-        if (li >= LINES.length) return;
+        if (li >= LINES.length) {
+          term.parentElement.classList.add('typing-complete');
+          return;
+        }
         var cur = rendered[li];
         var ci = 0;
         (function tick() {
           if (ci <= cur.full.length) {
             cur.text.textContent = cur.full.slice(0, ci);
             ci++;
-            setTimeout(tick, 16 + Math.random() * 18);
+            setTimeout(tick, 10 + Math.random() * 10);
           } else {
             li++;
-            setTimeout(typeLine, li < LINES.length ? 220 : 0);
+            setTimeout(typeLine, li < LINES.length ? 90 : 0);
           }
         })();
       }
-      // start when the hero has had a beat to paint
       renderAll();
-      setTimeout(typeLine, 500);
+      setTimeout(typeLine, 1150);
+    }
+  }
+
+  if (hero) {
+    if (reducedMotion) {
+      hero.classList.add('is-meta-visible', 'is-title-visible', 'is-details-visible', 'is-stable', 'flock-finished');
+    } else {
+      setTimeout(function () { hero.classList.add('is-meta-visible'); }, 120);
+      setTimeout(function () { hero.classList.add('is-title-visible'); }, 500);
+      setTimeout(function () { hero.classList.add('is-details-visible'); }, 1050);
+      setTimeout(function () { hero.classList.add('is-stable'); }, 2850);
+
+      var pointerRaf = 0;
+      hero.addEventListener('pointermove', function (event) {
+        if (!hero.classList.contains('is-stable')) return;
+        var rect = hero.getBoundingClientRect();
+        var x = ((event.clientX - rect.left) / rect.width - 0.5) * 8;
+        var y = ((event.clientY - rect.top) / rect.height - 0.5) * 5;
+        cancelAnimationFrame(pointerRaf);
+        pointerRaf = requestAnimationFrame(function () {
+          hero.style.setProperty('--hero-shift-x', x.toFixed(2) + 'px');
+          hero.style.setProperty('--hero-shift-y', y.toFixed(2) + 'px');
+        });
+      });
+      hero.addEventListener('pointerleave', function () {
+        hero.style.setProperty('--hero-shift-x', '0px');
+        hero.style.setProperty('--hero-shift-y', '0px');
+      });
     }
   }
 
@@ -123,143 +158,181 @@
     });
   });
 
-  /* ---------- Hero canvas ---------- */
-  var canvas = document.getElementById('hero-canvas');
-  if (!canvas || reducedMotion) return;
-  var ctx = canvas.getContext('2d');
-  if (!ctx) return;
-
-  var GLYPHS = '01{};</>#*+';
-  var SETTLE_MS = 2600;
-  var particles = [];
-  var mouse = { x: 0.5, y: 0.5 };
-  var running = false;
-  var rafId = 0;
-  var startTime = 0;
-
-  function buildParticles() {
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var w = canvas.clientWidth;
-    var h = canvas.clientHeight;
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    var off = document.createElement('canvas');
-    var wide = w >= 768;
-    var fontSize = wide ? Math.min(w * 0.2, h * 0.55) : Math.min(w * 0.28, h * 0.36);
-    off.width = w; off.height = h;
-    var octx = off.getContext('2d');
-    if (!octx) return;
-    octx.font = '700 ' + fontSize + 'px Fraunces, Georgia, serif';
-    octx.textAlign = wide ? 'left' : 'center';
-    octx.textBaseline = 'middle';
-    octx.fillStyle = '#000';
-    if (wide) {
-      octx.fillText('JIN', w * 0.55, h * 0.45);
-    } else {
-      octx.fillText('JIN', w * 0.72, h * 0.16);
+  /* ---------- One-shot vector crow flock ---------- */
+  var canvas = document.getElementById('crow-canvas');
+  if (canvas && hero && !reducedMotion) {
+    var ctx = canvas.getContext('2d');
+    if (!ctx) {
+      hero.classList.add('flock-finished');
+      return;
     }
 
-    var data = octx.getImageData(0, 0, w, h).data;
-    var step = Math.max(7, Math.round(fontSize / 30));
-    particles = [];
-    for (var y = 0; y < h; y += step) {
-      for (var x = 0; x < w; x += step) {
-        if (data[(y * w + x) * 4 + 3] > 128 && Math.random() < 0.7) {
-          particles.push({
-            tx: x, ty: y,
-            x: Math.random() * w,
-            y: Math.random() * h,
-            delay: Math.random() * 700,
-            glyph: GLYPHS[(Math.random() * GLYPHS.length) | 0],
-            accent: Math.random() < 0.08,
-            phase: Math.random() * Math.PI * 2
-          });
-        }
+    var birds = [];
+    var flockStart = 0;
+    var flockEnd = 0;
+    var flockRaf = 0;
+    var flockFinished = false;
+
+    function seededRandom(seed) {
+      return function () {
+        seed |= 0;
+        seed = seed + 0x6D2B79F5 | 0;
+        var value = Math.imul(seed ^ seed >>> 15, 1 | seed);
+        value = value + Math.imul(value ^ value >>> 7, 61 | value) ^ value;
+        return ((value ^ value >>> 14) >>> 0) / 4294967296;
+      };
+    }
+
+    function pointOnCurve(bird, t) {
+      var one = 1 - t;
+      return {
+        x: one * one * one * bird.sx + 3 * one * one * t * bird.c1x + 3 * one * t * t * bird.c2x + t * t * t * bird.ex,
+        y: one * one * one * bird.sy + 3 * one * one * t * bird.c1y + 3 * one * t * t * bird.c2y + t * t * t * bird.ey
+      };
+    }
+
+    function tangentOnCurve(bird, t) {
+      var one = 1 - t;
+      return {
+        x: 3 * one * one * (bird.c1x - bird.sx) + 6 * one * t * (bird.c2x - bird.c1x) + 3 * t * t * (bird.ex - bird.c2x),
+        y: 3 * one * one * (bird.c1y - bird.sy) + 6 * one * t * (bird.c2y - bird.c1y) + 3 * t * t * (bird.ey - bird.c2y)
+      };
+    }
+
+    function drawCrow(bird, x, y, angle, elapsed) {
+      var flap = Math.sin(elapsed * bird.flap + bird.phase);
+      var spread = 0.52 + (flap + 1) * 0.19;
+      var bend = 0.16 + (1 - flap) * 0.08;
+
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(angle);
+      ctx.scale(bird.size, bird.size);
+      ctx.globalAlpha = bird.opacity;
+      ctx.fillStyle = '#16130E';
+
+      /* Body, head, beak, and tail keep the mark recognisably crow-like. */
+      ctx.beginPath();
+      ctx.ellipse(0, 0, 0.5, 0.14, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(0.39, -0.025, 0.135, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(0.49, -0.07);
+      ctx.lineTo(0.72, -0.01);
+      ctx.lineTo(0.48, 0.035);
+      ctx.closePath();
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(-0.4, -0.08);
+      ctx.lineTo(-0.78, -0.24);
+      ctx.lineTo(-0.62, 0);
+      ctx.lineTo(-0.8, 0.2);
+      ctx.lineTo(-0.38, 0.08);
+      ctx.closePath();
+      ctx.fill();
+
+      /* Each wing changes shape independently through phase, not sprite frames. */
+      ctx.beginPath();
+      ctx.moveTo(0.1, -0.04);
+      ctx.bezierCurveTo(-0.06, -0.2, -0.28, -spread, -0.75, -spread - bend);
+      ctx.bezierCurveTo(-0.56, -0.3, -0.3, -0.09, -0.05, 0.015);
+      ctx.closePath();
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(0.08, 0.04);
+      ctx.bezierCurveTo(-0.08, 0.2, -0.3, spread, -0.74, spread + bend * 0.8);
+      ctx.bezierCurveTo(-0.54, 0.29, -0.28, 0.08, -0.04, -0.015);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function buildFlock() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var width = canvas.clientWidth;
+      var height = canvas.clientHeight;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      var random = seededRandom(width < 600 ? 2601 : 2602);
+      var count = width < 600 ? 24 : 36;
+      birds = [];
+      flockEnd = 0;
+
+      for (var i = 0; i < count; i++) {
+        var group = i % 4;
+        var depth = 0.28 + random() * 0.82;
+        var delay = group * 75 + random() * 620;
+        var duration = 1320 + (1 - depth) * 360 + random() * 430;
+        var bird = {
+          sx: width * (1.04 + random() * 0.2) + group * 12,
+          sy: height * (0.7 + random() * 0.36),
+          c1x: width * (0.76 + random() * 0.12),
+          c1y: height * (0.66 + (random() - 0.5) * 0.2),
+          c2x: width * (0.22 + random() * 0.22),
+          c2y: height * (0.18 + (random() - 0.5) * 0.2),
+          ex: -width * (0.08 + random() * 0.2),
+          ey: -height * (0.02 + random() * 0.18),
+          delay: delay,
+          duration: duration,
+          depth: depth,
+          size: 7 + depth * 19,
+          opacity: 0.24 + depth * 0.58,
+          flap: 0.017 + random() * 0.011,
+          phase: random() * Math.PI * 2,
+          drift: 3 + random() * 9
+        };
+        birds.push(bird);
+        flockEnd = Math.max(flockEnd, delay + duration);
       }
+      birds.sort(function (a, b) { return a.depth - b.depth; });
     }
-    while (particles.length > 420) {
-      particles.splice((Math.random() * particles.length) | 0, 1);
-    }
-    startTime = performance.now();
-  }
 
-  function draw(now) {
-    var w = canvas.clientWidth;
-    var h = canvas.clientHeight;
-    ctx.clearRect(0, 0, w, h);
-    var px = (mouse.x - 0.5) * 14;
-    var py = (mouse.y - 0.5) * 10;
-    ctx.font = '500 10px ui-monospace, Menlo, monospace';
-    var settled = now - startTime > SETTLE_MS;
+    function drawFlock(now) {
+      var elapsed = now - flockStart;
+      var width = canvas.clientWidth;
+      var height = canvas.clientHeight;
+      ctx.clearRect(0, 0, width, height);
 
-    for (var i = 0; i < particles.length; i++) {
-      var p = particles[i];
-      var t = Math.min(1, Math.max(0, (now - startTime - p.delay) / 1100));
-      var e = 1 - Math.pow(1 - t, 3);
-      var fx = p.x + (p.tx - p.x) * e;
-      var fy = p.y + (p.ty - p.y) * e;
-      if (t >= 1) {
-        fx = p.tx + Math.sin(now / 1400 + p.phase) * 1.6;
-        fy = p.ty + Math.cos(now / 1700 + p.phase) * 1.6;
+      for (var i = 0; i < birds.length; i++) {
+        var bird = birds[i];
+        var raw = (elapsed - bird.delay) / bird.duration;
+        if (raw < 0 || raw > 1) continue;
+        var t = raw * raw * (3 - 2 * raw);
+        var point = pointOnCurve(bird, t);
+        var tangent = tangentOnCurve(bird, t);
+        point.x += Math.cos(raw * Math.PI * 2 + bird.phase) * bird.drift;
+        point.y += Math.sin(raw * Math.PI * 2.5 + bird.phase) * bird.drift;
+        drawCrow(bird, point.x, point.y, Math.atan2(tangent.y, tangent.x), elapsed);
       }
-      ctx.globalAlpha = t < 1 ? 0.12 + e * 0.16 : 0.3;
-      ctx.fillStyle = p.accent ? '#B4441C' : '#16130E';
-      ctx.fillText(p.glyph, fx + px, fy + py);
-    }
-    ctx.globalAlpha = 1;
+      ctx.globalAlpha = 1;
 
-    if (running) {
-      if (settled) { stop(); }
-      else rafId = requestAnimationFrame(draw);
-    }
-  }
-
-  function paint() { draw(performance.now()); }
-  var paintIdle = 0;
-  function paintSoon() {
-    if (running) return;
-    clearTimeout(paintIdle);
-    paint();
-    paintIdle = setTimeout(paint, 160);
-  }
-
-  function start() {
-    if (running) return;
-    running = true;
-    startTime = performance.now();
-    rafId = requestAnimationFrame(draw);
-  }
-  function stop() {
-    running = false;
-    cancelAnimationFrame(rafId);
-  }
-
-  var resizeTimer = 0;
-  window.addEventListener('resize', function () {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () { buildParticles(); paintSoon(); }, 150);
-  });
-
-  canvas.parentElement.addEventListener('pointermove', function (e) {
-    var rect = canvas.getBoundingClientRect();
-    mouse.x = (e.clientX - rect.left) / rect.width;
-    mouse.y = (e.clientY - rect.top) / rect.height;
-    paintSoon();
-  });
-
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (entries) {
-      if (entries[0].isIntersecting) {
-        startTime = Math.min(startTime, performance.now() - SETTLE_MS);
-        paintSoon();
+      if (elapsed < flockEnd + 80) {
+        flockRaf = requestAnimationFrame(drawFlock);
       } else {
-        stop();
+        flockFinished = true;
+        ctx.clearRect(0, 0, width, height);
+        hero.classList.add('flock-finished');
       }
-    }, { threshold: 0.05 }).observe(canvas);
-  }
+    }
 
-  buildParticles();
-  start();
+    buildFlock();
+    flockStart = performance.now();
+    flockRaf = requestAnimationFrame(drawFlock);
+
+    var resizeTimer = 0;
+    window.addEventListener('resize', function () {
+      if (flockFinished) return;
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        cancelAnimationFrame(flockRaf);
+        buildFlock();
+        flockStart = performance.now();
+        flockRaf = requestAnimationFrame(drawFlock);
+      }, 150);
+    });
+  }
 })();
