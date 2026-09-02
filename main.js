@@ -299,44 +299,43 @@
         var c2y;
         var ex;
         var ey;
-        // A loose neighbourhood around the top-left, rather than one shared point.
-        // Some exits remain just outside the viewport so the flock has room to clear.
-        var exitZoneX = width * (-0.24 + random() * 0.42);
-        var exitZoneY = height * (-0.22 + random() * 0.38);
+        var slope = 0.48 + random() * 0.3;
+        var travel;
+        var overshoot;
+        var dx;
+        var dy;
+        var bend;
 
-        // Three ingress corridors fill the frame, all flowing into the same
-        // top-left neighbourhood without converging on a single screen corner.
+        // Three ingress corridors, then one shared diagonal vector. Each ray
+        // exits where it naturally meets the upper or left viewport edge.
         if (entry === 0) {
-          // Bottom: a rising, slightly turning lift through the lower half.
-          sx = width * (0.02 + random() * 0.96);
-          sy = height * (1.02 + random() * 0.34);
-          ex = Math.min(exitZoneX, sx - width * (0.08 + random() * 0.2));
-          ey = Math.min(exitZoneY, sy - height * (0.2 + random() * 0.28));
-          c1x = width * (0.03 + random() * 0.9);
-          c1y = height * (0.72 + random() * 0.26);
-          c2x = ex + width * (0.06 + random() * 0.26);
-          c2y = ey + height * (0.16 + random() * 0.34);
+          // Bottom: middle-to-right launch points keep the diagonal legible.
+          sx = width * (0.12 + random() * 1.1);
+          sy = height * (1.02 + random() * 0.3);
         } else if (entry === 1) {
-          // Right: a lateral sweep that cuts across the middle of the Hero.
+          // Right: enter below the top margin so the path crosses the Hero.
           sx = width * (1.02 + random() * 0.34) + group * 8;
-          sy = height * (0.04 + random() * 0.84);
-          ex = exitZoneX;
-          ey = Math.min(exitZoneY, sy - height * (0.18 + random() * 0.3));
-          c1x = width * (0.72 + random() * 0.3);
-          c1y = height * (0.04 + random() * 0.92);
-          c2x = width * (0.06 + random() * 0.58);
-          c2y = ey + height * (0.05 + random() * 0.34);
+          sy = height * (0.26 + random() * 0.7);
         } else {
-          // Bottom-right: the dense core of the original diagonal flight.
+          // Bottom-right: the dense, long-running diagonal core.
           sx = width * (1.01 + random() * 0.33) + group * 10;
-          sy = height * (0.76 + random() * 0.62);
-          ex = exitZoneX;
-          ey = exitZoneY;
-          c1x = width * (0.62 + random() * 0.34);
-          c1y = height * (0.42 + random() * 0.58);
-          c2x = ex + width * (0.08 + random() * 0.24);
-          c2y = height * (-0.24 + random() * 0.82);
+          sy = height * (0.8 + random() * 0.56);
         }
+
+        // Travel up-left until the line reaches the top or left boundary, then
+        // continue just beyond it. This creates adjacent exits rather than a
+        // single magnetic corner.
+        travel = Math.min(sx, sy / slope);
+        overshoot = width * (0.06 + random() * 0.14);
+        ex = sx - travel - overshoot;
+        ey = sy - slope * (travel + overshoot);
+        dx = ex - sx;
+        dy = ey - sy;
+        bend = (random() - 0.5) * height * 0.14;
+        c1x = sx + dx * (0.24 + random() * 0.09) + bend * 0.34;
+        c1y = sy + dy * (0.24 + random() * 0.09) - bend * 0.56;
+        c2x = sx + dx * (0.68 + random() * 0.1) - bend * 0.16;
+        c2y = sy + dy * (0.68 + random() * 0.1) + bend * 0.36;
         var bird = {
           sx: sx,
           sy: sy,
