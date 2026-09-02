@@ -82,12 +82,13 @@
   function revealHeroInterface() {
     if (!hero || interfaceRevealed) return;
     interfaceRevealed = true;
-    document.documentElement.classList.add('interface-visible');
-    setTimeout(function () { hero.classList.add('is-meta-visible'); }, 60);
-    setTimeout(function () { hero.classList.add('is-title-visible'); }, 180);
-    setTimeout(function () { hero.classList.add('is-details-visible'); }, 600);
-    setTimeout(startTerminalTyping, 690);
-    setTimeout(function () { hero.classList.add('is-stable'); }, 2250);
+    setTimeout(function () { hero.classList.add('is-title-visible'); }, 160);
+    setTimeout(function () {
+      document.documentElement.classList.add('interface-visible');
+      hero.classList.add('is-meta-visible', 'is-details-visible');
+    }, 2200);
+    setTimeout(startTerminalTyping, 2360);
+    setTimeout(function () { hero.classList.add('is-stable'); }, 2840);
   }
 
   if (hero) {

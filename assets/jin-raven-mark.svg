@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 400" fill="none">
+  <defs>
+    <linearGradient id="ravenLight" x1="110" y1="110" x2="516" y2="340" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF9FF"/>
+      <stop offset=".52" stop-color="#F0EAF6"/>
+      <stop offset="1" stop-color="#C9B6E6"/>
+    </linearGradient>
+    <mask id="jinCutout" maskUnits="userSpaceOnUse" x="0" y="0" width="640" height="400">
+      <rect width="640" height="400" fill="#fff"/>
+      <path fill="#000" d="M188 147h41v104c0 38-22 63-61 63-22 0-40-9-52-26l28-24c7 11 14 16 24 16 13 0 20-8 20-26V147Z"/>
+      <path fill="#000" d="M250 147h40v163h-40z"/>
+      <path fill="#000" d="M312 147h37l55 83v-83h38v163h-35l-57-85v85h-38V147Z"/>
+    </mask>
+  </defs>
+  <g mask="url(#jinCutout)">
+    <path fill="url(#ravenLight)" d="M53 206 145 161c22-33 50-51 88-57 38-43 99-60 158-41 57 18 109-7 190-46-35 68-85 116-154 151 70-15 132-1 190 34-82 18-144 50-192 99l83 74c-89-18-159-44-207-78-39 30-92 51-160 64 37-42 53-81 39-118-49 1-96-12-126-43Z"/>
+  </g>
+</svg>
