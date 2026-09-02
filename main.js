@@ -297,31 +297,40 @@
         var c1y;
         var c2x;
         var c2y;
+        var ex;
+        var ey;
 
-        // Three ingress corridors fill the whole frame while sharing one exit.
+        // Three ingress corridors fill the frame. Each bird keeps travelling
+        // toward its own upper-left, instead of converging on one screen corner.
         if (entry === 0) {
           // Bottom: a rising, slightly turning lift through the lower half.
           sx = width * (0.02 + random() * 0.96);
           sy = height * (1.02 + random() * 0.34);
+          ex = sx - width * (0.12 + random() * 0.46);
+          ey = -height * (0.08 + random() * 0.3);
           c1x = width * (0.03 + random() * 0.9);
           c1y = height * (0.72 + random() * 0.26);
-          c2x = width * (-0.1 + random() * 0.68);
+          c2x = ex + width * (0.06 + random() * 0.26);
           c2y = height * (0.06 + random() * 0.54);
         } else if (entry === 1) {
           // Right: a lateral sweep that cuts across the middle of the Hero.
           sx = width * (1.02 + random() * 0.34) + group * 8;
           sy = height * (0.04 + random() * 0.84);
+          ex = -width * (0.05 + random() * 0.28);
+          ey = sy - height * (0.24 + random() * 0.62);
           c1x = width * (0.72 + random() * 0.3);
           c1y = height * (0.04 + random() * 0.92);
           c2x = width * (0.06 + random() * 0.58);
-          c2y = height * (-0.16 + random() * 0.7);
+          c2y = ey + height * (0.05 + random() * 0.34);
         } else {
           // Bottom-right: the dense core of the original diagonal flight.
           sx = width * (1.01 + random() * 0.33) + group * 10;
           sy = height * (0.76 + random() * 0.62);
+          ex = sx - width * (0.48 + random() * 0.5);
+          ey = -height * (0.08 + random() * 0.4);
           c1x = width * (0.62 + random() * 0.34);
           c1y = height * (0.42 + random() * 0.58);
-          c2x = width * (-0.02 + random() * 0.62);
+          c2x = ex + width * (0.08 + random() * 0.24);
           c2y = height * (-0.24 + random() * 0.82);
         }
         var bird = {
@@ -331,8 +340,8 @@
           c1y: c1y,
           c2x: c2x,
           c2y: c2y,
-          ex: -width * (0.07 + random() * 0.38),
-          ey: -height * (0.08 + random() * 0.42),
+          ex: ex,
+          ey: ey,
           delay: delay,
           duration: duration,
           depth: depth,
