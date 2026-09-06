@@ -1,5 +1,14 @@
 # CHANGELOG.md — JIN Personal Site
 
+## 2026-09-06 · Mobile layout and accessibility polish (review branch)
+
+- Fix the mobile Hero grid's intrinsic-width overflow: its single column can shrink to the container, keeping the status text inside the screen.
+- Stack contact names and addresses below 768px, allow long addresses to wrap, and make credential links full-row targets at least 44px high.
+- Fix the reduced-motion terminal reading an undefined field; use the original line text. Match the specificity of the animated Now dots so reduced motion disables their pulse.
+- Preserve the raven Canvas code, paths, timing, SVG mark, ignition keyframes, HTML, copy, and deployment setup.
+- Validation: local browser inspection at 375 / 768 / 1440px; no document horizontal overflow; credential targets at least 44px; Hero/Contact navigation exercised; no browser warnings/errors observed. JavaScript syntax and a source-level reduced-motion terminal regression passed; the original version fails that regression.
+- Limits: reduced-motion behavior was checked with a JavaScript DOM stub and CSS specificity review, not a native browser media-preference override. Changes are on a review branch, not deployed to the production site.
+
 ## 2026-09-02 · v0.2.6 · Diagonal Raven Flow
 
 - **用户可见**：根据作者提供的动线图，乌鸦改为近似平行的右下→左上斜向群飞。从下方、右方、右下方进入后，每只鸟沿同一总体方向自然穿出顶部或左侧边缘；不再汇聚到一个角落。

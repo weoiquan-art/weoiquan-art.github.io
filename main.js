@@ -46,7 +46,7 @@
       return { el: span, text: text, full: line.t };
     }
     if (reducedMotion) {
-      LINES.forEach(function (line) { lineEl(line).text.textContent = line.full; });
+      LINES.forEach(function (line) { lineEl(line).text.textContent = line.t; });
       term.parentElement.classList.add('typing-complete');
     } else {
       var li = 0, rendered = [], typingStarted = false;
