@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JIN — Raven study</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f6f5f1;color:#161a18;font:14px/1.7 Arial,sans-serif}header{position:absolute;top:30px;left:5vw;z-index:2;pointer-events:none}h1{font:36px Georgia,serif;margin:0}p{margin:7px 0;color:#62675f}#raven-3d{height:84svh;max-width:850px;margin:auto;min-height:500px;position:relative}canvas{width:100%;height:100%;display:block}.fallback{display:none;position:absolute;inset:100px 0 0;text-align:center}.fallback img{height:75%;max-width:80%;object-fit:contain}#raven-3d[data-state="fallback"] .fallback{display:block}#raven-3d[data-state="fallback"] canvas{display:none}.controls{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding:0 16px}button,a{font:inherit;color:inherit;border:1px solid #d7d9d0;background:transparent;padding:8px 20px;cursor:pointer;text-decoration:none}button:focus-visible,a:focus-visible{outline:2px solid #4b5945;outline-offset:4px}.note{text-align:center;font-size:12px;padding:10px 20px 20px}@media(max-width:600px){header{top:20px}h1{font-size:25px}#raven-3d{height:76svh;min-height:440px}.controls{gap:8px}button,a{padding:8px 14px}}
+</style>
+</head>
+<body>
+<header><h1>JIN / Raven study</h1><p>移动鼠标，让它看向你。</p></header>
+<main>
+<div id="raven-3d" data-state="loading"><div class="fallback" role="status"><img src="assets/raven-white-ink.png" alt="白墨 J 乌鸦"><p>此设备暂时无法显示 3D，先欣赏白墨乌鸦。</p></div></div>
+<div class="controls"><button data-look="-1.2">看左侧</button><button data-look="0">看正面</button><button data-look="1.2">看右侧</button><a href="./">返回网站</a></div>
+<p class="note">动作研究 · 转头、重心转移与交替抓握。羽毛材质仍在打磨。</p>
+<noscript><p class="note">开启 JavaScript 可查看 3D 动作。</p></noscript>
+</main>
+<script type="module" src="raven-3d.js"></script>
+</body>
+</html>

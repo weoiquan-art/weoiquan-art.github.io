@@ -1,5 +1,11 @@
 # CHANGELOG.md — JIN Personal Site
 
+## 2026-09-06 · Separate 3D raven motion study
+
+- Add an independent `/raven-3d.html` preview with modeled head/neck/torso motion and alternating foot release, lift and regrip.
+- Add locally vendored Three.js, a static fallback, direction buttons and reduced-motion handling. Keep the approved homepage and entrance intact.
+- This is a procedural motion prototype; feather materials and brush texture remain unfinished. See RAVEN-3D.md for scope and verification.
+
 ## 2026-09-06 · Perched raven / pointer gaze
 
 - Add a slim charcoal perch with two visible grasping feet and hooked claws; keep the white ink J and iridescent feathers.
