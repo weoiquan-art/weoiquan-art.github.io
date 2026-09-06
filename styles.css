@@ -460,7 +460,7 @@ a.contact-link:hover { color: var(--color-accent); padding-left: var(--sp-sm); }
   .hero-meta { font-size: 0.56rem; letter-spacing: 0.08em; gap: 0.5rem; }
   .hero-meta .system-state { text-align: right; }
   .hero-wordmark { width: min(92vw, 27rem); }
-  .hero-signature { right: -1.75rem; bottom: -2.1rem; font-size: 0.54rem; }
+  .hero-signature { right: 0; bottom: -2.1rem; font-size: 0.54rem; }
   .hero-lower { gap: 1.5rem; }
   .hero-roles { font-size: 0.68rem; line-height: 1.75; margin-bottom: 1.2rem; }
   .hero-actions { gap: 1rem; }
