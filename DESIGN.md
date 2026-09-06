@@ -6,6 +6,9 @@ Warm-white editorial showcase. A realistic iridescent raven replaces J; large Bo
 Paper #f6f5f1; ink #161a18; secondary text #62675f; muted green #eaece5. Bodoni Moda is self-hosted for the wordmark, Georgia for editorial text, system sans-serif for utility copy. Fine rules and open rows organize the content.
 
 ## Assets
+- Current settled Hero: assets/raven-perched.png. Two curled feet grasp a slim charcoal metal rod; tail drops behind the rod. It preserves the iridescent raven and white J, with a new lower-body stance.
+- raven.css and raven.js use the same raster for registered body/head display layers, plus a small SVG eye. Pointer motion rotates only the head (up to 4.4 degrees) and moves the pupil; feet, body and perch stay fixed. Sparse blinks happen only on eligible pointer devices while the Hero is visible. Reduced motion, coarse pointers, hidden tabs and leaving the Hero stop the behavior. No permanent animation-frame loop is used.
+- The entry artwork and main.js timeline remain unchanged. The new settled stance appears after the existing white wash.
 - assets/raven-white-ink.png: user-selected v3 RGB original. CSS crops only the lower Jin signature, boosts brightness slightly to neutralize the near-white field, then multiplies it onto paper.
 - assets/raven-night.png: generated dark plate without the J, for the intro. It is an interpreted variant, not an exactly registered pixel layer.
 - The moving white stroke is native SVG with tapered geometry, bristle gaps and a small displacement texture. It approximates the reference brush; it is not an extracted raster mask.

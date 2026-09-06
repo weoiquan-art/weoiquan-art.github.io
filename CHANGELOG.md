@@ -1,5 +1,12 @@
 # CHANGELOG.md — JIN Personal Site
 
+## 2026-09-06 · Perched raven / pointer gaze
+
+- Add a slim charcoal perch with two visible grasping feet and hooked claws; keep the white ink J and iridescent feathers.
+- Add small head turns and eye tracking toward the mouse, plus occasional blinks. Keep body, feet and rod still. Stop/reset on reduced motion, coarse pointers, leaving the Hero, page blur/hidden state and intro replay.
+- Keep the approved entrance timing and original flock code unchanged. The static image remains available without GSAP or JavaScript.
+- Validated opposite pointer directions with DOM transforms, fixed body transform, offscreen reset, local coarse/reduced-motion fixtures, missing GSAP fallback, desktop/mobile composition and syntax/whitespace checks. See QA.md.
+
 ## 2026-09-06 · JIN Studio / white ink entrance
 
 - Convert the personal introduction into JIN's Studio showcase with approved creative disciplines and existing contact details; retain real credentials without inventing client work.

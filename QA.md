@@ -1,6 +1,7 @@
 # JIN Studio verification — 2026-09-06
 
 ## Local checks
+- Perched-raven update: inspected desktop and 375px mobile composition with toes wrapping over the rod and claws below. Mouse moved to opposite sides; head rotation and pupil translation changed in the expected direction while body transform stayed none. Leaving the Hero cleared the head transform. Local coarse/reduced-motion fixtures stayed still; missing GSAP rendered the original full image. Normal preview console had no errors. main.js and flock.js are byte-for-byte unchanged by this update.
 - JavaScript syntax: node --check main.js and flock.js passed.
 - git diff --check passed.
 - Browser visual inspection at actual 375, 768 and 1440px widths: no horizontal document overflow. Fixed mobile I/N wrapping and original raster signature escaping its crop before release.

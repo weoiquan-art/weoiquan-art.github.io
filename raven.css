@@ -1,0 +1,11 @@
+/* The same image supplies registered body/head layers; the static base is the fallback. */
+.raven-perched{width:42%;aspect-ratio:1024/1460;overflow:visible;isolation:isolate}
+.raven-perched .raven-body{position:relative}
+.raven-head{display:none;position:absolute;inset:0 auto auto 0;width:100%;aspect-ratio:1024/1536;transform-origin:40% 19%;pointer-events:none}
+.raven-head-image{mask-image:linear-gradient(to bottom,#000 19%,transparent 22%)}
+.raven-eye{position:absolute;inset:0;width:100%;height:100%}
+.raven-eyelid{transform:scaleY(0);transform-origin:471px 154px}
+.gaze-ready .raven-body{mask-image:linear-gradient(to bottom,transparent 15%,#000 16.5%)}
+.gaze-ready .raven-head{display:block}
+@media(max-width:767px){.raven-perched{width:62%;left:-4%;aspect-ratio:1024/1460;height:auto}}
+@media(prefers-reduced-motion:reduce),(hover:none),(pointer:coarse){.gaze-ready .raven-head{display:none}.gaze-ready .raven-body{mask-image:none}}

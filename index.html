@@ -9,11 +9,12 @@
   <meta property="og:title" content="JIN Studio — Visuals, motion & creative tools">
   <meta property="og:description" content="A quiet presence. A sharp point of view. Explore JIN's creative practice.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://weoiquan-art.github.io/assets/raven-white-ink.png">
+  <meta property="og:image" content="https://weoiquan-art.github.io/assets/raven-perched.png">
   <link rel="icon" type="image/svg+xml" href="assets/jin-raven-mark.svg">
-  <link rel="preload" href="assets/raven-white-ink.png" as="image">
+  <link rel="preload" href="assets/raven-perched.png" as="image">
   <link rel="preload" href="assets/vendor/bodoni-moda-regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="raven.css">
   <script>
     // Content stays available if any later script or image fails.
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !location.hash) {
@@ -78,7 +79,20 @@
         <div class="hero-topline micro"><span>Independent creative practice</span><span>Visuals · Motion · Tools</span></div>
         <div class="wordmark" aria-hidden="true">
           <div class="wordmark-type">I<span>N</span></div>
-          <div class="raven-crop"><img id="hero-raven" src="assets/raven-white-ink.png" width="1024" height="1536" alt="" fetchpriority="high"></div>
+          <div class="raven-crop raven-perched">
+            <img id="hero-raven" class="raven-body" src="assets/raven-perched.png" width="1024" height="1536" alt="" fetchpriority="high">
+            <div class="raven-head">
+              <img src="assets/raven-perched.png" width="1024" height="1536" alt="" class="raven-head-image">
+              <svg class="raven-eye" viewBox="0 0 1024 1536" fill="none">
+                <defs><clipPath id="eye-socket"><ellipse cx="471" cy="154" rx="11" ry="12"/></clipPath></defs>
+                <g clip-path="url(#eye-socket)">
+                  <ellipse cx="471" cy="154" rx="11" ry="12" fill="#111517"/>
+                  <g class="raven-pupil"><ellipse cx="472" cy="155" rx="9.5" ry="10.5" fill="#020405"/><ellipse cx="468" cy="148.5" rx="2.5" ry="1.8" fill="#d6dedb" opacity=".8"/></g>
+                  <ellipse class="raven-eyelid" cx="471" cy="154" rx="14" ry="15" fill="#111719"/>
+                </g>
+              </svg>
+            </div>
+          </div>
           <div class="studio-type">STUDIO</div>
         </div>
         <div class="hero-bottom">
@@ -123,5 +137,6 @@
   <script src="assets/vendor/gsap-3.15.0.min.js" defer></script>
   <script src="flock.js" defer></script>
   <script src="main.js" defer></script>
+  <script src="raven.js" defer></script>
 </body>
 </html>
