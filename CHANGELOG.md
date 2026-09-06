@@ -1,5 +1,14 @@
 # CHANGELOG.md — JIN Personal Site
 
+## 2026-09-06 · JIN Studio / white ink entrance
+
+- Convert the personal introduction into JIN's Studio showcase with approved creative disciplines and existing contact details; retain real credentials without inventing client work.
+- Replace the Hero mark with the selected iridescent raven and white brush J. The raven replaces J beside oversized Bodoni Moda I / N, with lettering behind the bird.
+- Add a 2.04-second GSAP entrance: raven, neck-to-hook brush reveal, warm-white wash, then page. Include explicit replay and skip controls, reduced-motion behavior and bounded loading/error fallbacks.
+- Preserve the original seeded flock geometry and diagonal flight in flock.js, available from Release the ravens. Stop its frame loop after completion, resize, reduced motion or a hidden tab.
+- Keep the static GitHub Pages stack. Vendor GSAP and the wordmark font locally; use native anchor scrolling and details for credentials.
+- Detailed verification and release evidence: see QA.md and the matching Pages workflow. Production visual browsing remains restricted by the environment's saved access policy.
+
 ## 2026-09-06 · Mobile layout and accessibility polish (review branch)
 
 - Fix the mobile Hero grid's intrinsic-width overflow: its single column can shrink to the container, keeping the status text inside the screen.

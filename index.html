@@ -2,155 +2,126 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JIN — AI Visual Designer · Creative Technologist</title>
-  <meta name="description" content="JIN (Lee Woei Quan) works across visual design, AI video, characters and AI tools. This site is a 60-second introduction.">
-  <meta property="og:title" content="JIN — AI Visual Designer · Creative Technologist">
-  <meta property="og:description" content="Who JIN is, what he's creating now, and where to find him.">
-  <meta property="og:type" content="profile">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23FAF7F2'/%3E%3Ctext x='32' y='46' font-family='Georgia,serif' font-size='42' font-weight='700' text-anchor='middle' fill='%23B4441C'%3EJ%3C/text%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <script>document.documentElement.classList.add('js');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5f1">
+  <title>JIN Studio — Visuals, motion & creative tools</title>
+  <meta name="description" content="JIN Studio — the creative practice of JIN. Visual design, AI moving image and creative tools, shaped by a personal point of view.">
+  <meta property="og:title" content="JIN Studio — Visuals, motion & creative tools">
+  <meta property="og:description" content="A quiet presence. A sharp point of view. Explore JIN's creative practice.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://weoiquan-art.github.io/assets/raven-white-ink.png">
+  <link rel="icon" type="image/svg+xml" href="assets/jin-raven-mark.svg">
+  <link rel="preload" href="assets/raven-white-ink.png" as="image">
+  <link rel="preload" href="assets/vendor/bodoni-moda-regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="styles.css">
+  <script>
+    // Content stays available if any later script or image fails.
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !location.hash) {
+      document.documentElement.classList.add('intro-pending');
+      window.introSafety = setTimeout(function () {
+        document.documentElement.classList.remove('intro-pending', 'intro-running');
+        document.documentElement.classList.add('intro-expired');
+      }, 4500);
+    }
+  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <div class="wipe" aria-hidden="true"></div>
-
-  <header class="site-header">
-    <nav class="nav" aria-label="Main">
-      <a class="nav-brand" href="#top" data-nav>JIN<span class="nav-dot">.</span></a>
-      <div class="nav-links mono">
-        <a href="#about" data-nav><span>01</span> about</a>
-        <a href="#now" data-nav><span>02</span> now</a>
-        <a href="#contact" data-nav><span>03</span> contact</a>
-      </div>
-      <a class="btn btn-primary nav-cta" href="mailto:jinmyaigc@gmail.com">Get in touch</a>
-    </nav>
-  </header>
-
-  <main id="main">
-    <!-- 01 · HERO -->
-    <section class="hero" id="top" aria-labelledby="hero-title">
-      <div class="midnight-atmosphere" aria-hidden="true">
-        <span class="midnight-eclipse"></span>
-        <span class="midnight-orbit midnight-orbit-a"></span>
-        <span class="midnight-orbit midnight-orbit-b"></span>
-        <span class="midnight-glow"></span>
-      </div>
-      <canvas class="crow-canvas" id="crow-canvas" aria-hidden="true"></canvas>
-      <div class="hero-inner">
-        <div class="hero-meta mono" data-intro="meta">
-          <span>JIN / NOCTURNE 01</span>
-          <span class="system-state"><i aria-hidden="true"></i> CREATIVE SYSTEM ONLINE</span>
-        </div>
-
-        <div class="hero-wordmark">
-          <h1 class="sr-only" id="hero-title">JIN — AI Visual Designer and Creative Technologist</h1>
-          <img class="raven-monogram" src="assets/jin-raven-mark.svg" alt="" aria-hidden="true">
-          <span class="hero-signature mono" aria-hidden="true">RAVEN MARK / JIN</span>
-        </div>
-
-        <div class="hero-lower" data-intro="details">
-          <div class="hero-identity">
-            <p class="hero-roles mono">
-              <span>AI VISUAL DESIGNER</span>
-              <span class="role-sep" aria-hidden="true">/</span>
-              <span>CREATIVE TECHNOLOGIST</span>
-            </p>
-            <div class="hero-actions">
-              <a class="hero-action hero-action-primary" href="#about" data-nav>WHO AM I? <span aria-hidden="true">↓</span></a>
-            </div>
-          </div>
-
-          <div class="terminal" aria-hidden="true">
-            <p class="terminal-label mono">JIN.SYS / WAKE TRACE</p>
-            <pre class="terminal-screen" id="terminal"><code>&gt; whoami
-jin
-&gt; role
-AI VISUAL DESIGNER
-CREATIVE TECHNOLOGIST
-&gt; status
-creating...</code><span class="cursor" aria-hidden="true"></span></pre>
-            <noscript><pre class="terminal-screen terminal-fallback"><code>&gt; whoami
-jin
-&gt; role
-AI VISUAL DESIGNER
-CREATIVE TECHNOLOGIST
-&gt; status
-creating...</code></pre></noscript>
-          </div>
-          <p class="sr-only">JIN. AI Visual Designer. Creative Technologist. Status: creating.</p>
-        </div>
-      </div>
-      <p class="hero-hint mono" data-intro="details" aria-hidden="true">SCROLL TO EXPLORE <span>↓</span></p>
-    </section>
-
-    <!-- 02 · ABOUT / WHAT I DO -->
-    <section class="section" id="about" aria-labelledby="about-title">
-      <div class="container">
-        <p class="eyebrow mono">01 — about</p>
-        <h2 class="section-title" id="about-title">I started with visual design.<br>Then AI changed how I create.</h2>
-        <div class="about-grid">
-          <p class="lede reveal">
-            I'm JIN — Lee Woei Quan. I design visuals by hand and build the tools that make
-            them move: AI video, characters, and small web experiences with a point of view.
-          </p>
-          <p class="reveal">
-            I don't work like a studio. I work like one curious person with good taste and a
-            terminal open — designing the visual language first, then teaching AI to keep up
-            with it. The skill that directed this very site is one I authored with GPT.
-          </p>
-        </div>
-        <div class="certs reveal" aria-label="AI credentials">
-          <h3 class="mono certs-title">receipts ↓</h3>
-          <ul class="certs-list mono">
-            <li><a href="assets/certificates/google-ai-professional-certificate.pdf" target="_blank" rel="noopener">Google AI Professional Certificate <span class="muted">— 7 courses, Coursera · 2026 ↗</span></a></li>
-            <li><a href="assets/certificates/nvidia-ai-for-all.pdf" target="_blank" rel="noopener">NVIDIA — AI for All: From Basics to GenAI Practice <span class="muted">· 2026 ↗</span></a></li>
-            <li><a href="assets/certificates/ai-untuk-rakyat.pdf" target="_blank" rel="noopener">AI Untuk Rakyat <span class="muted">— AI literacy programme · 2026 ↗</span></a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- 04 · CURRENTLY -->
-    <section class="section" id="now" aria-labelledby="now-title">
-      <div class="container">
-        <p class="eyebrow mono">02 — currently</p>
-        <h2 class="section-title" id="now-title">What's on the bench</h2>
-        <ul class="now-list reveal">
-          <li><span class="now-dot" aria-hidden="true"></span><span>Building AI tools — iterating <a href="https://github.com/weoiquan-art/jin-web-director" target="_blank" rel="noopener">jin-web-director</a>, the skill that built this site</span></li>
-          <li><span class="now-dot" aria-hidden="true"></span>Creating visual stories with my AI characters</li>
-          <li><span class="now-dot" aria-hidden="true"></span>Experimenting with local AI workflows</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- 05 · CONTACT -->
-    <section class="section contact" id="contact" aria-labelledby="contact-title">
-      <div class="container">
-        <p class="eyebrow mono">03 — contact</p>
-        <h2 class="section-title" id="contact-title">Say hello</h2>
-        <ul class="contact-list">
-          <li><a class="contact-link" href="mailto:jinmyaigc@gmail.com">Email <span class="muted">jinmyaigc@gmail.com ↗</span></a></li>
-          <li><a class="contact-link" href="https://www.instagram.com/desjin0827" target="_blank" rel="noopener">Instagram <span class="muted">@desjin0827 ↗</span></a></li>
-          <li><a class="contact-link" href="https://github.com/weoiquan-art" target="_blank" rel="noopener">GitHub <span class="muted">@weoiquan-art ↗</span></a></li>
-        </ul>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-row">
-      <p>© <span id="year">2026</span> JIN — designed by a person, directed by his own skill.</p>
-      <p class="mono"><a href="https://github.com/weoiquan-art/jin-web-director">jin-web-director ↗</a></p>
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro-bird">
+      <img id="night-raven" src="assets/raven-night.png" alt="" width="1024" height="1536" decoding="async">
+      <svg class="ink" viewBox="0 0 1024 1340" fill="none">
+        <defs>
+          <filter id="dry-edge" x="-8%" y="-4%" width="116%" height="108%">
+            <feTurbulence type="fractalNoise" baseFrequency=".09 .2" numOctaves="2" seed="7" result="grain"/>
+            <feDisplacementMap in="SourceGraphic" in2="grain" scale="5.5" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+          <mask id="brush-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1340">
+            <path id="brush-trace" d="M469 264 C378 298 374 392 409 487 C444 582 497 676 505 771 C517 884 434 947 280 866" stroke="white" stroke-width="130" stroke-linecap="round"/>
+          </mask>
+          <mask id="brush-grain" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1340">
+            <rect width="1024" height="1340" fill="white"/>
+            <g stroke="black" stroke-linecap="round">
+              <path d="M396 332 Q370 407 411 510" stroke-width="2"/>
+              <path d="M428 532 Q492 676 491 753" stroke-width="3"/>
+              <path d="M480 690 Q522 834 450 884" stroke-width="2.6"/>
+              <path d="M502 760 Q517 849 470 886" stroke-width="1.5"/>
+              <path d="M442 909 Q372 939 304 883" stroke-width="3"/>
+              <path d="M404 916 Q351 916 325 897" stroke-width="1.7"/>
+            </g>
+          </mask>
+        </defs>
+        <g mask="url(#brush-reveal)">
+          <g mask="url(#brush-grain)" fill="#fffefa" filter="url(#dry-edge)">
+            <path d="M469 264 C408 278 375 317 378 377 C378 442 421 533 451 615 C484 704 492 778 477 824 C461 882 395 908 338 891 L278 865 C318 910 377 935 430 925 C507 911 547 861 541 781 C536 683 476 570 433 478 C389 383 391 300 469 264Z"/>
+            <path d="M459 272 C394 305 387 347 391 395 L387 420 C377 352 390 300 459 272Z"/>
+            <path d="M524 738 C557 855 510 902 449 923 C506 893 541 841 524 738Z"/>
+            <path d="M413 930 Q345 923 293 881 Q352 918 413 930Z"/>
+          </g>
+        </g>
+      </svg>
     </div>
-  </footer>
-
-  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js" defer></script>
+    <div class="intro-wash"></div>
+  </div>
+  <button class="skip-intro" id="skip-intro" type="button">Skip intro ↗</button>
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="JIN Studio home">JIN<span>STUDIO</span></a>
+      <nav aria-label="Main navigation">
+        <a href="#practice">Practice</a><a href="#studio">Studio</a>
+        <a class="contact-nav" href="#contact">Let’s talk <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero" id="top" aria-labelledby="hero-title">
+        <h1 class="sr-only" id="hero-title">JIN Studio — Visuals, motion & creative tools</h1>
+        <div class="hero-topline micro"><span>Independent creative practice</span><span>Visuals · Motion · Tools</span></div>
+        <div class="wordmark" aria-hidden="true">
+          <div class="wordmark-type">I<span>N</span></div>
+          <div class="raven-crop"><img id="hero-raven" src="assets/raven-white-ink.png" width="1024" height="1536" alt="" fetchpriority="high"></div>
+          <div class="studio-type">STUDIO</div>
+        </div>
+        <div class="hero-bottom">
+          <p>A quiet presence.<br><em>A sharp point of view.</em></p>
+          <a class="text-link" href="#practice">Explore the practice <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="motion-controls" hidden>
+          <button id="replay-intro" type="button">↻ Replay ink</button><span aria-hidden="true">/</span>
+          <button id="replay-flock" type="button">↗ Release the ravens</button>
+        </div>
+      </section>
+      <section class="section practice" id="practice" aria-labelledby="practice-title">
+        <div class="section-heading"><p class="micro">01 / The practice</p><h2 id="practice-title">From a still image<br>to <em>something alive.</em></h2></div>
+        <div class="practice-list">
+          <article class="practice-row"><span class="micro">01</span><h3>Visual design</h3><p>Identity, image and composition.<br>Finding the details that make a visual feel its own.</p><span class="row-mark" aria-hidden="true">↗</span></article>
+          <article class="practice-row"><span class="micro">02</span><h3>AI moving image</h3><p>Characters, atmosphere and visual stories.<br>Exploring what happens when an image begins to move.</p><span class="row-mark" aria-hidden="true">↗</span></article>
+          <article class="practice-row"><span class="micro">03</span><h3>Creative tools</h3><p>Small web experiences and local AI workflows.<br>Making the tools part of the creative process.</p><span class="row-mark" aria-hidden="true">↗</span></article>
+        </div>
+      </section>
+      <section class="section studio" id="studio" aria-labelledby="studio-title">
+        <p class="micro">02 / Behind the studio</p>
+        <div class="studio-copy"><h2 id="studio-title">Curiosity, with<br><em>a point of view.</em></h2>
+          <p>JIN Studio is the creative practice of JIN — Lee Woei Quan. It brings visual design, AI characters and moving images into one place, with room to experiment.</p>
+          <p>The raven is a personal signature: quiet, free, and sharp-eyed. Look closer and the black holds colour. A brushstroke leaves a trace of J.</p>
+          <a class="text-link" href="https://github.com/weoiquan-art/jin-web-director" target="_blank" rel="noopener">Explore the web direction skill <span aria-hidden="true">↗</span></a>
+          <details class="credentials"><summary>Learning & credentials <span aria-hidden="true">+</span></summary><ul>
+            <li><a href="assets/certificates/google-ai-professional-certificate.pdf" target="_blank" rel="noopener">Google AI Professional Certificate ↗</a></li>
+            <li><a href="assets/certificates/nvidia-ai-for-all.pdf" target="_blank" rel="noopener">NVIDIA — AI for All ↗</a></li>
+            <li><a href="assets/certificates/ai-untuk-rakyat.pdf" target="_blank" rel="noopener">AI Untuk Rakyat ↗</a></li>
+          </ul></details>
+        </div>
+      </section>
+      <section class="section contact" id="contact" aria-labelledby="contact-title">
+        <p class="micro">03 / A conversation starts here</p><h2 id="contact-title">Have something<br><em>in mind?</em></h2>
+        <a class="email-link" href="mailto:jinmyaigc@gmail.com">jinmyaigc@gmail.com <span aria-hidden="true">↗</span></a>
+        <div class="social-links"><a href="https://www.instagram.com/desjin0827" target="_blank" rel="noopener">Instagram ↗</a><a href="https://github.com/weoiquan-art" target="_blank" rel="noopener">GitHub ↗</a></div>
+      </section>
+    </main>
+    <footer class="site-footer"><a class="brand" href="#top">JIN<span>STUDIO</span></a><p>© <span id="year">2026</span> JIN Studio</p><a href="#top">Back to top ↑</a></footer>
+  </div>
+  <canvas id="crow-canvas" aria-hidden="true" hidden></canvas>
+  <script src="assets/vendor/gsap-3.15.0.min.js" defer></script>
+  <script src="flock.js" defer></script>
   <script src="main.js" defer></script>
 </body>
 </html>
