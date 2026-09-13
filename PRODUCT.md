@@ -13,4 +13,3 @@ Updated 2026-09-13 from JIN's direction for a portfolio that reveals connected c
 - Evidence: the actual character-development direction in JIN-IP, the published JIN with Phoebe account, the existing Google certificate PDF, and the site's custom raven identity.
 - Stack and release route: static HTML, CSS and JavaScript on GitHub Pages; no framework migration, backend, tracking, video library or contact-form service.
 - Latest approved motion: raven first, draw the white brush J from its neck, then show the site. The old flock remains as an explicit replay.
-

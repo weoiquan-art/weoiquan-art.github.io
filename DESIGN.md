@@ -12,8 +12,9 @@ The two media areas are intentional pending states, not fake project thumbnails.
 
 ## Assets
 - Current settled Hero: assets/raven-perched.png. Two curled feet grasp a slim charcoal metal rod; tail drops behind the rod. It preserves the iridescent raven and white J, with a new lower-body stance.
+- assets/sera-chibi-hero.webp keeps the supplied Q-version design. assets/sera-homeworld-hero.webp uses the supplied adult face and proportions with the homeworld reference's single braid and organic clothing. Both are transparent, decorative Hero layers behind the raven and JIN letters.
 - raven.css and raven.js use the same raster for registered body/head display layers, plus a small SVG eye. Pointer motion rotates only the head (up to 4.4 degrees) and moves the pupil; feet, body and perch stay fixed. Sparse blinks happen only on eligible pointer devices while the Hero is visible. Reduced motion, coarse pointers, hidden tabs and leaving the Hero stop the behavior. No permanent animation-frame loop is used.
-- The entry artwork and main.js timeline remain unchanged. The new settled stance appears after the existing white wash.
+- The raven entrance remains unchanged. The two Sera forms enter once during the existing page reveal, then remain still.
 - assets/raven-white-ink.png: user-selected v3 RGB original. CSS crops only the lower Jin signature, boosts brightness slightly to neutralize the near-white field, then multiplies it onto paper.
 - assets/raven-night.png: generated dark plate without the J, for the intro. It is an interpreted variant, not an exactly registered pixel layer.
 - The moving white stroke is native SVG with tapered geometry, bristle gaps and a small displacement texture. It approximates the reference brush; it is not an extracted raster mask.
@@ -26,7 +27,7 @@ The two media areas are intentional pending states, not fake project thumbnails.
 | 0–0.28 | The upright raven emerges alone on near-black |
 | 0.30–1.02 | White ink reveals from neck to breast and leftward hook |
 | 1.06–1.56 | Warm-white wash expands from the ink area |
-| 1.44–2.04 | I / N, STUDIO, navigation and supporting text enter |
+| 1.40–2.04 | Both Sera forms, I / N, STUDIO, navigation and supporting text enter |
 
 GSAP 3.15.0 core drives one timeline. No ScrollTrigger, scroll hijacking, infinite ticker or Lenis is needed. The existing seeded Canvas flock keeps its original bird geometry, count, depth and diagonal trajectories, now in flock.js and started by Release the ravens. It clears and stops after each run; resize, hidden tab and reduced motion stop it.
 
@@ -41,4 +42,3 @@ Do not use desktop overflow clipping as a substitute for fixing a mobile text wr
 
 ## Known limits
 The artwork remains raster; no true transparent or vector logo master was produced. The intro and settled raven differ slightly in feather detail, bridged by the white wash. No field Core Web Vitals or physical-device GPU benchmarks have been collected.
-

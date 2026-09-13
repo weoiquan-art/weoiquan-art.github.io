@@ -3,6 +3,7 @@
 ## Unreleased · Portfolio world journey
 
 - Put “Portfolio” and JIN's capabilities on the first screen.
+- Add chibi and homeworld Sera as transparent Hero layers behind the raven and JIN letters, with one short entrance and a static reduced-motion fallback.
 - Replace the generic practice and empty-project sections with two distinct world areas: JIN with Phoebe for Q-version Phoebe, Nuonuo and Sera; then the adult Sera character world.
 - Reserve one polished media field in each world for JIN's greeting films without requesting missing video files.
 - Move the Google AI Professional Certificate into its own visible section, followed directly by contact.
@@ -89,4 +90,3 @@
 - **原因**：项目描述未定，宁缺毋滥（作者决定）；未来项目就绪可随时恢复
 - **同步**：移除 work 相关 CSS；PRODUCT.md 信息架构表更新为 4 区块
 - **验证**：本地渲染检查 + 线上 200 验证
-

@@ -9,6 +9,13 @@
 .raven-crop{left:6%;width:45%;top:1%;height:auto;aspect-ratio:1024/1325}
 .raven-crop img{filter:brightness(1.045)}
 .studio-type{left:54%;top:85%}
+.hero-sera-pair{position:absolute;inset:0;z-index:0;pointer-events:none}
+.hero-sera{position:absolute;display:block;height:auto}
+.hero-sera-homeworld{right:-1%;top:3%;width:26%;opacity:.86}
+.hero-sera-chibi{left:78%;bottom:1%;width:18%;opacity:.96}
+.wordmark-type{z-index:2}
+.raven-crop{z-index:3}
+.studio-type{z-index:4}
 .intro-bird{mix-blend-mode:lighten}
 @media(min-width:1500px){.wordmark{width:1160px;max-width:100%}}
 @media(max-width:767px){.site-header{height:78px}.site-header nav{gap:22px;font-size:11px}.site-header nav a:first-child{display:flex}.site-header nav a.nav-secondary{display:none}.brand{font-size:21px}.brand span{font-size:8px}.hero{padding-top:22px}.hero-topline{font-size:8px;letter-spacing:.11em}.wordmark{width:calc(100% + 20px);max-width:none;aspect-ratio:1.05;margin:20px -10px 0}.raven-crop{left:-9%;top:0;width:67%;height:100%}.wordmark-type{left:40%;top:19%;font-size:58cqw}.studio-type{left:55%;top:76%;font-size:2.2cqw;letter-spacing:.4em}.hero-bottom{padding:12px 0 22px;gap:24px}.hero-bottom p{font-size:12px}.hero-bottom em{font-size:15px}.hero-bottom .text-link{font-size:10px;gap:13px;max-width:150px}.motion-controls{justify-content:space-between;padding-top:6px}.motion-controls button{min-height:44px}.section{padding-top:68px;padding-bottom:68px}.contact h2{margin:30px 0;font-size:66px}.email-link{gap:20px;font-size:18px;overflow-wrap:anywhere}.site-footer{flex-wrap:wrap;gap:16px 20px;padding:26px 0}.site-footer .brand{width:100%}.intro-bird{width:94vw;height:auto;aspect-ratio:1024/1340;max-height:82svh}.skip-intro{bottom:16px}}@media(max-width:767px){.raven-crop{height:auto;aspect-ratio:1024/1325}.wordmark-type{left:31%;top:18%;font-size:58cqw}.studio-type{left:56%;top:71%}}
@@ -55,6 +62,8 @@
 
 @media(max-width:767px){
   .hero-topline{align-items:flex-start}
+  .hero-sera-homeworld{right:-2%;top:5%;width:35%;opacity:.84}
+  .hero-sera-chibi{left:64%;bottom:1%;width:28%}
   .hero-topline span:last-child{display:block;max-width:150px;text-align:right}
   .portfolio-word{font-size:30px}
   .hero-bottom{align-items:flex-start;flex-direction:column}
@@ -71,4 +80,3 @@
   .credential-card h2{font-size:52px}
   .contact-intro{margin:-12px 0 24px;font-size:14px}
 }
-

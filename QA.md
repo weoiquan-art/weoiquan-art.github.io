@@ -3,6 +3,7 @@
 ## Unreleased portfolio-world review — 2026-09-13
 
 - Local previews at 375×812, 768×900 and 1440×1000 show Portfolio and the capability line on entry with no positive horizontal overflow.
+- Both transparent Sera assets load at all three widths. Chibi Sera and homeworld Sera remain visible as one right-side pair behind the JIN lettering; replay finishes with the intended static opacity and no console warnings or errors.
 - At 375px the complete Hero ends at 645px after hash navigation, leaving the world transition visible in the first viewport. The normal root entry also shows the header, Portfolio, capabilities, primary message and CTA after the approved intro finishes.
 - World sections stack at 768px and below; at 1440px they use two columns and measure about one viewport high. The Q-version and adult Sera sections remain visually distinct.
 - The Hero link reaches `#worlds`; JIN with Phoebe and the contact social link point to `https://www.instagram.com/jin082714/`; the Google card points to the existing certificate PDF.
@@ -28,4 +29,3 @@
 - The static logo remains RGB raster, not an alpha/vector master. Intro brush is a native SVG interpretation; dark and white plates are not pixel-identical.
 - Production visual browser access is restricted by the environment's saved policy. Release verification uses the exact GitHub Pages workflow and live HTTP content/assets separately from local browser QA.
 - QA fixtures remain in the local work directory and are not shipped.
-
