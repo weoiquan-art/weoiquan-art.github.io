@@ -10,8 +10,9 @@
   const trace = document.getElementById('brush-trace');
   const night = document.getElementById('night-raven');
   const hero = document.getElementById('hero-raven');
+  const heroCharacters = [...document.querySelectorAll('.hero-sera')];
   const gsap = window.gsap;
-  const revealTargets = '.wordmark-type, .studio-type, .site-header, .hero-topline, .hero-bottom';
+  const revealTargets = '.hero-sera, .wordmark-type, .studio-type, .site-header, .hero-topline, .hero-bottom';
   let timeline;
   let running = false;
   let cancelled = false;
@@ -46,6 +47,8 @@
     gsap.set('.intro-bird', { opacity: 0, scale: .975 });
     gsap.set('.intro-wash', { scale: 0 });
     gsap.set(revealTargets, { opacity: 0, y: 14 });
+    gsap.set('.hero-sera-homeworld', { x: 26 });
+    gsap.set('.hero-sera-chibi', { x: -12, scale: .94 });
     // Spatial reveal follows neck -> breast -> hook, rather than fading in a finished J.
     timeline = gsap.timeline({ onComplete: finish });
     timeline.to('.intro-bird', { opacity: 1, scale: 1, duration: .28, ease: 'power2.out' }, 0)
@@ -53,6 +56,8 @@
       .to('.intro-wash', { scale: 1, duration: .50, ease: 'power2.inOut' }, 1.06)
       .call(() => root.classList.add('page-entering'), [], 1.30)
       .to('.intro', { opacity: 0, duration: .28 }, 1.42)
+      .to('.hero-sera-homeworld', { opacity: .86, x: 0, y: 0, duration: .58, ease: 'power3.out' }, 1.40)
+      .to('.hero-sera-chibi', { opacity: .96, x: 0, y: 0, scale: 1, duration: .46, ease: 'back.out(1.3)' }, 1.49)
       .to('.wordmark-type', { opacity: 1, y: 0, duration: .50, ease: 'power3.out' }, 1.44)
       .to('.studio-type', { opacity: 1, y: 0, duration: .36 }, 1.55)
       .to('.site-header, .hero-topline, .hero-bottom', { opacity: 1, y: 0, duration: .35, stagger: .035 }, 1.62);
@@ -80,7 +85,7 @@
 
   // Bound loading so a slow image cannot become an indefinite splash screen.
   Promise.race([
-    Promise.all([night.decode(), hero.decode()]).then(() => true).catch(() => false),
+    Promise.all([night.decode(), hero.decode(), ...heroCharacters.map(image => image.decode())]).then(() => true).catch(() => false),
     new Promise(resolve => setTimeout(() => resolve(false), 1200))
   ]).then(ready => {
     if (ready && !cancelled && !root.classList.contains('intro-expired')) playIntro();

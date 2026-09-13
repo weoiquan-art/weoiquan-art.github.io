@@ -1,5 +1,14 @@
 # CHANGELOG.md — JIN Personal Site
 
+## Unreleased · Portfolio world journey
+
+- Put “Portfolio” and JIN's capabilities on the first screen.
+- Add chibi and homeworld Sera as transparent Hero layers behind the raven and JIN letters, with one short entrance and a static reduced-motion fallback.
+- Replace the generic practice and empty-project sections with two distinct world areas: JIN with Phoebe for Q-version Phoebe, Nuonuo and Sera; then the adult Sera character world.
+- Reserve one polished media field in each world for JIN's greeting films without requesting missing video files.
+- Move the Google AI Professional Certificate into its own visible section, followed directly by contact.
+- Link the site to JIN with Phoebe (@jin082714) and preserve the approved raven entrance, static stack and deployment route.
+
 ## 2026-09-06 · Separate 3D raven motion study
 
 - Add an independent `/raven-3d.html` preview with modeled head/neck/torso motion and alternating foot release, lift and regrip.
