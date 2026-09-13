@@ -1,11 +1,12 @@
 # CHANGELOG.md — JIN Personal Site
 
-## Unreleased · Connected worlds and selected-work structure
+## Unreleased · Portfolio world journey
 
-- Reframe JIN Studio as the shared entry point for distinct creative-world accounts. Add JIN with Phoebe (@jin082714) as the first confirmed world.
-- Add a selected-work section with an honest empty state and a content checklist; no unapproved projects are published.
-- Prioritize Worlds in the Hero CTA and mobile navigation. Remove arrows from informational Practice rows.
-- Preserve the approved raven entrance, existing visual system, static stack and deployment route.
+- Put “Portfolio” and JIN's capabilities on the first screen.
+- Replace the generic practice and empty-project sections with two distinct world areas: JIN with Phoebe for Q-version Phoebe, Nuonuo and Sera; then the adult Sera character world.
+- Reserve one polished media field in each world for JIN's greeting films without requesting missing video files.
+- Move the Google AI Professional Certificate into its own visible section, followed directly by contact.
+- Link the site to JIN with Phoebe (@jin082714) and preserve the approved raven entrance, static stack and deployment route.
 
 ## 2026-09-06 · Separate 3D raven motion study
 

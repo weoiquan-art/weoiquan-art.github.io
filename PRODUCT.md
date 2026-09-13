@@ -1,18 +1,16 @@
 # JIN Studio — product brief
 
-Updated 2026-09-13 from JIN's direction to make the Studio a shared home for distinct creative worlds and a future selected-work archive.
+Updated 2026-09-13 from JIN's direction for a portfolio that reveals connected character worlds while people scroll.
 
 - Audience: people considering creative collaboration and people exploring JIN's work.
-- Purpose: connect JIN's distinct creative-world accounts, establish their shared maker identity, and eventually show specific works and capabilities.
-- Primary action for now: visit a published world. Email remains the collaboration action.
-- Identity: JIN Studio is the creative practice of JIN (Lee Woei Quan). This does not claim a team, agency size, client list or commercial track record.
-- Confirmed fields: visual design, AI moving image, creative tools; ongoing interests include AI characters and local workflows.
-- Structure: raven / IN Hero → connected worlds → selected-work structure → practice → studio and optional credentials → contact.
-- Confirmed world: JIN with Phoebe, Instagram @jin082714. Other worlds are added only when JIN confirms their names and links.
-- Selected work has an honest empty state until JIN supplies approved images and project facts; it must not imply completed projects that are not documented.
-- Evidence: three existing certificates, the public jin-web-director repository, the actual site and its custom raven identity.
-- Projects without approved public descriptions are omitted. No invented portfolio, metrics, testimonials or client logos. See WORK_CONTENT.md for the facts needed to publish the first project.
-- Stack and release route: static HTML, CSS, JavaScript on GitHub Pages; no framework migration, backend, tracking or contact-form service.
+- First-screen job: say **Portfolio** immediately and state what JIN can make — original character worlds, AI moving image and web experiences.
+- Primary action: enter the worlds. Email remains the final collaboration action.
+- Identity: JIN Studio is the shared maker identity behind distinct creative-world accounts. It does not claim a team, agency size, client list or commercial track record.
+- Structure: Portfolio Hero → JIN with Phoebe / Q-version world → adult Sera world → Google AI Professional Certificate → Contact.
+- JIN with Phoebe: the first published social world, linking to Instagram @jin082714. Its welcome film features Q-version Phoebe, Nuonuo and Sera, each greeting the visitor differently.
+- Sera: a separate adult-character world built through character development, cinematic CG and longer-form worldbuilding. It receives its own welcome film rather than sharing the Q-version presentation.
+- Media status: both film spaces remain explicit in-progress compositions until JIN supplies approved videos. No missing file requests, false thumbnails or invented project results are shipped.
+- Evidence: the actual character-development direction in JIN-IP, the published JIN with Phoebe account, the existing Google certificate PDF, and the site's custom raven identity.
+- Stack and release route: static HTML, CSS and JavaScript on GitHub Pages; no framework migration, backend, tracking, video library or contact-form service.
 - Latest approved motion: raven first, draw the white brush J from its neck, then show the site. The old flock remains as an explicit replay.
-- The user's latest animation request supersedes the earlier slow flicker / terminal introduction.
 
