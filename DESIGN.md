@@ -3,6 +3,9 @@
 ## Approved direction
 Warm-white editorial showcase. A realistic iridescent raven replaces J; large Bodoni Moda I and N sit behind it, with a small tracked STUDIO label. The raven is quiet, free and sharp-eyed. Its black feathers carry restrained blue, teal and violet.
 
+## 2026-09-13 content direction
+JIN Studio now acts as the meeting point for separate creative-world accounts. Keep the raven entrance and existing type/color system. Introduce an editorial worlds index before the practice section; JIN with Phoebe is the first confirmed world. A selected-work section follows with a clearly stated empty state until real project media and descriptions are approved. The work archive should become visual evidence, not another list of capabilities. Mobile navigation prioritizes Worlds and Contact. Practice rows are informational, so they no longer carry arrow affordances.
+
 Paper #f6f5f1; ink #161a18; secondary text #62675f; muted green #eaece5. Bodoni Moda is self-hosted for the wordmark, Georgia for editorial text, system sans-serif for utility copy. Fine rules and open rows organize the content.
 
 ## Assets
@@ -36,3 +39,4 @@ Do not use desktop overflow clipping as a substitute for fixing a mobile text wr
 
 ## Known limits
 The artwork remains raster; no true transparent or vector logo master was produced. The intro and settled raven differ slightly in feather detail, bridged by the white wash. No field Core Web Vitals or physical-device GPU benchmarks have been collected.
+
