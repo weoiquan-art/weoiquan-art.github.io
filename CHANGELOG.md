@@ -1,5 +1,12 @@
 # CHANGELOG.md — JIN Personal Site
 
+## Unreleased · Connected worlds and selected-work structure
+
+- Reframe JIN Studio as the shared entry point for distinct creative-world accounts. Add JIN with Phoebe (@jin082714) as the first confirmed world.
+- Add a selected-work section with an honest empty state and a content checklist; no unapproved projects are published.
+- Prioritize Worlds in the Hero CTA and mobile navigation. Remove arrows from informational Practice rows.
+- Preserve the approved raven entrance, existing visual system, static stack and deployment route.
+
 ## 2026-09-06 · Separate 3D raven motion study
 
 - Add an independent `/raven-3d.html` preview with modeled head/neck/torso motion and alternating foot release, lift and regrip.
@@ -81,3 +88,4 @@
 - **原因**：项目描述未定，宁缺毋滥（作者决定）；未来项目就绪可随时恢复
 - **同步**：移除 work 相关 CSS；PRODUCT.md 信息架构表更新为 4 区块
 - **验证**：本地渲染检查 + 线上 200 验证
+
