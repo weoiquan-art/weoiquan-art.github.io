@@ -117,8 +117,9 @@
       const iw = h*.95;
       ctx.drawImage(pictures.chibi,w*.12-iw/2,-h*.62,iw,h*1.14);
     } else if (chapter.art === 'adult' && pictures.adult.complete && pictures.adult.naturalWidth) {
-      const iw = h*.69;
-      ctx.drawImage(pictures.adult,w*.15-iw/2,-h*.73,iw,h*1.7);
+      const portraitH = h * 1.45;
+      const portraitW = portraitH * pictures.adult.naturalWidth / pictures.adult.naturalHeight;
+      ctx.drawImage(pictures.adult,w*.13-portraitW/2,-h*.46,portraitW,portraitH);
     }
 
     const labelX = -w*.43;
