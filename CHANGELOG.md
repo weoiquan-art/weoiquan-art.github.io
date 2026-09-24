@@ -1,5 +1,26 @@
 # CHANGELOG.md — JIN Personal Site
 
+## Unreleased · Portfolio world journey
+
+- Add position-based desktop mouse navigation: dwell near the upper or lower edge to move through neighboring cards at a controlled pace; moving to the middle, an interactive control, a dialog or another tab stops it. Wheel, drag, index and keyboard remain available.
+- Add a chapter-linked atmospheric background with crossfading stills. The existing Sera greeting can play behind its own chapter as a temporary demonstration, with motion and data-saving still fallbacks. Reserve independent media slots for six newly generated films; record replacement requirements in `MEDIA_PLAN.md`.
+- Rebuild `index.html` as the Viscose Carousel-inspired homepage per JIN's direction. An off-screen ring of six chapters now leads into the two real worlds, with JIN's own artwork, soft card connectors, chapter metadata, index navigation, drag/wheel/keyboard controls and native world details. The standalone `worlds-concept.html` remains a superseded study.
+- Put adult Sera's real 9:16 greeting in a contained portrait panel with poster, muted inline loop, pause control, playback fallback and reduced-motion still. Keep the three-character Q welcome film marked in progress.
+- Retain a complete two-world static fallback when JavaScript/Canvas is unavailable. Use the existing local GSAP and static GitHub Pages route.
+- Keep this redesign on draft PR #2 for visual review; exact narrow-width browser QA and production deployment are outstanding.
+
+### Earlier iterations on this draft branch
+
+- Add `worlds-concept.html` as a separate GSAP carousel concept for JIN's review. It interprets the referenced off-screen card arc with JIN's own imagery and copy, while leaving the main static site and GitHub Pages deployment route in place.
+- Place the supplied adult Sera stone-arcade greeting film and a wave-frame poster in the Sera world, with full-frame portrait presentation, muted inline loop, pause control and a reduced-motion still. Encode the silent web film at 720×1280 to about 705 KB. Reuse the existing GSAP core for a short media reveal.
+- Keep the Phoebe/Nuonuo/chibi Sera welcome film explicitly pending; the supplied Q-version Sera solo doorway clip does not satisfy the three-character brief.
+- Put “Portfolio” and JIN's capabilities on the first screen.
+- Add chibi and homeworld Sera as transparent Hero layers behind the raven and JIN letters, with one short entrance and a static reduced-motion fallback.
+- Replace the generic practice and empty-project sections with two distinct world areas: JIN with Phoebe for Q-version Phoebe, Nuonuo and Sera; then the adult Sera character world.
+- Reserve one polished media field in each world for JIN's greeting films without requesting missing video files.
+- Move the Google AI Professional Certificate into its own visible section, followed directly by contact.
+- Link the site to JIN with Phoebe (@jin082714) and preserve the approved raven entrance, static stack and deployment route.
+
 ## 2026-09-06 · Separate 3D raven motion study
 
 - Add an independent `/raven-3d.html` preview with modeled head/neck/torso motion and alternating foot release, lift and regrip.

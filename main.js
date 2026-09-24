@@ -1,89 +1,420 @@
-/* GSAP core owns the short intro; the page and anchors work without it. */
-(function () {
+/* JIN's two worlds on a tactile, off-screen ring. Canvas stops painting when still. */
+(() => {
   'use strict';
-  const root = document.documentElement;
+  const scene = document.querySelector('.ring-scene');
+  const canvas = document.getElementById('ring-canvas');
+  const ctx = canvas && canvas.getContext('2d', { alpha: true });
+  if (!scene || !ctx) return;
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const controls = document.querySelector('.motion-controls');
-  const replay = document.getElementById('replay-intro');
-  const flock = document.getElementById('replay-flock');
-  const skip = document.getElementById('skip-intro');
-  const trace = document.getElementById('brush-trace');
-  const night = document.getElementById('night-raven');
-  const hero = document.getElementById('hero-raven');
   const gsap = window.gsap;
-  const revealTargets = '.wordmark-type, .studio-type, .site-header, .hero-topline, .hero-bottom';
-  let timeline;
-  let running = false;
-  let cancelled = false;
-  let safety;
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  function finish() {
-    const skipFocused = document.activeElement === skip;
-    cancelled = true;
-    running = false;
-    if (timeline) timeline.kill();
-    clearTimeout(window.introSafety);
-    clearTimeout(safety);
-    root.classList.remove('intro-pending', 'intro-running', 'page-entering');
-    if (gsap) gsap.set(revealTargets, { clearProps: 'all' });
-    document.getElementById('intro').style.opacity = '';
-    if (skipFocused) replay.focus({ preventScroll: true });
+  const chapters = [
+    { number:'01', title:'JIN with Phoebe', type:'Character world', status:'Ongoing', world:'q', art:'chibi', tone:'q' },
+    { number:'02', title:'Three small hellos', type:'Welcome film', status:'In progress', world:'q', art:'type', tone:'q' },
+    { number:'03', title:'Social stories', type:'Phoebe · Nuonuo · Sera', status:'Ongoing', world:'q', art:'chibi', tone:'q' },
+    { number:'04', title:'Sera', type:'Character world', status:'Ongoing', world:'sera', art:'adult', tone:'sera' },
+    { number:'05', title:'The greeting', type:'Moving image', status:'Film study', world:'sera', art:'poster', tone:'sera' },
+    { number:'06', title:'Worldbuilding', type:'Visual development', status:'Ongoing', world:'sera', art:'adult', tone:'sera' }
+  ];
+  const sources = {
+    chibi: 'assets/sera-chibi-hero.webp',
+    adult: 'assets/sera-homeworld-hero.webp',
+    poster: 'assets/sera-world-welcome-poster.webp'
+  };
+  // One background slot per chapter. The existing Sera clip is a temporary study.
+  // Add each replacement path only after its own film and poster have been reviewed.
+  const backgroundMedia = [
+    { color:'#f4e5de', gradient:'radial-gradient(circle at 54% 45%,#edceca,#faf9f6 72%)' },
+    { color:'#edceca', gradient:'radial-gradient(circle at 58% 46%,#e8c8c5,#faf9f6 68%)' },
+    { color:'#f5e5d4', gradient:'radial-gradient(circle at 44% 49%,#ead4be,#faf9f6 70%)' },
+    { color:'#b8cac2', gradient:'radial-gradient(circle at 56% 48%,#b1c7bc,#faf9f6 72%)' },
+    { still:'assets/sera-world-welcome-poster.webp', video:'assets/sera-world-welcome.mp4', color:'#92a99c', position:'center 41%', size:'cover' },
+    { color:'#b7c9be', gradient:'radial-gradient(circle at 47% 42%,#b0c7bc,#faf9f6 73%)' }
+  ];
+  const pictures = {};
+  for (const [key, src] of Object.entries(sources)) {
+    const image = new Image();
+    image.decoding = 'async';
+    image.src = src;
+    image.onload = schedule;
+    pictures[key] = image;
   }
+  const number = document.getElementById('meta-number');
+  const title = document.getElementById('meta-title');
+  const type = document.getElementById('meta-type');
+  const status = document.getElementById('meta-status');
+  const count = document.getElementById('chapter-count');
+  const pairs = [...document.querySelectorAll('.meta-pair')];
+  const index = [...document.querySelectorAll('[data-card]')];
+  const tag = scene.querySelector('.cursor-tag');
+  const worldDialog = document.getElementById('world-dialog');
+  const infoDialog = document.getElementById('info-dialog');
+  const film = document.querySelector('.world-film-video');
+  const backdropStills = [...scene.querySelectorAll('.backdrop-still')];
+  const backdropVideo = scene.querySelector('.backdrop-video');
+  const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+  const state = { turn: 0, intro: motion.matches ? 1 : 0, hover: 0 };
+  const STEP = Math.PI * 2 / 18;
+  let active = 0;
+  let width = 0, height = 0, ratio = 1, cardWidth = 0, cardHeight = 0, ringRadius = 0;
+  let scheduled = false, drag = null, suppressClick = false, lastWheel = 0, hoverTarget = 0;
+  let shownBackdrop = -1, pointerDirection = 0, pointerTimer = null;
 
-  function playIntro() {
-    if (motion.matches || !gsap || !night.naturalWidth || !hero.naturalWidth) return finish();
-    window.stopJinFlock?.();
-    if (timeline) timeline.kill();
-    clearTimeout(window.introSafety);
-    root.classList.remove('intro-expired', 'intro-pending', 'page-entering');
-    root.classList.add('intro-running');
-    running = true;
-    cancelled = false;
-    const length = trace.getTotalLength();
-    gsap.set(trace, { strokeDasharray: length, strokeDashoffset: length });
-    gsap.set('.intro', { opacity: 1 });
-    gsap.set('.intro-bird', { opacity: 0, scale: .975 });
-    gsap.set('.intro-wash', { scale: 0 });
-    gsap.set(revealTargets, { opacity: 0, y: 14 });
-    // Spatial reveal follows neck -> breast -> hook, rather than fading in a finished J.
-    timeline = gsap.timeline({ onComplete: finish });
-    timeline.to('.intro-bird', { opacity: 1, scale: 1, duration: .28, ease: 'power2.out' }, 0)
-      .to(trace, { strokeDashoffset: 0, duration: .72, ease: 'power1.inOut' }, .30)
-      .to('.intro-wash', { scale: 1, duration: .50, ease: 'power2.inOut' }, 1.06)
-      .call(() => root.classList.add('page-entering'), [], 1.30)
-      .to('.intro', { opacity: 0, duration: .28 }, 1.42)
-      .to('.wordmark-type', { opacity: 1, y: 0, duration: .50, ease: 'power3.out' }, 1.44)
-      .to('.studio-type', { opacity: 1, y: 0, duration: .36 }, 1.55)
-      .to('.site-header, .hero-topline, .hero-bottom', { opacity: 1, y: 0, duration: .35, stagger: .035 }, 1.62);
-    clearTimeout(safety);
-    safety = setTimeout(finish, 3000);
+  function mod(n, m) { return ((n % m) + m) % m; }
+  function resize() {
+    stopPointerDrive();
+    const rect = scene.getBoundingClientRect();
+    width = rect.width;
+    height = rect.height;
+    ratio = Math.min(devicePixelRatio || 1, 1.5);
+    canvas.width = Math.round(width * ratio);
+    canvas.height = Math.round(height * ratio);
+    if (width < 761) {
+      cardWidth = Math.min(width * .77, 340);
+      ringRadius = Math.max(height * .93, width * 1.25);
+    } else {
+      cardWidth = Math.min(Math.max(width * .28, 285), 505);
+      ringRadius = Math.max(width * .86, height * .91);
+    }
+    cardHeight = cardWidth / 1.5;
+    scene.style.setProperty('--action-y', Math.round(height * (width < 761 ? .46 : .49) + cardHeight / 2 + 24) + 'px');
+    schedule();
   }
+  function schedule() {
+    if (scheduled || !width) return;
+    scheduled = true;
+    requestAnimationFrame(() => { scheduled = false; paint(); });
+  }
+  function cardPosition(slot) {
+    const angle = (slot - state.turn) * STEP;
+    const r = ringRadius * state.intro + cardWidth * .62 * (1 - state.intro);
+    const cx = width / 2 - ringRadius * state.intro;
+    const cy = height * (width < 761 ? .46 : .49);
+    return { x: cx + r * Math.cos(angle), y: cy + r * Math.sin(angle), angle };
+  }
+  function roundRect(x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.roundRect(x, y, w, h, r);
+  }
+  function imageCover(image, x, y, w, h, focusX=.5, focusY=.5) {
+    if (!image.complete || !image.naturalWidth) return;
+    const sourceRatio = image.naturalWidth / image.naturalHeight;
+    const targetRatio = w / h;
+    let sw = image.naturalWidth, sh = image.naturalHeight;
+    if (sourceRatio > targetRatio) sw = sh * targetRatio;
+    else sh = sw / targetRatio;
+    const sx = (image.naturalWidth - sw) * focusX;
+    const sy = (image.naturalHeight - sh) * focusY;
+    ctx.drawImage(image, sx, sy, sw, sh, x, y, w, h);
+  }
+  function cardArt(chapter, w, h) {
+    const q = chapter.tone === 'q';
+    const gradient = ctx.createLinearGradient(-w/2, -h/2, w/2, h/2);
+    if (q) { gradient.addColorStop(0,'#f4e5de'); gradient.addColorStop(.65,'#e9d7ca'); gradient.addColorStop(1,'#d7aaa1'); }
+    else { gradient.addColorStop(0,'#527266'); gradient.addColorStop(.55,'#283f37'); gradient.addColorStop(1,'#172924'); }
+    ctx.fillStyle = gradient;
+    ctx.fillRect(-w/2,-h/2,w,h);
 
-  skip.addEventListener('click', finish);
-  replay.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-    playIntro();
-  });
-  flock.addEventListener('click', () => { finish(); window.playJinFlock?.(document.getElementById('crow-canvas')); });
-  // Navigation always takes priority over the brand sequence.
-  ['wheel', 'touchstart', 'keydown'].forEach(type => window.addEventListener(type, () => {
-    if (running || root.classList.contains('intro-pending')) finish();
-  }, { passive: true }));
-  document.addEventListener('visibilitychange', () => { if (document.hidden) finish(); });
-  motion.addEventListener('change', () => {
-    controls.hidden = motion.matches || !gsap;
-    if (motion.matches) { finish(); window.stopJinFlock?.(); }
-  });
-  controls.hidden = motion.matches || !gsap;
-  if (motion.matches || !gsap || !root.classList.contains('intro-pending')) return finish();
+    if (chapter.art === 'poster' && pictures.poster.complete && pictures.poster.naturalWidth) {
+      // The greeting is portrait. Keep Sera's face, her wave and the channel together.
+      ctx.save();
+      ctx.globalAlpha = .38;
+      imageCover(pictures.poster,-w/2,-h/2,w,h,.48,.38);
+      ctx.restore();
+      const wash = ctx.createLinearGradient(-w/2,0,w/2,0);
+      wash.addColorStop(0,'#182c27e8'); wash.addColorStop(.63,'#1f3731a0'); wash.addColorStop(1,'#18322b15');
+      ctx.fillStyle = wash; ctx.fillRect(-w/2,-h/2,w,h);
+      const posterW = h * .5625;
+      ctx.save(); ctx.shadowColor='#10221c9e'; ctx.shadowBlur=22;
+      ctx.drawImage(pictures.poster,w*.15-posterW/2,-h/2,posterW,h);
+      ctx.restore();
+    } else if (chapter.art === 'chibi' && pictures.chibi.complete && pictures.chibi.naturalWidth) {
+      // The supplied illustration depicts chibi Sera alone; the film is separately marked pending.
+      const iw = h*.95;
+      ctx.drawImage(pictures.chibi,w*.12-iw/2,-h*.62,iw,h*1.14);
+    } else if (chapter.art === 'adult' && pictures.adult.complete && pictures.adult.naturalWidth) {
+      const portraitH = h * 1.45;
+      const portraitW = portraitH * pictures.adult.naturalWidth / pictures.adult.naturalHeight;
+      ctx.drawImage(pictures.adult,w*.13-portraitW/2,-h*.46,portraitW,portraitH);
+    }
 
-  // Bound loading so a slow image cannot become an indefinite splash screen.
-  Promise.race([
-    Promise.all([night.decode(), hero.decode()]).then(() => true).catch(() => false),
-    new Promise(resolve => setTimeout(() => resolve(false), 1200))
-  ]).then(ready => {
-    if (ready && !cancelled && !root.classList.contains('intro-expired')) playIntro();
-    else finish();
+    const labelX = -w*.43;
+    ctx.textAlign='left'; ctx.textBaseline='top';
+    ctx.fillStyle=q?'#694d4a':'#f7f5ea';
+    ctx.font = `500 ${Math.max(9,w*.024)}px Arial`;
+    ctx.fillText('JIN STUDIO  /  0'+(chapters.indexOf(chapter)+1),labelX,-h*.39);
+    if (chapter.art === 'type') {
+      ctx.fillStyle='#6c4a48'; ctx.font=`italic ${Math.round(w*.095)}px Georgia`;
+      ctx.fillText('Three small',labelX,-h*.15);
+      ctx.fillText('hellos.',labelX,h*.05);
+      ctx.fillStyle='#896b64'; ctx.font=`${Math.max(10,w*.028)}px Arial`;
+      ctx.fillText('Phoebe · Nuonuo · chibi Sera',labelX,h*.32);
+    } else {
+      const dark = chapter.art === 'chibi';
+      ctx.fillStyle=dark?'#493332':'#fffaf1';
+      ctx.font=`italic ${Math.max(25,w*.074)}px Georgia`;
+      const words = chapter.title === 'JIN with Phoebe' ? 'with Phoebe' : chapter.title;
+      ctx.fillText(words,labelX,h*.23,w*.85);
+      ctx.font=`${Math.max(9,w*.025)}px Arial`;
+      ctx.fillText(chapter.world==='q'?'SERA STUDY · TRIO FILM PENDING':'CHARACTER · CINEMA · WORLD',labelX,h*.39,w*.86);
+    }
+  }
+  function paintCard(slot) {
+    const chapter=chapters[mod(slot,chapters.length)];
+    const p=cardPosition(slot);
+    if(p.x < -cardWidth*1.3 || p.x > width+cardWidth || p.y < -cardHeight*1.4 || p.y > height+cardHeight*1.4) return;
+    const distance=Math.abs(slot-state.turn);
+    const front=distance<.8;
+    const scale=(.94+Math.max(0,1-distance)*.06+state.hover*.08*(front?1:0)) * (.75+.25*state.intro);
+    ctx.save();
+    ctx.translate(p.x,p.y);
+    ctx.rotate(p.angle*.34);
+    ctx.scale(scale,scale);
+    ctx.globalAlpha=1-(Math.min(distance,2)*.12)-(state.hover*(front?0:.1));
+    ctx.shadowColor='rgba(41,44,39,.18)';ctx.shadowBlur=24;ctx.shadowOffsetY=14;
+    roundRect(-cardWidth/2,-cardHeight/2,cardWidth,cardHeight,Math.max(17,cardWidth*.055));
+    ctx.fillStyle='#eee9e2';ctx.fill();ctx.shadowColor='transparent';
+    ctx.clip();
+    cardArt(chapter,cardWidth,cardHeight);
+    ctx.restore();
+  }
+  function paint() {
+    ctx.setTransform(ratio,0,0,ratio,0,0);
+    ctx.clearRect(0,0,width,height);
+    const front=Math.round(state.turn);
+    if (state.intro > .05) {
+      const radius=ringRadius*state.intro+cardWidth*.62*(1-state.intro);
+      const cx=width/2-ringRadius*state.intro;
+      const cy=height*(width<761?.46:.49);
+      ctx.save();
+      ctx.beginPath(); ctx.arc(cx,cy,radius,0,Math.PI*2);
+      ctx.lineWidth=1.2+state.hover*2;
+      ctx.strokeStyle='rgba(126,131,115,.18)'; ctx.stroke();
+      ctx.restore();
+    }
+    // Connected soft seams join cards along the passing ring.
+    for(let slot=front-3;slot<front+3;slot++){
+      const a=cardPosition(slot),b=cardPosition(slot+1);
+      if((a.y < -cardHeight && b.y < -cardHeight)||(a.y > height+cardHeight&&b.y>height+cardHeight))continue;
+      const rise=state.hover*(Math.abs(slot-state.turn)<1.2?.28:0);
+      const thickness=(18+cardWidth*.075+rise*cardWidth)*state.intro;
+      const grad=ctx.createLinearGradient(a.x,a.y,b.x,b.y);
+      grad.addColorStop(0,chapters[mod(slot,6)].tone==='q'?'#e5d2c7':'#557466');
+      grad.addColorStop(1,chapters[mod(slot+1,6)].tone==='q'?'#e5d2c7':'#557466');
+      ctx.save();ctx.globalAlpha=.48;
+      ctx.beginPath();ctx.moveTo(a.x,a.y);
+      ctx.bezierCurveTo(a.x-thickness,a.y+(b.y-a.y)*.32,b.x+thickness,b.y-(b.y-a.y)*.32,b.x,b.y);
+      ctx.lineCap='round';ctx.lineWidth=thickness;ctx.strokeStyle=grad;ctx.stroke();ctx.restore();
+    }
+    const slots=[];
+    for(let i=front-3;i<=front+3;i++)slots.push(i);
+    slots.sort((a,b)=>Math.abs(b-state.turn)-Math.abs(a-state.turn));
+    slots.forEach(paintCard);
+  }
+  function playBackdrop() {
+    const clip = backgroundMedia[active].video;
+    if (!clip || motion.matches || document.hidden || worldDialog.open || infoDialog.open ||
+        navigator.connection?.saveData || backdropVideo.error) return;
+    backdropVideo.play().catch(() => backdropVideo.classList.remove('is-playing'));
+  }
+  function showBackdrop() {
+    const media = backgroundMedia[active];
+    const next = shownBackdrop === 0 ? 1 : 0;
+    const layer = backdropStills[next];
+    layer.style.backgroundColor = media.color;
+    layer.style.backgroundImage = media.gradient || `url("${media.still}")`;
+    layer.style.backgroundPosition = media.position || 'center';
+    layer.style.backgroundSize = media.size || 'cover';
+    backdropStills.forEach((item,i) => item.classList.toggle('is-visible',i === next));
+    shownBackdrop = next;
+    backdropVideo.classList.remove('is-playing');
+    backdropVideo.pause();
+    if (!media.video || motion.matches || navigator.connection?.saveData) return;
+    if (backdropVideo.getAttribute('src') !== media.video) {
+      backdropVideo.src = media.video;
+      backdropVideo.load();
+    }
+    backdropVideo.style.objectPosition = media.position || 'center';
+    playBackdrop();
+  }
+  backdropVideo.addEventListener('playing', () => {
+    if (backgroundMedia[active].video && !motion.matches && !worldDialog.open && !infoDialog.open)
+      backdropVideo.classList.add('is-playing');
   });
+  backdropVideo.addEventListener('error', () => backdropVideo.classList.remove('is-playing'));
+  function updateMetadata() {
+    const item=chapters[active];
+    number.textContent=item.number;
+    title.textContent=item.title;
+    type.textContent=item.type;
+    status.textContent=item.status;
+    count.textContent=`${item.number} / 06`;
+    index.forEach((button,i)=>button.setAttribute('aria-current',i===active?'true':'false'));
+    document.getElementById('open-world').setAttribute('aria-label',`Enter ${item.world==='q'?'JIN with Phoebe':'Sera'}`);
+    if(gsap&&!motion.matches){
+      gsap.to(pairs,{filter:'blur(0px)',opacity:1,y:0,duration:.34,ease:'power2.out',clearProps:'filter,opacity,transform'});
+    } else pairs.forEach(el=>el.classList.remove('is-changing'));
+  }
+  function select(next) {
+    if(worldDialog.open||infoDialog.open)return;
+    const newIndex=mod(next,chapters.length);
+    const current=mod(Math.round(state.turn),chapters.length);
+    let delta=newIndex-current;
+    if(delta>3)delta-=6;
+    if(delta< -3)delta+=6;
+    const destination=Math.round(state.turn)+delta;
+    if(gsap)gsap.killTweensOf(state,'turn');
+    if(newIndex!==active){
+      active=newIndex;
+      showBackdrop();
+      if(gsap&&!motion.matches){
+        gsap.to(pairs,{filter:'blur(9px)',opacity:0,y:8,duration:.15,onComplete:updateMetadata});
+      } else updateMetadata();
+    }
+    if(motion.matches||!gsap){state.turn=destination;schedule();return}
+    gsap.to(state,{turn:destination,duration:Math.min(1.05,.52+Math.abs(delta)*.14),ease:'power3.inOut',onUpdate:schedule,onComplete:schedule});
+  }
+  function openWorld() {
+    stopPointerDrive();
+    backdropVideo.pause();
+    backdropVideo.classList.remove('is-playing');
+    const world=chapters[active].world;
+    worldDialog.querySelector('[data-world=q]').hidden=world!=='q';
+    worldDialog.querySelector('[data-world=sera]').hidden=world!=='sera';
+    worldDialog.setAttribute('aria-labelledby',world==='q'?'world-dialog-title':'sera-dialog-title');
+    worldDialog.showModal();
+  }
+  function openInfo(which) {
+    stopPointerDrive();
+    backdropVideo.pause();
+    backdropVideo.classList.remove('is-playing');
+    infoDialog.querySelector('[data-info-panel=about]').hidden=which!=='about';
+    infoDialog.querySelector('[data-info-panel=contact]').hidden=which!=='contact';
+    infoDialog.setAttribute('aria-labelledby',which==='about'?'info-title':'contact-title');
+    infoDialog.showModal();
+  }
+  for(const button of index)button.addEventListener('click',()=>select(Number(button.dataset.card)));
+  document.getElementById('previous-card').addEventListener('click',()=>select(active-1));
+  document.getElementById('next-card').addEventListener('click',()=>select(active+1));
+  document.getElementById('open-world').addEventListener('click',openWorld);
+  document.querySelectorAll('[data-info]').forEach(button=>button.addEventListener('click',()=>openInfo(button.dataset.info)));
+  document.querySelectorAll('[data-close]').forEach(button=>button.addEventListener('click',()=>button.closest('dialog').close()));
+  for(const dialog of [worldDialog,infoDialog]){
+    dialog.addEventListener('click',event=>{
+      const box=dialog.getBoundingClientRect();
+      if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)dialog.close();
+    });
+  }
+  worldDialog.addEventListener('close',()=>{film.pause();film.currentTime=0;playBackdrop()});
+  infoDialog.addEventListener('close',playBackdrop);
+  function stopPointerDrive() {
+    clearTimeout(pointerTimer);
+    pointerTimer = null;
+    pointerDirection = 0;
+  }
+  function pointerStep() {
+    if (!pointerDirection || drag || worldDialog.open || infoDialog.open ||
+        motion.matches || !finePointer.matches || document.hidden) {
+      stopPointerDrive();
+      return;
+    }
+    select(active + pointerDirection);
+    pointerTimer = setTimeout(pointerStep, 920);
+  }
+  scene.addEventListener('pointermove',event=>{
+    if (event.pointerType !== 'mouse' || !finePointer.matches || motion.matches ||
+        drag || state.intro < .99 || worldDialog.open || infoDialog.open ||
+        event.target.closest('button,a,nav')) {
+      stopPointerDrive();
+      return;
+    }
+    const y = event.clientY - scene.getBoundingClientRect().top;
+    const direction = y < height * .29 ? -1 : y > height * .69 ? 1 : 0;
+    if (direction === pointerDirection) return;
+    stopPointerDrive();
+    pointerDirection = direction;
+    if (direction) pointerTimer = setTimeout(pointerStep, 360);
+  });
+  scene.addEventListener('pointerleave',stopPointerDrive);
+  scene.addEventListener('pointerdown',stopPointerDrive);
+  window.addEventListener('blur',stopPointerDrive);
+  finePointer.addEventListener('change',stopPointerDrive);
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden){stopPointerDrive();backdropVideo.pause();backdropVideo.classList.remove('is-playing')}
+    else playBackdrop();
+  });
+  scene.addEventListener('wheel',event=>{
+    if(worldDialog.open||infoDialog.open)return;
+    event.preventDefault();
+    stopPointerDrive();
+    if(Math.abs(event.deltaY)+Math.abs(event.deltaX)<12)return;
+    if(performance.now()-lastWheel<520)return;
+    lastWheel=performance.now();
+    select(active+(event.deltaY+event.deltaX>0?1:-1));
+  },{passive:false});
+  function frontHit(x,y){
+    const p=cardPosition(state.turn);
+    return Math.abs(x-p.x)<cardWidth*.51&&Math.abs(y-p.y)<cardHeight*.55;
+  }
+  canvas.addEventListener('pointermove',event=>{
+    const rect=canvas.getBoundingClientRect(),x=event.clientX-rect.left,y=event.clientY-rect.top;
+    if(drag)return;
+    tag.style.left=x+'px';tag.style.top=y+'px';
+    hoverTarget=frontHit(x,y)&&event.pointerType==='mouse'&&!motion.matches?1:0;
+    scene.classList.toggle('is-hovering',!!hoverTarget);
+    if(state.hover!==hoverTarget){
+      if(gsap){gsap.killTweensOf(state,'hover');gsap.to(state,{hover:hoverTarget,duration:hoverTarget?.35:.6,ease:'power2.out',onUpdate:schedule});}
+      else{state.hover=hoverTarget;schedule()}
+    }
+  });
+  canvas.addEventListener('pointerleave',()=>{
+    scene.classList.remove('is-hovering');
+    if(gsap){gsap.killTweensOf(state,'hover');gsap.to(state,{hover:0,duration:.4,onUpdate:schedule});}
+    else{state.hover=0;schedule()}
+  });
+  canvas.addEventListener('pointerdown',event=>{
+    stopPointerDrive();
+    drag={x:event.clientX,y:event.clientY,id:event.pointerId};
+    canvas.setPointerCapture(event.pointerId);
+  });
+  canvas.addEventListener('pointerup',event=>{
+    if(!drag)return;
+    const dx=event.clientX-drag.x,dy=event.clientY-drag.y;
+    drag=null;
+    if(Math.abs(dy)+Math.abs(dx)>35){
+      suppressClick=true;
+      select(active+(Math.abs(dy)>Math.abs(dx)?(dy<0?1:-1):(dx<0?1:-1)));
+      setTimeout(()=>{suppressClick=false},80);
+    }
+  });
+  canvas.addEventListener('pointercancel',()=>{drag=null});
+  canvas.addEventListener('click',event=>{
+    if(suppressClick)return;
+    const rect=canvas.getBoundingClientRect();
+    if(frontHit(event.clientX-rect.left,event.clientY-rect.top))openWorld();
+  });
+  document.addEventListener('keydown',event=>{
+    if(worldDialog.open||infoDialog.open||event.altKey||event.ctrlKey||event.metaKey)return;
+    if (event.key.startsWith('Arrow')) stopPointerDrive();
+    if(['ArrowDown','ArrowRight'].includes(event.key)){event.preventDefault();select(active+1)}
+    if(['ArrowUp','ArrowLeft'].includes(event.key)){event.preventDefault();select(active-1)}
+    if(event.key==='Enter'&&document.activeElement===canvas)openWorld();
+  });
+  motion.addEventListener('change',()=>{
+    stopPointerDrive();
+    if(motion.matches){backdropVideo.pause();backdropVideo.classList.remove('is-playing')}
+    else playBackdrop();
+    if(motion.matches){
+      gsap&&gsap.killTweensOf(state);
+      state.turn=Math.round(state.turn);state.intro=1;state.hover=0;scene.classList.remove('is-hovering');
+      active=mod(state.turn,chapters.length);updateMetadata();schedule();
+    }
+  });
+  window.addEventListener('resize',resize,{passive:true});
+  document.body.classList.add('is-ready');
+  document.querySelector('.skip-link').href='#main';
+  resize();
+  showBackdrop();
+  updateMetadata();
+  if(!motion.matches&&gsap)gsap.to(state,{intro:1,duration:1.35,ease:'power3.inOut',onUpdate:schedule,onComplete:schedule});
+  else{state.intro=1;schedule()}
 })();

@@ -1,5 +1,47 @@
 # JIN Studio verification — 2026-09-06
 
+## Pointer navigation and chapter backgrounds — 2026-09-24
+
+- Desktop browser preview at 1363×936: the new background layer rendered behind the transparent Canvas with one visible still and no horizontal overflow. Moving the mouse into the lower zone advanced from chapter 01 to 02; moving to the center held 02; moving to the upper zone returned to 01. The mouse zone has a dwell and paced repeat, and controls/dialogs/touch/reduced motion stop it in source.
+- Selecting chapter 05 loaded only its provisional Sera background video; after loading it reached `readyState=4` and its playback time advanced. The film is muted, looping and inline. Its chapter still remains underneath; the detail-panel portrait is uncropped.
+- Opening the Sera detail paused the background film. Closing it resumed the background after playback settled. A short timing window exposed an already pending detail-video play after closing; `media.js` now checks the dialog's open state and pauses any late `playing` event. Final browser retest confirmed the detail film plays only with its dialog open and is paused after close while the background film resumes.
+- The first temporary Q backdrop enlarged and blurred the solo Sera image too heavily, so unfilled chapter slots now use distinct warm or sage gradients. Final browser screenshot shows the warm gradient behind chapter 01 without that duplicated silhouette. Chapter 05 alone has provisional film plus poster; all six background films are scheduled for regeneration in `MEDIA_PLAN.md`.
+- Final preview retest: a lower-zone hold moved through successive chapters, the center held chapter 03 for over one second, and an upper-zone hold moved back toward chapter 01. The background film in chapter 05 reached `readyState=4` and advanced in time; opening its detail paused the background, and closing the detail paused its own video and resumed the background.
+- Source syntax and whitespace checks pass. Exact rendered 375px and 768px checks remain outstanding under this browser's narrow-frame policy; the site remains draft and production has not been updated.
+
+## Carousel homepage review — 2026-09-24
+
+- Draft PR #2 now uses the carousel as `index.html`. A desktop browser opened the immutable branch preview at 1363×936. The canvas initialized to 1363×936 with no horizontal document overflow. The white off-screen ring, front card, neighboring cards, metadata and six-item index were visually inspected. The first preview exposed a zero-sized Canvas initialization, which was corrected before this record.
+- Selecting Sera by index updated metadata and active state; opening her detail panel produced a 684px-tall full-frame portrait. In browser playback, the video reached `readyState=4` and advanced with `muted=true`, `loop=true` and `playsInline=true`; its poster and video resolved from the same immutable preview commit. Pausing changed the control to “Play film”; closing the dialog paused playback. The visible composition retained Sera's face, body and the right-hand water channel.
+- A fresh desktop screenshot confirmed the entrance action sits between the front and lower cards, and the right metadata ends about 68px before the index begins. A Sera film screenshot around the greeting wave kept her face, raised hand, full body and water channel visible. The Q detail panel displayed “Welcome film in progress” and an illustration labeled as chibi Sera.
+- The preview browser rejected a custom narrow-frame inspection page under its URL policy and explicitly prohibited workarounds. Exact rendered 375px and 768px checks, touch behavior, reduced-motion browser emulation and full local page playback therefore remain unverified. The CSS and source have been inspected, but source-level inspection is not a substitute for those rendered checks.
+- `node --check main.js`, `node --check media.js` and `git diff --check` passed before the final docs update. Re-run them before release. The browser's captured errors came from its own extension metadata script, not the website; no site-script error was observed in the desktop interaction.
+- This is an unmerged draft. A successful workflow on older `main` commits is not release evidence. Do not claim production HTML, poster or video are live until the exact publication commit and live URL are checked.
+
+### Earlier draft checks
+
+## Adult Sera film draft — 2026-09-24
+
+- `worlds-concept.html` is a separate review page using the already vendored GSAP. Its carousel keeps the two worlds in source reading order if GSAP/JavaScript is unavailable, and offers buttons, arrow keys, swipe and reduced-motion changes. The concept page has not had rendered browser checks at 375, 768 or desktop widths in this environment.
+- The supplied file's kitchen/Q-world filename describes another project, so the site asset uses `assets/sera-world-welcome.mp4`. The inspected source was about 1.65 MB and had an AAC track; the site version is a 704,574-byte, video-only H.264 encode at the original 720×1280 and 24 fps, with `+faststart`. The image comparison of decoded frames measured SSIM 0.983 overall.
+- The full 15.072-second source film was sampled across its duration. Sera looks toward the viewer, raises a hand to wave, and keeps the other hand behind her; the water channel stays visible on the right. No POV hands or feet were seen in the sampled frames. The source AAC track is very quiet (mean about −56 dB); the web version omits it and site playback is muted.
+- A frame at 5.75 seconds makes the 720×1280 WebP poster (78,084 bytes). The web video lasts 15.042 seconds, reflecting the length of its video stream. `object-fit: contain` retains the whole portrait inside the 4:5 mobile and wide desktop fields; the poster also provides the static reduced-motion and error state.
+- Known edit point: the final frame has her hand raised while the first frame has it lowered. A loop therefore has a visible motion reset. This clip remains in the draft for JIN to review.
+- Source checks: `node --check` for the affected JavaScript, `git diff --check`, local asset references and media metadata. A scripted media-state check covered entering view, manual pause/resume, reduced motion and playback failure. Source-level layout calculations retain the full 9:16 frame at 375, 768 and 1440px; browser visual playback at those widths remains unverified in this environment and must be completed before release.
+- The Q-version `sera(1).mp4` is a single-character doorway clip with POV feet visible. The three-character welcome space remains a pending state.
+- No production deployment has been made for this draft.
+
+## Unreleased portfolio-world review — 2026-09-13
+
+- Local previews at 375×812, 768×900 and 1440×1000 show Portfolio and the capability line on entry with no positive horizontal overflow.
+- Both transparent Sera assets load at all three widths. Chibi Sera and homeworld Sera remain visible as one right-side pair behind the JIN lettering; replay finishes with the intended static opacity and no console warnings or errors.
+- At 375px the complete Hero ends at 645px after hash navigation, leaving the world transition visible in the first viewport. The normal root entry also shows the header, Portfolio, capabilities, primary message and CTA after the approved intro finishes.
+- World sections stack at 768px and below; at 1440px they use two columns and measure about one viewport high. The Q-version and adult Sera sections remain visually distinct.
+- The Hero link reaches `#worlds`; JIN with Phoebe and the contact social link point to `https://www.instagram.com/jin082714/`; the Google card points to the existing certificate PDF.
+- No browser warnings or errors were observed. JavaScript syntax, local asset references and `git diff --check` passed.
+- The two film areas are tested pending states. Actual video playback, crop, poster and file weight must be checked after JIN supplies the approved films.
+- This is a draft-branch review; the production GitHub Pages site has not been changed.
+
 ## Local checks
 - Perched-raven update: inspected desktop and 375px mobile composition with toes wrapping over the rod and claws below. Mouse moved to opposite sides; head rotation and pupil translation changed in the expected direction while body transform stayed none. Leaving the Hero cleared the head transform. Local coarse/reduced-motion fixtures stayed still; missing GSAP rendered the original full image. Normal preview console had no errors. main.js and flock.js are byte-for-byte unchanged by this update.
 - JavaScript syntax: node --check main.js and flock.js passed.
