@@ -29,7 +29,7 @@
     toggle.hidden = reducedMotion.matches || !!video.error;
     if (reducedMotion.matches) {
       video.pause();
-      video.currentTime = 0;
+      if (video.readyState > 0 && video.currentTime) video.currentTime = 0;
     } else {
       playInView();
     }
