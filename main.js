@@ -3,7 +3,7 @@
   'use strict';
   const scene = document.querySelector('.ring-scene');
   const canvas = document.getElementById('ring-canvas');
-  const ctx = canvas && canvas.getContext('2d', { alpha: false });
+  const ctx = canvas && canvas.getContext('2d', { alpha: true });
   if (!scene || !ctx) return;
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const gsap = window.gsap;
@@ -12,7 +12,7 @@
     { number:'02', title:'Three small hellos', type:'Welcome film', status:'In progress', world:'q', art:'type', tone:'q' },
     { number:'03', title:'Social stories', type:'Phoebe · Nuonuo · Sera', status:'Ongoing', world:'q', art:'chibi', tone:'q' },
     { number:'04', title:'Sera', type:'Character world', status:'Ongoing', world:'sera', art:'adult', tone:'sera' },
-    { number:'05', title:'The greeting', type:'Moving image', status:'15 seconds', world:'sera', art:'poster', tone:'sera' },
+    { number:'05', title:'The greeting', type:'Moving image', status:'Film study', world:'sera', art:'poster', tone:'sera' },
     { number:'06', title:'Worldbuilding', type:'Visual development', status:'Ongoing', world:'sera', art:'adult', tone:'sera' }
   ];
   const sources = {
@@ -20,6 +20,16 @@
     adult: 'assets/sera-homeworld-hero.webp',
     poster: 'assets/sera-world-welcome-poster.webp'
   };
+  // One background slot per chapter. The existing Sera clip is a temporary study.
+  // Add each replacement path only after its own film and poster have been reviewed.
+  const backgroundMedia = [
+    { still:'assets/sera-chibi-hero.webp', color:'#efdcd3', position:'58% 48%', size:'auto 88%' },
+    { color:'#edceca', gradient:'radial-gradient(circle at 58% 46%,#f8e5d9,#e8c8c5 58%,#f6eae4)' },
+    { still:'assets/sera-chibi-hero.webp', color:'#e9d6c8', position:'35% 50%', size:'auto 76%' },
+    { still:'assets/sera-homeworld-hero.webp', color:'#b8cac2', position:'62% 39%', size:'auto 112%' },
+    { still:'assets/sera-world-welcome-poster.webp', video:'assets/sera-world-welcome.mp4', color:'#92a99c', position:'center 41%', size:'cover' },
+    { still:'assets/sera-homeworld-hero.webp', color:'#b7c9be', position:'45% 36%', size:'auto 100%' }
+  ];
   const pictures = {};
   for (const [key, src] of Object.entries(sources)) {
     const image = new Image();
@@ -39,11 +49,15 @@
   const worldDialog = document.getElementById('world-dialog');
   const infoDialog = document.getElementById('info-dialog');
   const film = document.querySelector('.world-film-video');
+  const backdropStills = [...scene.querySelectorAll('.backdrop-still')];
+  const backdropVideo = scene.querySelector('.backdrop-video');
+  const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
   const state = { turn: 0, intro: motion.matches ? 1 : 0, hover: 0 };
   const STEP = Math.PI * 2 / 18;
   let active = 0;
   let width = 0, height = 0, ratio = 1, cardWidth = 0, cardHeight = 0, ringRadius = 0;
   let scheduled = false, drag = null, suppressClick = false, lastWheel = 0, hoverTarget = 0;
+  let shownBackdrop = -1, pointerDirection = 0, pointerTimer = null;
 
   function mod(n, m) { return ((n % m) + m) % m; }
   function resize() {
@@ -164,7 +178,7 @@
   }
   function paint() {
     ctx.setTransform(ratio,0,0,ratio,0,0);
-    ctx.fillStyle='#faf9f6';ctx.fillRect(0,0,width,height);
+    ctx.clearRect(0,0,width,height);
     const front=Math.round(state.turn);
     if (state.intro > .05) {
       const radius=ringRadius*state.intro+cardWidth*.62*(1-state.intro);
@@ -195,6 +209,37 @@
     slots.sort((a,b)=>Math.abs(b-state.turn)-Math.abs(a-state.turn));
     slots.forEach(paintCard);
   }
+  function playBackdrop() {
+    const clip = backgroundMedia[active].video;
+    if (!clip || motion.matches || document.hidden || worldDialog.open || infoDialog.open ||
+        navigator.connection?.saveData || backdropVideo.error) return;
+    backdropVideo.play().catch(() => backdropVideo.classList.remove('is-playing'));
+  }
+  function showBackdrop() {
+    const media = backgroundMedia[active];
+    const next = shownBackdrop === 0 ? 1 : 0;
+    const layer = backdropStills[next];
+    layer.style.backgroundColor = media.color;
+    layer.style.backgroundImage = media.gradient || `url("${media.still}")`;
+    layer.style.backgroundPosition = media.position || 'center';
+    layer.style.backgroundSize = media.size || 'cover';
+    backdropStills.forEach((item,i) => item.classList.toggle('is-visible',i === next));
+    shownBackdrop = next;
+    backdropVideo.classList.remove('is-playing');
+    backdropVideo.pause();
+    if (!media.video || motion.matches || navigator.connection?.saveData) return;
+    if (backdropVideo.getAttribute('src') !== media.video) {
+      backdropVideo.src = media.video;
+      backdropVideo.load();
+    }
+    backdropVideo.style.objectPosition = media.position || 'center';
+    playBackdrop();
+  }
+  backdropVideo.addEventListener('playing', () => {
+    if (backgroundMedia[active].video && !motion.matches && !worldDialog.open && !infoDialog.open)
+      backdropVideo.classList.add('is-playing');
+  });
+  backdropVideo.addEventListener('error', () => backdropVideo.classList.remove('is-playing'));
   function updateMetadata() {
     const item=chapters[active];
     number.textContent=item.number;
@@ -219,6 +264,7 @@
     if(gsap)gsap.killTweensOf(state,'turn');
     if(newIndex!==active){
       active=newIndex;
+      showBackdrop();
       if(gsap&&!motion.matches){
         gsap.to(pairs,{filter:'blur(9px)',opacity:0,y:8,duration:.15,onComplete:updateMetadata});
       } else updateMetadata();
@@ -227,6 +273,9 @@
     gsap.to(state,{turn:destination,duration:Math.min(1.05,.52+Math.abs(delta)*.14),ease:'power3.inOut',onUpdate:schedule,onComplete:schedule});
   }
   function openWorld() {
+    stopPointerDrive();
+    backdropVideo.pause();
+    backdropVideo.classList.remove('is-playing');
     const world=chapters[active].world;
     worldDialog.querySelector('[data-world=q]').hidden=world!=='q';
     worldDialog.querySelector('[data-world=sera]').hidden=world!=='sera';
@@ -234,6 +283,9 @@
     worldDialog.showModal();
   }
   function openInfo(which) {
+    stopPointerDrive();
+    backdropVideo.pause();
+    backdropVideo.classList.remove('is-playing');
     infoDialog.querySelector('[data-info-panel=about]').hidden=which!=='about';
     infoDialog.querySelector('[data-info-panel=contact]').hidden=which!=='contact';
     infoDialog.setAttribute('aria-labelledby',which==='about'?'info-title':'contact-title');
@@ -251,7 +303,44 @@
       if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)dialog.close();
     });
   }
-  worldDialog.addEventListener('close',()=>{film.pause();film.currentTime=0;});
+  worldDialog.addEventListener('close',()=>{film.pause();film.currentTime=0;playBackdrop()});
+  infoDialog.addEventListener('close',playBackdrop);
+  function stopPointerDrive() {
+    clearTimeout(pointerTimer);
+    pointerTimer = null;
+    pointerDirection = 0;
+  }
+  function pointerStep() {
+    if (!pointerDirection || drag || worldDialog.open || infoDialog.open ||
+        motion.matches || !finePointer.matches || document.hidden) {
+      stopPointerDrive();
+      return;
+    }
+    select(active + pointerDirection);
+    pointerTimer = setTimeout(pointerStep, 920);
+  }
+  scene.addEventListener('pointermove',event=>{
+    if (event.pointerType !== 'mouse' || !finePointer.matches || motion.matches ||
+        drag || state.intro < .99 || worldDialog.open || infoDialog.open ||
+        event.target.closest('button,a,nav')) {
+      stopPointerDrive();
+      return;
+    }
+    const y = event.clientY - scene.getBoundingClientRect().top;
+    const direction = y < height * .29 ? -1 : y > height * .69 ? 1 : 0;
+    if (direction === pointerDirection) return;
+    stopPointerDrive();
+    pointerDirection = direction;
+    if (direction) pointerTimer = setTimeout(pointerStep, 360);
+  });
+  scene.addEventListener('pointerleave',stopPointerDrive);
+  scene.addEventListener('pointerdown',stopPointerDrive);
+  window.addEventListener('blur',stopPointerDrive);
+  finePointer.addEventListener('change',stopPointerDrive);
+  document.addEventListener('visibilitychange',()=>{
+    if(document.hidden){stopPointerDrive();backdropVideo.pause();backdropVideo.classList.remove('is-playing')}
+    else playBackdrop();
+  });
   scene.addEventListener('wheel',event=>{
     if(worldDialog.open||infoDialog.open)return;
     event.preventDefault();
@@ -281,6 +370,7 @@
     else{state.hover=0;schedule()}
   });
   canvas.addEventListener('pointerdown',event=>{
+    stopPointerDrive();
     drag={x:event.clientX,y:event.clientY,id:event.pointerId};
     canvas.setPointerCapture(event.pointerId);
   });
@@ -307,6 +397,9 @@
     if(event.key==='Enter'&&document.activeElement===canvas)openWorld();
   });
   motion.addEventListener('change',()=>{
+    stopPointerDrive();
+    if(motion.matches){backdropVideo.pause();backdropVideo.classList.remove('is-playing')}
+    else playBackdrop();
     if(motion.matches){
       gsap&&gsap.killTweensOf(state);
       state.turn=Math.round(state.turn);state.intro=1;state.hover=0;scene.classList.remove('is-hovering');
@@ -317,6 +410,7 @@
   document.body.classList.add('is-ready');
   document.querySelector('.skip-link').href='#main';
   resize();
+  showBackdrop();
   updateMetadata();
   if(!motion.matches&&gsap)gsap.to(state,{intro:1,duration:1.35,ease:'power3.inOut',onUpdate:schedule,onComplete:schedule});
   else{state.intro=1;schedule()}

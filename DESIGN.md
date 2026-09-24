@@ -4,6 +4,8 @@
 
 JIN approved rebuilding the **homepage** around [Viscose Carousel](https://github.com/Yousuf-developer/Viscose-carousel). A sparse warm-white stage holds a large circular path whose center sits beyond the left edge. One landscape card faces the visitor; neighboring cards remain partly visible above and below, joined by soft colored seams. Left and right metadata track the active chapter, and a six-item vertical index marks its place. The ring moves from a centered opening circle to its off-screen resting position once; card hover swells the front and dims its neighbors. Chapter changes rotate and settle around the arc.
 
+The chapter background now crossfades with the selected card. A blurred still or gradient is kept under a pale wash, so the ring, metadata and controls remain legible. Each of the six chapters has a separate video slot for future replacements. The existing stone-arcade clip runs only as a temporary backdrop study when “The greeting” is selected; other slots have truthful stills. Reduced motion and Save-Data keep a still. Background video pauses on a dialog, when the page is hidden and when the chapter changes. The portrait film in the detail panel remains uncropped.
+
 This site uses JIN's real artwork, writing, film and locally vendored GSAP. Its lightweight Canvas 2D cards and connectors are an original approximation of the reference's behavior; the reference uses a WebGL shader and physical elastic effects. No reference images, commercial font, source code or shader are imported. The site stays static for GitHub Pages.
 
 ## Information and art
@@ -21,7 +23,7 @@ The white stage, dark green Sera cards and warm peach Q cards separate the two w
 
 ## Interaction and fallback
 
-- Scroll wheel, vertical or horizontal drag, six index buttons, previous/next controls and arrow keys select chapters. Clicking the centered card or its visible action opens the respective native `dialog`; Escape and Close dismiss it.
+- Scroll wheel, vertical or horizontal drag, six index buttons, previous/next controls and arrow keys select chapters. On desktop with a fine mouse, holding the pointer in the upper 29% selects earlier cards; holding it in the lower 31% selects later cards. The center is a stop area. An initial dwell and paced steps prevent rapid accidental rotations. Controls, dialogs, touch, hidden tabs and reduced motion stop this pointer drive. Clicking the centered card or its visible action opens the respective native `dialog`; Escape and Close dismiss it.
 - The Sera panel contains the actual 720×1280 greeting, fitted entirely with `object-fit: contain`. The dark blurred poster fills the side space, keeping her face, wave and the water channel visible. Playback is muted, loops inline while the panel is visible, supports a pause button, and pauses when closed or offscreen. The first and last poses have a visible motion reset.
 - Reduced motion skips the ring entrance and rotations and keeps the Sera poster instead of autoplay. Without JavaScript or Canvas support, a two-world page stays readable with real links and an accurate Q-film pending state.
 - Canvas draws only on input, image load, resize or a short GSAP transition; no permanent animation-frame loop. Device pixel ratio is capped at 1.5, card images decode asynchronously, and the video has `preload="none"` until the Sera panel is viewed.

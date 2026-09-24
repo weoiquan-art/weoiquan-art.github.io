@@ -2,6 +2,8 @@
 
 ## Unreleased · Portfolio world journey
 
+- Add position-based desktop mouse navigation: dwell near the upper or lower edge to move through neighboring cards at a controlled pace; moving to the middle, an interactive control, a dialog or another tab stops it. Wheel, drag, index and keyboard remain available.
+- Add a chapter-linked atmospheric background with crossfading stills. The existing Sera greeting can play behind its own chapter as a temporary demonstration, with motion and data-saving still fallbacks. Reserve independent media slots for six newly generated films; record replacement requirements in `MEDIA_PLAN.md`.
 - Rebuild `index.html` as the Viscose Carousel-inspired homepage per JIN's direction. An off-screen ring of six chapters now leads into the two real worlds, with JIN's own artwork, soft card connectors, chapter metadata, index navigation, drag/wheel/keyboard controls and native world details. The standalone `worlds-concept.html` remains a superseded study.
 - Put adult Sera's real 9:16 greeting in a contained portrait panel with poster, muted inline loop, pause control, playback fallback and reduced-motion still. Keep the three-character Q welcome film marked in progress.
 - Retain a complete two-world static fallback when JavaScript/Canvas is unavailable. Use the existing local GSAP and static GitHub Pages route.

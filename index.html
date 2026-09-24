@@ -30,6 +30,11 @@
     </header>
     <main id="main">
       <section class="ring-scene" aria-label="Explore JIN's two character worlds">
+        <div class="chapter-backdrop" aria-hidden="true">
+          <div class="backdrop-still"></div><div class="backdrop-still"></div>
+          <video class="backdrop-video" muted loop playsinline preload="none"></video>
+          <div class="backdrop-wash"></div>
+        </div>
         <canvas id="ring-canvas" aria-hidden="true"></canvas>
         <div class="ring-meta" aria-live="polite" aria-atomic="true">
           <div class="meta-pair meta-left"><span id="meta-number">01</span><strong id="meta-title">JIN with Phoebe</strong></div>
@@ -47,7 +52,7 @@
         <div class="cursor-tag" aria-hidden="true">View <span>↗</span></div>
         <div class="scene-bottom">
           <button class="round-mark" data-info="about" type="button" aria-label="About JIN Studio">J</button>
-          <p>Scroll or drag to explore <span aria-hidden="true">↕</span></p>
+          <p>Move up or down · scroll or drag <span aria-hidden="true">↕</span></p>
           <div class="ring-controls"><button type="button" id="previous-card" aria-label="Previous chapter">↑</button><span id="chapter-count">01 / 06</span><button type="button" id="next-card" aria-label="Next chapter">↓</button></div>
         </div>
         <p class="scene-capability">Character worlds · AI moving image · Web experiences</p>
