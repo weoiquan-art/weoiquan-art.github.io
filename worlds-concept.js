@@ -15,6 +15,7 @@
   let active = 0;
   let timeline;
   let touchStartX = null;
+  let suppressClick = false;
 
   function position(index) {
     if (index === active) return { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 };
@@ -61,17 +62,20 @@
   choices.forEach(choice => choice.addEventListener('click', () => select(Number(choice.dataset.go))));
   stage.querySelectorAll('[data-step]').forEach(button => button.addEventListener('click', () =>
     select(Math.max(0, Math.min(cards.length - 1, active + Number(button.dataset.step))))));
-  cards.forEach((card, index) => card.addEventListener('click', () => select(index)));
+  cards.forEach((card, index) => card.addEventListener('click', () => {
+    if (suppressClick) { suppressClick = false; return; }
+    select(index);
+  }));
   orbit.addEventListener('keydown', event => {
     if (['ArrowDown', 'ArrowRight'].includes(event.key)) { event.preventDefault(); select(Math.min(cards.length - 1, active + 1)); }
     if (['ArrowUp', 'ArrowLeft'].includes(event.key)) { event.preventDefault(); select(Math.max(0, active - 1)); }
   });
-  orbit.addEventListener('pointerdown', event => { touchStartX = event.clientX; });
+  orbit.addEventListener('pointerdown', event => { touchStartX = event.clientX; suppressClick = false; });
   orbit.addEventListener('pointerup', event => {
     if (touchStartX === null) return;
     const delta = event.clientX - touchStartX;
     touchStartX = null;
-    if (Math.abs(delta) > 55) select(delta < 0 ? 1 : 0);
+    if (Math.abs(delta) > 55) { suppressClick = true; select(delta < 0 ? 1 : 0); }
   });
   orbit.addEventListener('pointercancel', () => { touchStartX = null; });
   window.addEventListener('resize', () => {
