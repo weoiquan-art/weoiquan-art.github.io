@@ -312,9 +312,9 @@
     }
   });
   window.addEventListener('resize',resize,{passive:true});
-  resize();
   document.body.classList.add('is-ready');
   document.querySelector('.skip-link').href='#main';
+  resize();
   updateMetadata();
   if(!motion.matches&&gsap)gsap.to(state,{intro:1,duration:1.35,ease:'power3.inOut',onUpdate:schedule,onComplete:schedule});
   else{state.intro=1;schedule()}
