@@ -140,7 +140,7 @@
       const words = chapter.title === 'JIN with Phoebe' ? 'with Phoebe' : chapter.title;
       ctx.fillText(words,labelX,h*.23,w*.85);
       ctx.font=`${Math.max(9,w*.025)}px Arial`;
-      ctx.fillText(chapter.world==='q'?'PHOEBE · NUONUO · SERA':'CHARACTER · CINEMA · WORLD',labelX,h*.39);
+      ctx.fillText(chapter.world==='q'?'SERA STUDY · TRIO FILM PENDING':'CHARACTER · CINEMA · WORLD',labelX,h*.39,w*.86);
     }
   }
   function paintCard(slot) {
