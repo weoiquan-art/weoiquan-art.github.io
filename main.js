@@ -23,12 +23,12 @@
   // One background slot per chapter. The existing Sera clip is a temporary study.
   // Add each replacement path only after its own film and poster have been reviewed.
   const backgroundMedia = [
-    { still:'assets/sera-chibi-hero.webp', color:'#efdcd3', position:'58% 48%', size:'auto 88%' },
-    { color:'#edceca', gradient:'radial-gradient(circle at 58% 46%,#f8e5d9,#e8c8c5 58%,#f6eae4)' },
-    { still:'assets/sera-chibi-hero.webp', color:'#e9d6c8', position:'35% 50%', size:'auto 76%' },
-    { still:'assets/sera-homeworld-hero.webp', color:'#b8cac2', position:'62% 39%', size:'auto 112%' },
+    { color:'#f4e5de', gradient:'radial-gradient(circle at 54% 45%,#edceca,#faf9f6 72%)' },
+    { color:'#edceca', gradient:'radial-gradient(circle at 58% 46%,#e8c8c5,#faf9f6 68%)' },
+    { color:'#f5e5d4', gradient:'radial-gradient(circle at 44% 49%,#ead4be,#faf9f6 70%)' },
+    { color:'#b8cac2', gradient:'radial-gradient(circle at 56% 48%,#b1c7bc,#faf9f6 72%)' },
     { still:'assets/sera-world-welcome-poster.webp', video:'assets/sera-world-welcome.mp4', color:'#92a99c', position:'center 41%', size:'cover' },
-    { still:'assets/sera-homeworld-hero.webp', color:'#b7c9be', position:'45% 36%', size:'auto 100%' }
+    { color:'#b7c9be', gradient:'radial-gradient(circle at 47% 42%,#b0c7bc,#faf9f6 73%)' }
   ];
   const pictures = {};
   for (const [key, src] of Object.entries(sources)) {
@@ -61,6 +61,7 @@
 
   function mod(n, m) { return ((n % m) + m) % m; }
   function resize() {
+    stopPointerDrive();
     const rect = scene.getBoundingClientRect();
     width = rect.width;
     height = rect.height;
@@ -344,6 +345,7 @@
   scene.addEventListener('wheel',event=>{
     if(worldDialog.open||infoDialog.open)return;
     event.preventDefault();
+    stopPointerDrive();
     if(Math.abs(event.deltaY)+Math.abs(event.deltaX)<12)return;
     if(performance.now()-lastWheel<520)return;
     lastWheel=performance.now();
@@ -392,6 +394,7 @@
   });
   document.addEventListener('keydown',event=>{
     if(worldDialog.open||infoDialog.open||event.altKey||event.ctrlKey||event.metaKey)return;
+    if (event.key.startsWith('Arrow')) stopPointerDrive();
     if(['ArrowDown','ArrowRight'].includes(event.key)){event.preventDefault();select(active+1)}
     if(['ArrowUp','ArrowLeft'].includes(event.key)){event.preventDefault();select(active-1)}
     if(event.key==='Enter'&&document.activeElement===canvas)openWorld();

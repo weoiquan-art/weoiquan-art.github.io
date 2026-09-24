@@ -1,5 +1,13 @@
 # JIN Studio verification — 2026-09-06
 
+## Pointer navigation and chapter backgrounds — 2026-09-24
+
+- Desktop browser preview at 1363×936: the new background layer rendered behind the transparent Canvas with one visible still and no horizontal overflow. Moving the mouse into the lower zone advanced from chapter 01 to 02; moving to the center held 02; moving to the upper zone returned to 01. The mouse zone has a dwell and paced repeat, and controls/dialogs/touch/reduced motion stop it in source.
+- Selecting chapter 05 loaded only its provisional Sera background video; after loading it reached `readyState=4` and its playback time advanced. The film is muted, looping and inline. Its chapter still remains underneath; the detail-panel portrait is uncropped.
+- Opening the Sera detail paused the background film. Closing it resumed the background after playback settled. A short timing window exposed an already pending detail-video play after closing; `media.js` now checks the dialog's open state and pauses any late `playing` event. Verify this final race fix in the published draft preview.
+- The first temporary Q backdrop enlarged and blurred the solo Sera image too heavily, so unfilled chapter slots now use distinct warm or sage gradients. Chapter 05 alone has provisional film plus poster; all six background films are scheduled for regeneration in `MEDIA_PLAN.md`. Recheck these final gradients in browser before release.
+- Source syntax and whitespace checks pass. Exact rendered 375px and 768px checks remain outstanding under this browser's narrow-frame policy; the site remains draft and production has not been updated.
+
 ## Carousel homepage review — 2026-09-24
 
 - Draft PR #2 now uses the carousel as `index.html`. A desktop browser opened the immutable branch preview at 1363×936. The canvas initialized to 1363×936 with no horizontal document overflow. The white off-screen ring, front card, neighboring cards, metadata and six-item index were visually inspected. The first preview exposed a zero-sized Canvas initialization, which was corrected before this record.

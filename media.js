@@ -5,6 +5,7 @@
   const media = document.querySelector('.world-media-sera');
   if (!media) return;
 
+  const dialog = media.closest('dialog');
   const video = media.querySelector('.world-film-video');
   const toggle = media.querySelector('.world-film-toggle');
   const error = media.querySelector('.world-film-error');
@@ -20,7 +21,7 @@
   }
 
   function playInView() {
-    if (inView && !document.hidden && !reducedMotion.matches && !manuallyPaused && !video.error) {
+    if (inView && (!dialog || dialog.open) && !document.hidden && !reducedMotion.matches && !manuallyPaused && !video.error) {
       video.play().catch(updateToggle);
     }
   }
@@ -40,6 +41,7 @@
   video.addEventListener('play', updateToggle);
   video.addEventListener('pause', updateToggle);
   video.addEventListener('playing', () => {
+    if (dialog && !dialog.open) { video.pause(); return; }
     if (firstFrameShown || reducedMotion.matches) return;
     firstFrameShown = true;
     if (gsap) gsap.fromTo(video, { opacity: 0 }, { opacity: 1, duration: .4, ease: 'power1.out', clearProps: 'opacity' });
@@ -85,6 +87,11 @@
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) video.pause();
     else playInView();
+  });
+  if (dialog) dialog.addEventListener('close', () => {
+    inView = false;
+    video.pause();
+    updateToggle();
   });
   reducedMotion.addEventListener('change', updateMotion);
   updateToggle();
