@@ -61,6 +61,7 @@
       ringRadius = Math.max(width * .86, height * .91);
     }
     cardHeight = cardWidth / 1.5;
+    scene.style.setProperty('--action-y', Math.round(height * (width < 761 ? .46 : .49) + cardHeight / 2 + 24) + 'px');
     schedule();
   }
   function schedule() {

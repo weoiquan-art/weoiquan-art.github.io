@@ -2,6 +2,13 @@
 
 ## Unreleased · Portfolio world journey
 
+- Rebuild `index.html` as the Viscose Carousel-inspired homepage per JIN's direction. An off-screen ring of six chapters now leads into the two real worlds, with JIN's own artwork, soft card connectors, chapter metadata, index navigation, drag/wheel/keyboard controls and native world details. The standalone `worlds-concept.html` remains a superseded study.
+- Put adult Sera's real 9:16 greeting in a contained portrait panel with poster, muted inline loop, pause control, playback fallback and reduced-motion still. Keep the three-character Q welcome film marked in progress.
+- Retain a complete two-world static fallback when JavaScript/Canvas is unavailable. Use the existing local GSAP and static GitHub Pages route.
+- Keep this redesign on draft PR #2 for visual review; exact narrow-width browser QA and production deployment are outstanding.
+
+### Earlier iterations on this draft branch
+
 - Add `worlds-concept.html` as a separate GSAP carousel concept for JIN's review. It interprets the referenced off-screen card arc with JIN's own imagery and copy, while leaving the main static site and GitHub Pages deployment route in place.
 - Place the supplied adult Sera stone-arcade greeting film and a wave-frame poster in the Sera world, with full-frame portrait presentation, muted inline loop, pause control and a reduced-motion still. Encode the silent web film at 720×1280 to about 705 KB. Reuse the existing GSAP core for a short media reveal.
 - Keep the Phoebe/Nuonuo/chibi Sera welcome film explicitly pending; the supplied Q-version Sera solo doorway clip does not satisfy the three-character brief.

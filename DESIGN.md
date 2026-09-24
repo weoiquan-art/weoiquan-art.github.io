@@ -1,50 +1,31 @@
 # JIN Studio — design and motion
 
-## Approved direction
-Warm-white editorial showcase. A realistic iridescent raven replaces J; large Bodoni Moda I and N sit behind it, with a small tracked STUDIO label. The raven is quiet, free and sharp-eyed. Its black feathers carry restrained blue, teal and violet.
+## Current draft direction · 2026-09-24
 
-## 2026-09-13 content direction
-The settled page is a short portfolio journey rather than a studio biography. **Portfolio** and JIN's capabilities are visible on entry. Scrolling then reveals two near-full-screen works: the light Q-version world of Phoebe, Nuonuo and chibi Sera, followed by the darker adult Sera world. A prominent Google certificate and direct contact close the page.
+JIN approved rebuilding the **homepage** around [Viscose Carousel](https://github.com/Yousuf-developer/Viscose-carousel). A sparse warm-white stage holds a large circular path whose center sits beyond the left edge. One landscape card faces the visitor; neighboring cards remain partly visible above and below, joined by soft colored seams. Left and right metadata track the active chapter, and a six-item vertical index marks its place. The ring moves from a centered opening circle to its off-screen resting position once; card hover swells the front and dims its neighbors. Chapter changes rotate and settle around the arc.
 
-Keep the raven entrance and existing type system. Paper #f6f5f1 and ink #161a18 remain the frame; warm cream and soft pink distinguish JIN with Phoebe, while deep green distinguishes Sera. Bodoni Moda is self-hosted for the wordmark, Georgia for editorial text, system sans-serif for utility copy.
+This site uses JIN's real artwork, writing, film and locally vendored GSAP. Its lightweight Canvas 2D cards and connectors are an original approximation of the reference's behavior; the reference uses a WebGL shader and physical elastic effects. No reference images, commercial font, source code or shader are imported. The site stays static for GitHub Pages.
 
-The Q-version media area is an intentional pending state, not a fake project thumbnail. The adult Sera area now uses the supplied 9:16 stone-arcade greeting film in the draft PR. It fits entirely within the existing media field so Sera's face, wave and the right-hand water channel remain visible at narrow and wide widths; a blurred still fills the side space. The film plays muted, loops inline while in view, has a visible pause control, and keeps the poster available without JavaScript, on playback failure and in reduced motion. The existing locally vendored GSAP core gives the media one short entrance and a brief poster-to-video fade; scroll progress does not control playback.
+## Information and art
 
-## Two-world carousel concept for review
+| Chapter | World | Visual and honest state |
+| --- | --- | --- |
+| JIN with Phoebe | Q | Supplied chibi Sera illustration; the picture shows only Sera |
+| Three small hellos | Q | Typographic pending state for the Phoebe, Nuonuo and chibi Sera welcome film |
+| Social stories | Q | Chibi Sera artwork and the real Instagram destination |
+| Sera | Adult | Supplied adult character art |
+| The greeting | Adult | Actual adult Sera film poster in the card and full 9:16 film in the panel |
+| Worldbuilding | Adult | Adult character art; an ongoing direction, not a claimed delivered film |
 
-`worlds-concept.html` is a separate design study, inspired by the off-screen arc and tactile transitions of [Viscose Carousel](https://github.com/Yousuf-developer/Viscose-carousel). It uses JIN's own two-world copy, CSS-only Q-world shapes, the actual Sera film poster and the site's existing GSAP file. It does not use the reference's artwork, typefaces, source code, shader, React or Three.js. The current homepage remains the release candidate while JIN reviews this direction.
+The white stage, dark green Sera cards and warm peach Q cards separate the two worlds. Georgia supplies the editorial headings; system sans-serif supplies navigation. The raven survives as a small existing favicon, while the previous large raven entrance is superseded by this approved direction.
 
-The cards trade a centered position with a glimpse of the other world below or above. Buttons, arrow keys and a horizontal swipe change the active world; no wheel or vertical scroll capture is used. The animation becomes an immediate change for reduced-motion users. Without JavaScript or GSAP, the two cards and their descriptions remain in normal reading order. The Q-world card states that its three-character film is in progress; the Sera link returns to the film on the homepage.
+## Interaction and fallback
 
-## Assets
-- Current settled Hero: assets/raven-perched.png. Two curled feet grasp a slim charcoal metal rod; tail drops behind the rod. It preserves the iridescent raven and white J, with a new lower-body stance.
-- assets/sera-chibi-hero.webp keeps the supplied Q-version design. assets/sera-homeworld-hero.webp uses the supplied adult face and proportions with the homeworld reference's single braid and organic clothing. Both are transparent, decorative Hero layers behind the raven and JIN letters.
-- raven.css and raven.js use the same raster for registered body/head display layers, plus a small SVG eye. Pointer motion rotates only the head (up to 4.4 degrees) and moves the pupil; feet, body and perch stay fixed. Sparse blinks happen only on eligible pointer devices while the Hero is visible. Reduced motion, coarse pointers, hidden tabs and leaving the Hero stop the behavior. No permanent animation-frame loop is used.
-- The raven entrance remains unchanged. The two Sera forms enter once during the existing page reveal, then remain still.
-- assets/raven-white-ink.png: user-selected v3 RGB original. CSS crops only the lower Jin signature, boosts brightness slightly to neutralize the near-white field, then multiplies it onto paper.
-- assets/raven-night.png: generated dark plate without the J, for the intro. It is an interpreted variant, not an exactly registered pixel layer.
-- The moving white stroke is native SVG with tapered geometry, bristle gaps and a small displacement texture. It approximates the reference brush; it is not an extracted raster mask.
-- The rejected checkerboard generation has no alpha channel and is not used.
-- Original assets/jin-raven-mark.svg remains as the small favicon and historical vector mark.
+- Scroll wheel, vertical or horizontal drag, six index buttons, previous/next controls and arrow keys select chapters. Clicking the centered card or its visible action opens the respective native `dialog`; Escape and Close dismiss it.
+- The Sera panel contains the actual 720×1280 greeting, fitted entirely with `object-fit: contain`. The dark blurred poster fills the side space, keeping her face, wave and the water channel visible. Playback is muted, loops inline while the panel is visible, supports a pause button, and pauses when closed or offscreen. The first and last poses have a visible motion reset.
+- Reduced motion skips the ring entrance and rotations and keeps the Sera poster instead of autoplay. Without JavaScript or Canvas support, a two-world page stays readable with real links and an accurate Q-film pending state.
+- Canvas draws only on input, image load, resize or a short GSAP transition; no permanent animation-frame loop. Device pixel ratio is capped at 1.5, card images decode asynchronously, and the video has `preload="none"` until the Sera panel is viewed.
 
-## Entrance, seconds after assets are ready
-| Time | Visible event |
-| --- | --- |
-| 0–0.28 | The upright raven emerges alone on near-black |
-| 0.30–1.02 | White ink reveals from neck to breast and leftward hook |
-| 1.06–1.56 | Warm-white wash expands from the ink area |
-| 1.40–2.04 | Both Sera forms, I / N, STUDIO, navigation and supporting text enter |
+## Responsive intent and review gate
 
-GSAP 3.15.0 core drives one timeline. No ScrollTrigger, scroll hijacking, infinite ticker or Lenis is needed. The existing seeded Canvas flock keeps its original bird geometry, count, depth and diagonal trajectories, now in flock.js and started by Release the ravens. It clears and stops after each run; resize, hidden tab and reduced motion stop it.
-
-## Resilience and input
-No JavaScript means a complete static site. Reduced motion skips the entrance. Image decode waits at most 1.2 seconds. A head-script safety release clears a missing main script after 4.5 seconds; the running animation has a 3-second watchdog. Keyboard, wheel, touch, Skip intro and hidden-tab events release the intro. Hash navigation skips it. Replay is explicit.
-
-## Responsive intent
-375px: Portfolio and capabilities remain visible above the fold; each world stacks copy over a 4:5 media field; Portfolio and Contact stay in navigation.
-768px: the Hero retains the shared raven / IN composition; world sections stack if their media would become cramped.
-1440px: each world uses a two-column, near-full-height composition with wide media and distinct atmosphere.
-Do not use desktop overflow clipping as a substitute for fixing a mobile text wrap. Crop the signature relative to image coordinates, not the overall Hero height.
-
-## Known limits
-The artwork remains raster; no true transparent or vector logo master was produced. The intro and settled raven differ slightly in feather detail, bridged by the white wash. No field Core Web Vitals or physical-device GPU benchmarks have been collected.
+Desktop uses the centered landscape card with metadata at each side and the chapter index on the right. Tablet narrows the metadata while keeping the ring. At 375px, metadata drops below the card and the chapter index shifts above it. The Sera panel stacks text and the uncropped portrait film on narrow screens. These are implemented rules; browser visual checks at exact 375px and 768px remain to be completed before release. The old `worlds-concept.html` is retained as an earlier independent study, not the release candidate.

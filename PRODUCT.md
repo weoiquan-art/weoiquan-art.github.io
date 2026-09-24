@@ -1,15 +1,12 @@
 # JIN Studio — product brief
 
-Updated 2026-09-13 from JIN's direction for a portfolio that reveals connected character worlds while people scroll.
+Updated 2026-09-24 for JIN's instruction to follow the Viscose Carousel reference on the actual homepage. This is the draft PR #2 direction.
 
-- Audience: people considering creative collaboration and people exploring JIN's work.
-- First-screen job: say **Portfolio** immediately and state what JIN can make — original character worlds, AI moving image and web experiences.
-- Primary action: enter the worlds. Email remains the final collaboration action.
-- Identity: JIN Studio is the shared maker identity behind distinct creative-world accounts. It does not claim a team, agency size, client list or commercial track record.
-- Structure: Portfolio Hero → JIN with Phoebe / Q-version world → adult Sera world → Google AI Professional Certificate → Contact.
-- JIN with Phoebe: the first published social world, linking to Instagram @jin082714. Its welcome film features Q-version Phoebe, Nuonuo and Sera, each greeting the visitor differently.
-- Sera: a separate adult-character world built through character development, cinematic CG and longer-form worldbuilding. It receives its own welcome film rather than sharing the Q-version presentation.
-- Media status: the adult Sera greeting film is attached in draft PR #2 for review. The Q-version film remains an explicit pending composition until a welcome film with Phoebe, Nuonuo and chibi Sera is ready; the single-character `sera(1).mp4` is not that film. No false thumbnails or invented project results are shipped.
-- Evidence: the actual character-development direction in JIN-IP, the published JIN with Phoebe account, the existing Google certificate PDF, and the site's custom raven identity.
-- Stack and release route: static HTML, CSS and JavaScript on GitHub Pages; no framework migration, backend, tracking, video library or contact-form service.
-- Latest approved motion: raven first, draw the white brush J from its neck, then show the site. The old flock remains as an explicit replay.
+- **Audience:** potential collaborators and visitors exploring JIN's original character worlds.
+- **First screen:** JIN Studio, Portfolio and the capabilities “Character worlds · AI moving image · Web experiences,” around a circular carousel of JIN's own work.
+- **Experience:** six navigable chapters grouped into two real worlds. JIN with Phoebe has Phoebe, Nuonuo and chibi Sera. The other world follows the adult character Sera through design, film and worldbuilding. Chapter labels organize the work; they do not claim six completed client projects.
+- **Actions:** click a card or “Enter this world” for a native detail panel; scroll, drag, use the index or arrow keys to change chapters. About and Contact are accessible from the header.
+- **Film status:** the adult Sera stone-arcade greeting is present as a silent 9:16 film with poster. The Q-world three-character welcome film is in progress. The old chibi Sera solo test, which includes POV feet, does not meet the Phoebe + Nuonuo + chibi Sera brief. The Q illustration depicts only Sera.
+- **Evidence:** JIN with Phoebe's real Instagram account, supplied adult and chibi artwork, actual Sera film and poster, and an existing Google AI Professional Certificate PDF. No invented projects, client list, team claims or completed Q film.
+- **Resilience:** no-JavaScript visitors get a complete two-world reading path and contact links; reduced-motion visitors get a static carousel and Sera poster. The Sera video is loaded only when its panel enters view.
+- **Stack and release:** static HTML, CSS, JavaScript and locally vendored GSAP on GitHub Pages from the root of `main`. The redesigned page remains on unmerged draft PR #2 for visual review. The earlier raven Hero and `worlds-concept.html` are superseded explorations in the branch history.
