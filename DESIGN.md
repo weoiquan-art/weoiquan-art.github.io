@@ -8,7 +8,13 @@ The settled page is a short portfolio journey rather than a studio biography. **
 
 Keep the raven entrance and existing type system. Paper #f6f5f1 and ink #161a18 remain the frame; warm cream and soft pink distinguish JIN with Phoebe, while deep green distinguishes Sera. Bodoni Moda is self-hosted for the wordmark, Georgia for editorial text, system sans-serif for utility copy.
 
-The two media areas are intentional pending states, not fake project thumbnails. When approved videos arrive, replace each visual field with a muted, looping, inline video and preserve the copy, accessible label and fallback poster. Do not make scroll progress control playback.
+The Q-version media area is an intentional pending state, not a fake project thumbnail. The adult Sera area now uses the supplied 9:16 stone-arcade greeting film in the draft PR. It fits entirely within the existing media field so Sera's face, wave and the right-hand water channel remain visible at narrow and wide widths; a blurred still fills the side space. The film plays muted, loops inline while in view, has a visible pause control, and keeps the poster available without JavaScript, on playback failure and in reduced motion. The existing locally vendored GSAP core gives the media one short entrance and a brief poster-to-video fade; scroll progress does not control playback.
+
+## Two-world carousel concept for review
+
+`worlds-concept.html` is a separate design study, inspired by the off-screen arc and tactile transitions of [Viscose Carousel](https://github.com/Yousuf-developer/Viscose-carousel). It uses JIN's own two-world copy, CSS-only Q-world shapes, the actual Sera film poster and the site's existing GSAP file. It does not use the reference's artwork, typefaces, source code, shader, React or Three.js. The current homepage remains the release candidate while JIN reviews this direction.
+
+The cards trade a centered position with a glimpse of the other world below or above. Buttons, arrow keys and a horizontal swipe change the active world; no wheel or vertical scroll capture is used. The animation becomes an immediate change for reduced-motion users. Without JavaScript or GSAP, the two cards and their descriptions remain in normal reading order. The Q-world card states that its three-character film is in progress; the Sera link returns to the film on the homepage.
 
 ## Assets
 - Current settled Hero: assets/raven-perched.png. Two curled feet grasp a slim charcoal metal rod; tail drops behind the rod. It preserves the iridescent raven and white J, with a new lower-body stance.

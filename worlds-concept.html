@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f5f1">
+  <title>Two worlds — JIN Studio concept study</title>
+  <meta name="description" content="A design study for moving between JIN with Phoebe and Sera's cinematic world.">
+  <link rel="icon" type="image/svg+xml" href="assets/jin-raven-mark.svg">
+  <link rel="stylesheet" href="worlds-concept.css">
+</head>
+<body>
+  <a class="skip-link" href="#concept">Skip to worlds</a>
+  <header class="concept-header">
+    <a class="concept-brand" href="index.html">JIN <span>STUDIO</span></a>
+    <span class="micro">Two worlds / one invitation</span>
+    <a class="concept-back" href="index.html">Current site ↗</a>
+  </header>
+
+  <main id="concept">
+    <div class="concept-intro">
+      <p class="micro">Portfolio / Interaction study</p>
+      <h1>Step into a world.</h1>
+      <p>The stories share a maker. Each has a different way of meeting you.</p>
+    </div>
+
+    <section class="concept-stage" data-active="0" aria-label="JIN Studio character worlds">
+      <div class="concept-copy-panel" aria-live="polite">
+        <div class="concept-copy active" data-world="0">
+          <p class="micro">01 / JIN with Phoebe</p>
+          <h2>Three small<br><em>hellos.</em></h2>
+          <p>Phoebe, Nuonuo and chibi Sera make a light world of short character stories. Their three-character welcome film is in progress.</p>
+          <a href="https://www.instagram.com/jin082714/" target="_blank" rel="noopener">Visit JIN with Phoebe ↗</a>
+        </div>
+        <div class="concept-copy" data-world="1">
+          <p class="micro">02 / Sera</p>
+          <h2>A quiet<br><em>heroine.</em></h2>
+          <p>Character design, cinematic CG and worldbuilding follow Sera's choices and actions. Her stone-arcade greeting film is ready to review.</p>
+          <a href="index.html#sera-world">View Sera's film ↗</a>
+        </div>
+      </div>
+
+      <div class="concept-orbit" tabindex="0" aria-label="Two world cards; use the arrow keys or swipe to move between them">
+        <div class="concept-thread" aria-hidden="true"></div>
+        <article class="concept-card concept-card-q" data-world="0" aria-label="JIN with Phoebe, welcome film in progress">
+          <div class="concept-card-shell">
+            <div class="concept-character-names" aria-hidden="true"><span>Phoebe</span><span>Nuonuo</span><span>Sera</span></div>
+            <div class="concept-card-foot"><span>01 / JIN with Phoebe</span><span>Film in progress</span></div>
+          </div>
+        </article>
+        <article class="concept-card concept-card-sera" data-world="1" aria-label="Sera beside a water channel in a stone arcade">
+          <div class="concept-card-shell">
+            <img src="assets/sera-world-welcome-poster.webp" width="720" height="1280" alt="" loading="lazy">
+            <div class="concept-card-foot"><span>02 / Sera</span><span>Welcome film</span></div>
+          </div>
+        </article>
+      </div>
+
+      <nav class="concept-index" aria-label="Choose a world">
+        <button type="button" data-go="0" aria-pressed="true"><span>01</span> JIN with Phoebe</button>
+        <button type="button" data-go="1" aria-pressed="false"><span>02</span> Sera</button>
+      </nav>
+      <div class="concept-arrows" aria-label="World controls">
+        <button type="button" data-step="-1" aria-label="Previous world">↑</button>
+        <span class="micro">Choose / swipe / arrow keys</span>
+        <button type="button" data-step="1" aria-label="Next world">↓</button>
+      </div>
+    </section>
+    <p class="concept-note micro">Concept for review · Two authored worlds · No sample artwork or typefaces from the reference project</p>
+  </main>
+
+  <script src="assets/vendor/gsap-3.15.0.min.js" defer></script>
+  <script src="worlds-concept.js" defer></script>
+</body>
+</html>

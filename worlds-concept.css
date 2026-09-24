@@ -1,0 +1,82 @@
+@font-face{font-family:'Bodoni Moda';src:url('assets/vendor/bodoni-moda-regular.ttf') format('truetype');font-display:swap}
+:root{--paper:#f6f5f1;--ink:#161a18;--muted:#656960;--line:#d5d7cf;--gutter:clamp(22px,4.5vw,76px);color-scheme:light}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 Arial,Helvetica,sans-serif}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+a:focus-visible,button:focus-visible,.concept-orbit:focus-visible{outline:2px solid #53614f;outline-offset:5px}
+.micro{font:10px/1.5 Arial,Helvetica,sans-serif;letter-spacing:.16em;text-transform:uppercase}
+.skip-link{position:fixed;z-index:10;left:12px;top:12px;padding:10px;background:var(--paper);transform:translateY(-200%)}
+.skip-link:focus{transform:none}
+.concept-header{display:flex;justify-content:space-between;align-items:center;gap:20px;margin:0 var(--gutter);min-height:88px;border-bottom:1px solid var(--line)}
+.concept-brand{font:700 24px Georgia,serif;letter-spacing:-.08em;white-space:nowrap}
+.concept-brand span{font:9px Arial,sans-serif;letter-spacing:.15em;margin-left:5px}
+.concept-back{font-size:11px;border-bottom:1px solid currentColor;min-height:44px;display:inline-flex;align-items:center;white-space:nowrap}
+.concept-intro{padding:clamp(34px,5vw,68px) var(--gutter) 0}
+.concept-intro h1{margin:10px 0 4px;font:400 clamp(38px,5.5vw,76px)/1.05 Georgia,serif;letter-spacing:-.05em}
+.concept-intro>p:last-child{margin:0;color:var(--muted);font-size:13px}
+.concept-stage{display:grid;grid-template-columns:minmax(250px,.9fr) minmax(340px,1.35fr) minmax(150px,.55fr);gap:clamp(20px,3vw,55px);align-items:center;padding:20px var(--gutter) 40px;min-height:720px}
+.concept-copy-panel{min-width:0}
+.concept-copy{max-width:420px;margin-bottom:46px}
+.concept-copy h2{font:400 clamp(50px,5.8vw,92px)/.98 'Bodoni Moda',Georgia,serif;letter-spacing:-.04em;margin:18px 0 28px}
+.concept-copy h2 em{font-style:italic;font-family:Georgia,serif}
+.concept-copy>p:not(.micro){color:#50564f;font-size:14px;line-height:1.85;margin:0 0 26px}
+.concept-copy a{display:inline-flex;align-items:center;min-height:44px;font-size:12px;border-bottom:1px solid currentColor}
+.concept-orbit{position:relative;display:grid;gap:24px;place-items:center;min-width:0;padding:20px 0}
+.concept-card{position:relative;width:min(100%,450px)}
+.concept-card-shell{position:relative;aspect-ratio:4/5;border-radius:clamp(18px,2.1vw,30px);overflow:hidden;box-shadow:0 22px 55px rgba(25,32,26,.1);transform-origin:center center}
+.concept-card-q .concept-card-shell{display:grid;place-items:center;background:radial-gradient(circle at 28% 25%,#fff7e9 0%,#ead6d3 48%,#cbd8ca 100%);border:1px solid #d3cac1}
+.concept-character-names{display:flex;justify-content:center;align-items:center;width:104%;gap:0;transform:rotate(-7deg)}
+.concept-character-names span{display:grid;place-items:center;flex:0 0 33%;aspect-ratio:1;border:1px solid rgba(35,39,34,.24);border-radius:50%;background:rgba(255,255,255,.5);font:400 clamp(16px,2.3vw,30px)/1 Georgia,serif}
+.concept-character-names span:nth-child(1){transform:translate(10%,8%)}
+.concept-character-names span:nth-child(2){transform:translateY(-9%)}
+.concept-character-names span:nth-child(3){transform:translate(-10%,10%)}
+.concept-card-sera .concept-card-shell{background:#27332d}
+.concept-card-sera img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.concept-card-sera .concept-card-shell::after{content:'';position:absolute;inset:60% 0 0;background:linear-gradient(transparent,rgba(12,18,15,.6))}
+.concept-card-foot{position:absolute;z-index:1;left:20px;right:20px;bottom:18px;display:flex;justify-content:space-between;gap:12px;font:10px/1.4 Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase}
+.concept-card-sera .concept-card-foot{color:#fff}
+.concept-thread{display:none;position:absolute;left:50%;top:50%;width:10px;height:78%;border-radius:99px;background:#858d80;filter:blur(3px);opacity:0;transform:translate(-50%,-50%) scaleY(0);pointer-events:none}
+.concept-index,.concept-arrows{display:none}
+.concept-note{padding:10px var(--gutter) 36px;color:var(--muted)}
+
+/* The static two-card reading order remains when GSAP or JavaScript is unavailable. */
+.concept-stage.is-interactive .concept-copy:not(.active){display:none}
+.concept-stage.is-interactive .concept-orbit{display:block;height:min(69svh,760px);min-height:550px;padding:0;overflow:hidden;touch-action:pan-y}
+.concept-stage.is-interactive .concept-card{position:absolute;left:50%;top:50%;width:min(100%,450px);transform:translate(-50%,-50%)}
+.concept-stage.is-interactive .concept-thread{display:block}
+.concept-stage.is-interactive .concept-index{display:grid;align-self:center;gap:10px}
+.concept-index button{display:flex;align-items:center;gap:12px;width:100%;min-height:50px;padding:8px 0;border:0;border-bottom:1px solid var(--line);background:none;color:#858b81;text-align:left;font-size:12px}
+.concept-index button span{font-size:10px}
+.concept-index button[aria-pressed="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.concept-stage.is-interactive .concept-arrows{display:flex;grid-column:2;justify-content:center;align-items:center;gap:20px;margin-top:-12px;color:var(--muted)}
+.concept-arrows button{width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:none}
+.concept-arrows button:hover{background:#e8ebe3}
+
+@media(max-width:1050px){
+  .concept-stage{grid-template-columns:minmax(220px,.9fr) minmax(320px,1.1fr);gap:30px}
+  .concept-index{grid-column:1/-1;display:flex!important;justify-content:center;gap:20px}
+  .concept-stage:not(.is-interactive) .concept-index{display:none!important}
+  .concept-index button{width:auto;min-width:150px}
+  .concept-stage.is-interactive .concept-arrows{grid-column:1/-1}
+}
+@media(max-width:700px){
+  .concept-header{min-height:72px}
+  .concept-header>.micro{display:none}
+  .concept-intro{padding-top:34px}
+  .concept-intro h1{font-size:42px}
+  .concept-stage{display:flex;flex-direction:column;align-items:stretch;gap:20px;min-height:0;padding-top:18px}
+  .concept-stage.is-interactive .concept-orbit{order:0;width:100%;height:min(66svh,600px);min-height:390px}
+  .concept-stage.is-interactive .concept-copy-panel{order:1;min-height:250px}
+  .concept-stage.is-interactive .concept-index{order:2;display:flex!important;gap:12px}
+  .concept-stage.is-interactive .concept-arrows{order:3;margin-top:0}
+  .concept-stage.is-interactive .concept-card{width:min(78vw,390px)}
+  .concept-copy{margin-bottom:28px}
+  .concept-copy h2{font-size:57px;margin:9px 0 16px}
+  .concept-copy>p:not(.micro){margin-bottom:12px}
+  .concept-index button{min-width:0;flex:1;min-height:52px}
+  .concept-card-foot{left:14px;right:14px;bottom:14px;font-size:8px}
+  .concept-arrows .micro{font-size:9px;text-align:center}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}

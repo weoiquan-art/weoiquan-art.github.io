@@ -2,6 +2,9 @@
 
 ## Unreleased · Portfolio world journey
 
+- Add `worlds-concept.html` as a separate GSAP carousel concept for JIN's review. It interprets the referenced off-screen card arc with JIN's own imagery and copy, while leaving the main static site and GitHub Pages deployment route in place.
+- Place the supplied adult Sera stone-arcade greeting film and a wave-frame poster in the Sera world, with full-frame portrait presentation, muted inline loop, pause control and a reduced-motion still. Encode the silent web film at 720×1280 to about 705 KB. Reuse the existing GSAP core for a short media reveal.
+- Keep the Phoebe/Nuonuo/chibi Sera welcome film explicitly pending; the supplied Q-version Sera solo doorway clip does not satisfy the three-character brief.
 - Put “Portfolio” and JIN's capabilities on the first screen.
 - Add chibi and homeworld Sera as transparent Hero layers behind the raven and JIN letters, with one short entrance and a static reduced-motion fallback.
 - Replace the generic practice and empty-project sections with two distinct world areas: JIN with Phoebe for Q-version Phoebe, Nuonuo and Sera; then the adult Sera character world.

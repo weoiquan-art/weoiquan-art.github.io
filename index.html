@@ -125,16 +125,23 @@
             <p class="media-status micro">Greeting film coming soon</p>
           </div>
         </section>
-        <section class="world-feature world-feature-sera" aria-labelledby="sera-title">
+        <section class="world-feature world-feature-sera" id="sera-world" aria-labelledby="sera-title">
           <div class="world-feature-copy">
             <p class="micro">02 / Sera</p>
             <h2 id="sera-title">A quiet heroine.<br><em>A world built to move.</em></h2>
             <p>Sera is developed through character design, cinematic CG and longer-form worldbuilding. Her choices and actions lead the story.</p>
             <ul class="capability-list" aria-label="Capabilities shown"><li>Character development</li><li>Cinematic AI</li><li>Worldbuilding</li></ul>
           </div>
-          <div class="world-media world-media-sera" role="img" aria-label="Reserved film space for adult Sera greeting visitors in her world">
-            <span class="sera-mark" aria-hidden="true">SERA</span>
-            <p class="media-status micro">World film coming soon</p>
+          <div class="world-media world-media-sera" role="group" aria-label="Adult Sera greeting visitors beside a stone water channel">
+            <div class="world-film">
+              <img class="world-film-poster" src="assets/sera-world-welcome-poster.webp" width="720" height="1280" alt="" loading="lazy" decoding="async">
+              <video class="world-film-video" muted loop playsinline preload="none" controls poster="assets/sera-world-welcome-poster.webp" width="720" height="1280" aria-label="Sera turns to the camera and waves beside a water channel">
+                <source src="assets/sera-world-welcome.mp4" type="video/mp4">
+                Your browser cannot play this film; the still image remains visible.
+              </video>
+            </div>
+            <button class="world-film-toggle" type="button" hidden>Pause film</button>
+            <p class="world-film-error micro" hidden>Film unavailable · still image shown</p>
           </div>
         </section>
       </div>
@@ -160,5 +167,6 @@
   <script src="flock.js" defer></script>
   <script src="main.js" defer></script>
   <script src="raven.js" defer></script>
+  <script src="media.js" defer></script>
 </body>
 </html>

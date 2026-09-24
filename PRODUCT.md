@@ -9,7 +9,7 @@ Updated 2026-09-13 from JIN's direction for a portfolio that reveals connected c
 - Structure: Portfolio Hero → JIN with Phoebe / Q-version world → adult Sera world → Google AI Professional Certificate → Contact.
 - JIN with Phoebe: the first published social world, linking to Instagram @jin082714. Its welcome film features Q-version Phoebe, Nuonuo and Sera, each greeting the visitor differently.
 - Sera: a separate adult-character world built through character development, cinematic CG and longer-form worldbuilding. It receives its own welcome film rather than sharing the Q-version presentation.
-- Media status: both film spaces remain explicit in-progress compositions until JIN supplies approved videos. No missing file requests, false thumbnails or invented project results are shipped.
+- Media status: the adult Sera greeting film is attached in draft PR #2 for review. The Q-version film remains an explicit pending composition until a welcome film with Phoebe, Nuonuo and chibi Sera is ready; the single-character `sera(1).mp4` is not that film. No false thumbnails or invented project results are shipped.
 - Evidence: the actual character-development direction in JIN-IP, the published JIN with Phoebe account, the existing Google certificate PDF, and the site's custom raven identity.
 - Stack and release route: static HTML, CSS and JavaScript on GitHub Pages; no framework migration, backend, tracking, video library or contact-form service.
 - Latest approved motion: raven first, draw the white brush J from its neck, then show the site. The old flock remains as an explicit replay.
